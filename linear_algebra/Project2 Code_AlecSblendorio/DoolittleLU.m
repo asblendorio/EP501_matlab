@@ -1,7 +1,7 @@
 %%Problem #1 
 %%Create a new version of your simple forward elimination function from the 
 %%first assignment so that it performs Doolittle LU factorization.
- 
+%testing new branch edit
 
 function [Awork] = DoolittleLU(A,b)
 nref=length(b);                %system size for reference problem
@@ -17,6 +17,7 @@ end %for
 
 disp('elim([Aref,bref]) = ');
 disp(Awork);
+
 %% Illustrate back substitution on B using provided Matlab function
 xsoln=backsub(Awork);
 disp('Elimination/back sub solution:  ');
