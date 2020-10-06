@@ -38,7 +38,7 @@ for ir2=1:length(b)
 end %for
 
 disp('Gauss-Jordan Elimination Solution is:');
-disp(abs(Ajord));
+disp(Ajord);
 
 disp('Matlab,GNU/Octave built-in solution:  ');
 disp(inv(A));

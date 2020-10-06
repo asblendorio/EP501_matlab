@@ -3,9 +3,9 @@
 %%first assignment so that it performs Doolittle LU factorization.
 %testing new branch edit
 
-function [Awork] = DoolittleLU(A,b)
+function [Awork,Alow] = DoolittleLU(A,L,b)
 nref=length(b);                %system size for reference problem
-
+% Compute U
 %note that the elimination procedure coded below modifies the matrix B
 Awork=cat(2,A,b);          %This is our working version of the matrix used to perform elimination (i.e. it will be modified)
 for ir1=2:nref                                           %loop over rows from 2 to n performing elimination, this index marks what row we are starting the elimination from (i.e. using) for this particular column
@@ -18,12 +18,34 @@ end %for
 disp('elim([Aref,bref]) = ');
 disp(Awork);
 
-%% Illustrate back substitution on B using provided Matlab function
-xsoln=backsub(Awork);
+x = zeros(nref,1);
+Alow=cat(2,L,b);
+x(1)=Alow(1,nref+1)/Alow(1,1);
+
+%Compute L
+for i=2:nref
+    x(i,1)=(b(i)-L(i,1:i-1)*x(1:i-1,1))./L(i,i);    
+end %for 
+
+ Alow(nref) = b(nref)/L(nref,nref);
+ disp('Lower Triangular Forward Elim([Aref,bref]) = ');
+ disp(Alow);
+
+ %LU Factorization
+ LU=Awork.*Alow;
+ disp('The LU Factorization of the Matrix A is:');
+ disp(LU);
+%% Back substitution solution
+xsoln=backsub(LU);
 disp('Elimination/back sub solution:  ');
 disp(xsoln);
-disp('Matlab,GNU/Octave built-in solution:  ');
-disp(A\b);
+
+%% Solve the test linear system of equations using LU Factorization and Back-Sub
+% d = Alow\b;
+% x = Awork\d;
+% disp(x);
+
+
 end %function 
 
 
