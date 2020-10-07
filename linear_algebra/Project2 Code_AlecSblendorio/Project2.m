@@ -17,14 +17,12 @@ L = Data1.L;
 bL = Data1.bL;
 
 %% Problem #1: LU factorization and its application to solve linear systems
-%%Part A: New version of forward elimination to perform Doolittle-LU factorization
+%%Part A and B: New version of forward elimination to perform Doolittle-LU factorization
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 soln = @DoolittleLU;
 x = soln(A,b);
- 
-%%Part C and D: Lower Triangular
-% soln2 = @LowTriangle;
-% y = soln2(L,bL);
+
+
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem #2: Iterative methods for solving linear systems
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
