@@ -26,7 +26,8 @@ x = soln(A,b);
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem #2: Iterative methods for solving linear systems
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
-%%Part A B,C, and D: Gauss-Jordan Elimination with back substitution and Inverse
+%%Part A:   
+%%B,C, and D: 
 soln3 = @gaussjordanElim;
 g = soln3(A,b);
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
