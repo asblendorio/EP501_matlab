@@ -30,17 +30,15 @@ disp(L);
 %LU Factorization
 LU=L*U;
 disp('The LU Factorization of the Matrix A is:'); disp(LU);
+%% Forward Substitution Solution 
+bprime=fwdsub1(L,b);
+disp('Forward Substitution Results/B Prime Vector =');
+disp(bprime);
 
- 
 %% Back substitution solution
-% xsoln=backsub(LU);
-% disp('Elimination/back sub solution:  ');
-% disp(xsoln);
-
-%% Solve the test linear system of equations using LU Factorization and Back-Sub
-b_prime = L.*b;
-disp('b prime vector is:');
-disp(b_prime);
+xsoln=backsub(U,bprime);
+disp('Elimination/back sub solution:  ');
+disp(xsoln);
 
 end %function 
 

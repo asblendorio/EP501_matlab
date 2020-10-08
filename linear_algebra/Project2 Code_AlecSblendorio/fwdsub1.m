@@ -13,9 +13,9 @@ for i=2:nref
 end %for 
 
  Alow(nref) = b(nref)/L(nref,nref);
- disp('Lower Triangular Forward Elim([Aref,bref]) = ');
- disp(Alow);
- disp('Forward Substitution Results =');
+%  disp('Lower Triangular Forward Elim([Aref,bref]) = ');
+%  disp(Alow);
+ disp('Forward Substitution Results/B Prime Vector =');
  disp(x);
 
 %% Illustrate forward substitution on B using provided Matlab function
