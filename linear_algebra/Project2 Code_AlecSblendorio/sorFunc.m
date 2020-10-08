@@ -19,7 +19,7 @@ n=size(A,1);  %system size
 residual=10*ones(n,1);
 difftot=1e3+tol;   %max sure we enter iterations
 x=x0;
-% omega=1.10;
+%omega=1.10;
 
 
 %% Perform iterations
