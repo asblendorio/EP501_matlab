@@ -31,10 +31,35 @@ x = soln(A,b);
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem #2: Iterative methods for solving linear systems
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
-%%Part A and B: 
-soln3 = @sorFunc;
-g = soln3(A,b);
-%%Part C and D:
+%%Part A and B: Starting with the Jacobi function source code from the 
+%repository create a new function that implements successive over-relaxation.
+%Try this solver on the iterative test problem in this directory 
+%Show that it gives the same results as the built-in Matlab utilities. 
+
+nit=10;
+Ait=diag(-1*ones(nit-1,1),-1)+diag(-1*ones(nit-1,1),1)+diag(4*ones(nit,1),0);    %this must be diagonally dominant or else the method won't converge
+%Ait=randn(nit,nit);    %see if code can detect non-diagonal dominance and exit gracefully...
+x0=randn(nit,1);
+bit=ones(nit,1);
+tol=1e-9;
+disp('Verbose Jacobi iterations:  ')
+[xit,iterations]=sorFunc(x0,Ait,bit,tol,true);
+
+disp('Solution with Jacobi iterations:  ')
+disp(xit);
+disp('Number of iterations required and tolerance:  ')
+disp(iterations);
+disp(tol);
+disp('Matlab built-in solution:  ')
+disp(Ait\bit);
+%%Part C: By repeated application of your solver, iteratively adjust the relaxation 
+%parameter until you find the approximate value that minimizes the number of iterations needed to achieve converge. 
+%Use a fairly strict convergence criteria, e.g. 10−6 or less.
+
+
+
+
+
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
 
 %% END PROJECT #1 
