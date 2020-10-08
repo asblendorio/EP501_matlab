@@ -37,22 +37,7 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 %repository create a new function that implements successive over-relaxation.
 %Try this solver on the iterative test problem in this directory 
 %Show that it gives the same results as the built-in Matlab utilities. 
-% nit=10;
-% Ait=diag(-1*ones(nit-1,1),-1)+diag(-1*ones(nit-1,1),1)+diag(4*ones(nit,1),0);    %this must be diagonally dominant or else the method won't converge
-% %Ait=randn(nit,nit);    %see if code can detect non-diagonal dominance and exit gracefully...
-% x0=randn(nit,1);
-% bit=ones(nit,1);
-% tol=1e-9;
-% disp('Verbose Jacobi iterations:  ')
-% %[xit,iterations]=sorFunc(x0,Ait,bit,tol,true);
-% omega=1.10;
-% [xit,iterations]=sorFunc(x0,Ait,bit,tol,omega,true);
-% disp('%%%%%%%%Part A and B Solution:%%%%%%%');
-% disp('Solution with Jacobi iterations:  ')
-% disp(xit);
-% disp('Number of iterations required and tolerance:  ')
-% disp(iterations);
-% disp(tol);
+
 disp('%%%%%%%%Part A and B Solution:%%%%%%%');
 disp('Solution with Jacobi iterations:  ')
 disp(xit);
