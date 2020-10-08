@@ -7,7 +7,7 @@ nref=length(b);                %system size for reference problem
 %Compute U
 %note that the elimination procedure coded below modifies the matrix B
 Awork=cat(2,A);
-L=zeros(nref,nref);
+L=eye(nref,nref);
                                                        %This is our working version of the matrix used to perform elimination (i.e. it will be modified)
 for ir1=2:nref                                           %loop over rows from 2 to n performing elimination, this index marks what row we are starting the elimination from (i.e. using) for this particular column
     for ir2=ir1:nref                                        %this index marks the present position where elimination is being performed - i.e. where we are applying the elementary row operations
@@ -15,17 +15,13 @@ for ir1=2:nref                                           %loop over rows from 2 
     Awork(ir2,:)=Awork(ir2,:)-fact/Awork(ir1-1,ir1-1).*Awork(ir1-1,:);
     %multiplier of the variable we are attempting to eliminate, its ir-1 column of this row    
     %store elimination multipliers below                                    %multiplier of the variable we are attempting to eliminate, its ir-1 column of this row
-    %initialize i
-    i=0;
-    L(ir2,ir2)=i+1;
     fact1 = fact/Awork(ir1-1,ir1-1);                        % numerator is the previous row previous column. 
     L(ir2,ir1-1)=fact1;
-    %Awork(ir2,:)=Awork(ir2,:)-fact/fact1.*Awork(ir1-1,:);
     end %for 
 end %for
 
 U=Awork;
-%L(1,1)=1; %% The first row is missing all its values unless I initialize first indice!WHy?
+
 disp('Upper Triangular Forward Elim([Aref,bref]) = ');
 disp(U);
 disp('Lower Triangular Forward Elim([Aref,bref]) = ');
@@ -41,10 +37,10 @@ disp('The LU Factorization of the Matrix A is:'); disp(LU);
 % disp(xsoln);
 
 %% Solve the test linear system of equations using LU Factorization and Back-Sub
-x = A\b;
-b_prime = Awork.*x;
-disp('The solution vector is:');
-disp(b_prime);
+% x = A\b;
+% b_prime = Awork.*x;
+% disp('The solution vector is:');
+% disp(b_prime);
 
 end %function 
 

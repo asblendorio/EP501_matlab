@@ -1,4 +1,6 @@
 function x=backsub(A)
+%Lb=b_prime;
+%Ux=b;
 
 % This function performs back substitution on an upper triangular matrix that has
 % been modified by concatenating the RHS of the system.  
