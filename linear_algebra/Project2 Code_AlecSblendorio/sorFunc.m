@@ -5,13 +5,13 @@
 function [x,nit]=sorFunc(x0,A,b,tol,omega,verbose)
 
 %% Check the inputs
-narginchk(3,6);
-if nargin<4
-    tol=1e-6;
-end %if
-if nargin<5
-    verbose=false;
-end %if
+% narginchk(3,6);
+% if nargin<4
+%     tol=1e-6;
+% end %if
+% if nargin<5
+%     verbose=false;
+% end %if
 
 %% Setup iterations
 maxit=100;    %max number of iterations
@@ -19,7 +19,7 @@ n=size(A,1);  %system size
 residual=10*ones(n,1);
 difftot=1e3+tol;   %max sure we enter iterations
 x=x0;
-omega=1.10;
+% omega=1.10;
 
 
 %% Perform iterations
@@ -43,12 +43,12 @@ while(difftot>tol && it<=maxit)
     difftot=sum(abs(residual-resprev));
     
     if (verbose)
-        fprintf('x= ');
+        %fprintf('x= ');
         for i=1:n
-            fprintf('%f   ',x(i));
+            %fprintf('%f   ',x(i));
         end %for
-        fprintf('\n');
-        fprintf('it=%d; difftot = %e\n',it,difftot);
+        %fprintf('\n');
+        %fprintf('it=%d; difftot = %e\n',it,difftot);
     end %if
     
     if (difftot>difftotprev & it>2)
@@ -59,7 +59,7 @@ end %while
 
 nit=it-1;
 if (nit==maxit)
-    warning('Solution may not have converged fully...')
+    %warning('Solution may not have converged fully...')
 end %if
 
 end %function
