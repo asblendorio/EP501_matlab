@@ -93,11 +93,11 @@ disp('%%%%%%%% End Part C Solution:%%%%%%%');
 
 disp('%%%%%%%% Part D Solution:%%%%%%%');
 disp('Number of iterations with Standard Gauss-Seidel Algorithm with a relaxtion parameter of 1:');
-disp(20.0);
+disp(24.0);
 disp('Number of iterations with Optimal Case (relax parameter of 1.10)');
-disp(16.0);
+disp(19.0);
 
-disp('Approximately, anything less than 1.0 and greater than 1.2 will perform worse than Gauss-Seidel.');
+disp('Approximately, anything less than 1.0 and greater than 1.25 will perform worse than Gauss-Seidel.');
 
 disp('%%%%%%%% End D Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
