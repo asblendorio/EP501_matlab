@@ -43,17 +43,21 @@ Ait=diag(-1*ones(nit-1,1),-1)+diag(-1*ones(nit-1,1),1)+diag(4*ones(nit,1),0);   
 %Ait=randn(nit,nit);    %see if code can detect non-diagonal dominance and exit gracefully...
 x0=randn(nit,1);
 bit=ones(nit,1);
-tol=1e-9;
+tol=1e-12;
+omega=1.5;
 disp('Verbose Jacobi iterations:  ')
-[xit,iterations]=sorFunc(x0,Ait,bit,tol,true);
+[xit,iterations]=sorFunc(x0,Ait,bit,tol,omega,true);
 
 disp('Solution with Jacobi iterations:  ')
 disp(xit);
 disp('Number of iterations required and tolerance:  ')
 disp(iterations);
 disp(tol);
+disp('Omega value:');
+disp(omega);
 disp('Matlab built-in solution:  ')
 disp(Ait\bit);
+
 %%Part C: By repeated application of your solver, iteratively adjust the relaxation 
 %parameter until you find the approximate value that minimizes the number of iterations needed to achieve converge. 
 %Use a fairly strict convergence criteria, e.g. 10−6 or less.

@@ -2,17 +2,16 @@
 %%Starting with the Jacobi function source code from the repository 
 %%create a new function that implements successive over-relaxation.
 
-function [x,nit]=sorFunc(x0,A,b,tol,verbose,omega)
+function [x,nit]=sorFunc(x0,A,b,tol,omega,verbose)
 
 %% Check the inputs
-narginchk(3,5);
+narginchk(3,6);
 if nargin<4
     tol=1e-6;
 end %if
 if nargin<5
     verbose=false;
 end %if
-
 
 %% Setup iterations
 maxit=100;    %max number of iterations
