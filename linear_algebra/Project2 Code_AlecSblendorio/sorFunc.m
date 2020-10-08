@@ -20,6 +20,7 @@ n=size(A,1);  %system size
 residual=10*ones(n,1);
 difftot=1e3+tol;   %max sure we enter iterations
 x=x0;
+omega=1.10;
 
 
 %% Perform iterations
@@ -30,10 +31,15 @@ while(difftot>tol && it<=maxit)
     xprev=x;
     for i=1:n
         residual(i)=b(i);
-        for j=1:n
+        for j=1:i-1
+                residual(i)=residual(i)-A(i,j)*x(j);
+        end %for        
+        
+        for j = i:n
             residual(i)=residual(i)-A(i,j)*xprev(j);
         end %for
-        x(i)=xprev(i)+residual(i)/A(i,i);
+        
+        x(i)=xprev(i)+omega*(residual(i)/A(i,i));
     end %for
     difftot=sum(abs(residual-resprev));
     

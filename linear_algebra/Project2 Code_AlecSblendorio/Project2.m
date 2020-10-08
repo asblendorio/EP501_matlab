@@ -18,18 +18,23 @@ bL = Data1.bL;
 
 %% Problem #1: LU factorization and its application to solve linear systems
 %%Part A and B: New version of forward elimination to perform Doolittle-LU factorization
+%%Using just the output of the factorization and a back-substitution function 
+%%Solve the test linear system of equations given in the test problem
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 soln = @DoolittleLU;
 x = soln(A,b);
+%%Part C: Use your LU factorized test matrix to set up a solution 
+%%for the this system with different right hand sides
+
 
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem #2: Iterative methods for solving linear systems
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
-%%Part A:   
-%%B,C, and D: 
-soln3 = @gaussjordanElim;
+%%Part A and B: 
+soln3 = @sorFunc;
 g = soln3(A,b);
+%%Part C and D:
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
 
 %% END PROJECT #1 
