@@ -2,7 +2,7 @@
 %%Starting with the Jacobi function source code from the repository 
 %%create a new function that implements successive over-relaxation.
 
-function [x,nit]=sorFunc(x0,A,b,tol,verbose)
+function [x,nit]=sorFunc(x0,A,b,tol,verbose,omega)
 
 %% Check the inputs
 narginchk(3,5);

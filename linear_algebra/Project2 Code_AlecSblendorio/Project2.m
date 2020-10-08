@@ -8,6 +8,7 @@
 %% Import test data for calibration of software
 Data1 = importdata('/Users/alecsblendorio/Documents/Projects/EP501_assignments/assignments/HW1/lowertriang_testproblem.mat');
 Data2 = importdata('/Users/alecsblendorio/Documents/Projects/EP501_assignments/assignments/HW1/testproblem.mat');
+Data3 = importdata('/Users/alecsblendorio/Documents/Projects/EP501_assignments/assignments/HW2/iterative_testproblem.mat');
 
 A = Data2.A;
 b = Data2.b;
@@ -15,6 +16,8 @@ b2 = Data2.b2;
 b3 = Data2.b3;
 L = Data1.L;
 bL = Data1.bL;
+Ait = Data3.Ait;
+bit = Data3.bit;
 
 %% Problem #1: LU factorization and its application to solve linear systems
 %%Part A and B: New version of forward elimination to perform Doolittle-LU factorization
@@ -25,7 +28,6 @@ soln = @DoolittleLU;
 x = soln(A,b);
 %%Part C: Use your LU factorized test matrix to set up a solution 
 %%for the this system with different right hand sides
-
 
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
