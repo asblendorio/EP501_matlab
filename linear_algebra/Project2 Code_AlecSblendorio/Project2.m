@@ -16,19 +16,33 @@ b2 = Data2.b2;
 b3 = Data2.b3;
 L = Data1.L;
 bL = Data1.bL;
-% Ait = Data3.Ait;
-% bit = Data3.bit;
 
 %% Problem #1: LU factorization and its application to solve linear systems
-%%Part A and B: New version of forward elimination to perform Doolittle-LU factorization
-%%Using just the output of the factorization and a back-substitution function 
-%%Solve the test linear system of equations given in the test problem
+%%Part A: New version of forward elimination to perform Doolittle-LU factorization
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
+disp('%%%%%%%%Part A Solution:%%%%%%%');
 soln = @DoolittleLU;
 x = soln(A,b);
+disp('%%%%%%%%End Part A Solution:%%%%%%%');
+
+%%Part B:Using just the output of the factorization and a back-substitution function 
+%%Solve the test linear system of equations given in the test problem
+disp('%%%%%%%%Part B Solution:%%%%%%%');
+%disp(stuff);
+disp('%%%%%%%%End Part B Solution:%%%%%%%');
+
 %%Part C: Use your LU factorized test matrix to set up a solution 
 %%for the this system with different right hand sides
+disp('%%%%%%%%Part C Solution:%%%%%%%');
+%disp(stuff);
+disp('%%%%%%%%End Part C Solution:%%%%%%%');
 
+%%Part D: Use your LU factorization function and multiple right-hand side solution 
+%%(using forward and back substitution as in part c) to find a matrix inverse 
+%%for the test problem defined by the A and bj matrices in testproblem.mat.
+disp('%%%%%%%%Part D Solution:%%%%%%%');
+%disp(stuff1);
+disp('%%%%%%%%End Part D Solution:%%%%%%%');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem #2: Iterative methods for solving linear systems
@@ -87,7 +101,7 @@ disp('Approximately, anything less than 1.0 and greater than 1.25 will perform w
 disp('%%%%%%%% End D Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
 
-%% END PROJECT #1 
+%% END PROJECT #2 
 
 
 

@@ -1,6 +1,12 @@
-function x=backsubwithLinearsolver(A)
+function x=backsubwithLinearsolver(L,U,b,b2,b3)
+%Solve the system of Linear Equations from test data 
 %L_inverse*b=b_prime;
 %U*x=b;
+load('testproblem.mat');
+
+%input the Doolittle LU Factorization 
+(data1,data2) = DoolittleLU(A,b);
+
 
 % This function performs back substitution on an upper triangular matrix that has
 % been modified by concatenating the RHS of the system.  
