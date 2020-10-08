@@ -1,7 +1,7 @@
 %%Problem #1 
 %%Create a new version of your simple forward elimination function from the 
 %%first assignment so that it performs Doolittle LU factorization.
-
+ 
 function [Awork,L,bprime,x] = DoolittleLU(A,b)
 nref=length(b);                %system size for reference problem
 %Compute U
@@ -30,6 +30,7 @@ disp(L);
 %LU Factorization
 LU=L*U;
 disp('The LU Factorization of the Matrix A is:'); disp(LU);
+
  
 %% Back substitution solution
 % xsoln=backsub(LU);
@@ -37,8 +38,7 @@ disp('The LU Factorization of the Matrix A is:'); disp(LU);
 % disp(xsoln);
 
 %% Solve the test linear system of equations using LU Factorization and Back-Sub
-x = A\b;
-b_prime = Awork.*x;
+b_prime = L.*b;
 disp('b prime vector is:');
 disp(b_prime);
 
