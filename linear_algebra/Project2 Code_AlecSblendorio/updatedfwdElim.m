@@ -3,7 +3,7 @@
 %%you should start from your forward elimination function for multiple RHS 
 %%and add the backward eliminations needed.
 
-function [Ajord] = gaussjordanElim(A,b)
+function [Ajord] = updatedfwdElim(A,b)
 
 nref=length(b);                %system size for reference problem                          
 %note that the elimination procedure coded below modifies the matrix B
