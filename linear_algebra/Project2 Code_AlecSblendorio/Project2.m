@@ -21,16 +21,17 @@ bL = Data1.bL;
 %%Part A: New version of forward elimination to perform Doolittle-LU factorization
 %%Part B: Using just the output of the factorization and a back-substitution function 
 %%Solve the test linear system of equations given in the test problem
+%%Part C: Use your LU factorized test matrix to set up a solution 
+%%for the this system with different right hand sides
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 disp('%%%%%%%%Part A and B Solution:%%%%%%%');
 soln = @DoolittleLU; 
 x = soln(A,b);
 disp('%%%%%%%%End Part A and B Solution:%%%%%%%');
 
-%%Part C: Use your LU factorized test matrix to set up a solution 
-%%for the this system with different right hand sides
 disp('%%%%%%%%Part C Solution:%%%%%%%');
-%disp(stuff);
+% soln2 = @updatedfwdElim;
+% y = soln2(A,b);
 disp('%%%%%%%%End Part C Solution:%%%%%%%');
 
 %%Part D: Use your LU factorization function and multiple right-hand side solution 

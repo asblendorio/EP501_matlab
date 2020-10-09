@@ -40,6 +40,17 @@ xsoln=backsub(U,bprime);
 disp('Elimination/back sub solution:  ');
 disp(xsoln);
 
+%% Calculate Multiple RHS vector using Forward and Back Substitution
+x=cat(2,A,b);          
+finalarray=zeros(nref,nref);    
+bprime=fwdsub1(L,b);
+k=backsub(U,bprime);
+disp('Matlab,GNU/Octave built-in solution:');
+e=L\b;
+disp(U\e);
+finalarray=cat(2,finalarray,k);
+disp('The Solution X is:');
+disp(finalarray);  
 
 end %function 
 
