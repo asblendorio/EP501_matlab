@@ -29,11 +29,6 @@ soln = @DoolittleLU;
 x = soln(A,b);
 disp('%%%%%%%%End Part A and B Solution:%%%%%%%');
 
-disp('%%%%%%%%Part C Solution:%%%%%%%');
-% soln2 = @updatedfwdElim;
-% y = soln2(A,b);
-disp('%%%%%%%%End Part C Solution:%%%%%%%');
-
 %%Part D: Use your LU factorization function and multiple right-hand side solution 
 %%(using forward and back substitution as in part c) to find a matrix inverse 
 %%for the test problem defined by the A and bj matrices in testproblem.mat.
@@ -50,6 +45,7 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 %Show that it gives the same results as the built-in Matlab utilities. 
 
 disp('%%%%%%%%Part A and B Solution:%%%%%%%');
+soln3 = @test2.m;
 disp('Solution with Jacobi iterations:  ')
 disp(xit);
 disp('Number of iterations required and tolerance:  ')

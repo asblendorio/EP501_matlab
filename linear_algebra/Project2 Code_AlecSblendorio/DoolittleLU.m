@@ -2,7 +2,7 @@
 %%Create a new version of your simple forward elimination function from the 
 %%first assignment so that it performs Doolittle LU factorization.
  
-function [Awork,L,bprime,x] = DoolittleLU(A,b)
+function [Awork,L,bprime,x] = DoolittleLU(A,b,b2,b3)
 nref=length(b);                %system size for reference problem
 %Compute U
 %note that the elimination procedure coded below modifies the matrix B
@@ -32,26 +32,30 @@ LU=L*U;
 disp('The LU Factorization of the Matrix A is:'); disp(LU);
 %% Forward Substitution Solution 
 bprime=fwdsub1(L,b);
-disp('Forward Substitution Results/B Prime Vector =');
 disp(bprime);
 
 %% Back substitution solution
 xsoln=backsub(U,bprime);
-disp('Elimination/back sub solution:  ');
 disp(xsoln);
 
-%% Calculate Multiple RHS vector using Forward and Back Substitution
-x=cat(2,A,b);          
-finalarray=zeros(nref,nref);    
-bprime=fwdsub1(L,b);
-k=backsub(U,bprime);
-disp('Matlab,GNU/Octave built-in solution:');
-e=L\b;
-disp(U\e);
-finalarray=cat(2,finalarray,k);
-disp('The Solution X is:');
-disp(finalarray);  
-
+%% Calculate Multiple RHS vector using Forward and Back Substitution         
+    %x=zeros(n,1);     
+    bprime=fwdsub1(L,b);
+    xsoln=backsub(U,bprime);
+%   disp('Matlab,GNU/Octave built-in solution:');
+%   e=L\b;
+%   disp(U\e);
+    r=[U xsoln];
+    disp('The Solution X is:');
+    disp(r);
+    r2=[U b2];
+    r3=[U b3];
+    disp('b2 RHS Vector=');
+    disp(r2);
+    disp('b3 RHS Vector=');
+    disp(r3);
+    
+    
 end %function 
 
 
