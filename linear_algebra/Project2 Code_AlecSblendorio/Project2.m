@@ -24,10 +24,10 @@ bL = Data1.bL;
 %%Part C: Use your LU factorized test matrix to set up a solution 
 %%for the this system with different right hand sides
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
-disp('%%%%%%%%Part A and B Solution:%%%%%%%');
+disp('%%%%%%%%Part A, B, C Solution:%%%%%%%');
 soln = @DoolittleLU; 
-x = soln(A,b);
-disp('%%%%%%%%End Part A and B Solution:%%%%%%%');
+x = soln(A,b,b2,b3);
+disp('%%%%%%%%End Part A, B, C Solution:%%%%%%%');
 
 %%Part D: Use your LU factorization function and multiple right-hand side solution 
 %%(using forward and back substitution as in part c) to find a matrix inverse 

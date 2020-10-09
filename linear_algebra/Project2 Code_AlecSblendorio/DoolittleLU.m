@@ -30,31 +30,17 @@ disp(L);
 %LU Factorization
 LU=L*U;
 disp('The LU Factorization of the Matrix A is:'); disp(LU);
-%% Forward Substitution Solution 
+
+%% Calculate Multiple RHS vector using Forward and Back Substitution             
+%Forward Substitution Solution    
 bprime=fwdsub1(L,b);
-disp(bprime);
-
-%% Back substitution solution
+%Back substitution solution
 xsoln=backsub(U,bprime);
-disp(xsoln);
-
-%% Calculate Multiple RHS vector using Forward and Back Substitution         
-    %x=zeros(n,1);     
-    bprime=fwdsub1(L,b);
-    xsoln=backsub(U,bprime);
-%   disp('Matlab,GNU/Octave built-in solution:');
-%   e=L\b;
-%   disp(U\e);
-    r=[U xsoln];
-    disp('The Solution X is:');
-    disp(r);
-    r2=[U b2];
-    r3=[U b3];
-    disp('b2 RHS Vector=');
-    disp(r2);
-    disp('b3 RHS Vector=');
-    disp(r3);
-    
+r=[b b2 b3];
+x=LU\r;
+disp('Solution X equals:');
+disp(x);    
+   
     
 end %function 
 
