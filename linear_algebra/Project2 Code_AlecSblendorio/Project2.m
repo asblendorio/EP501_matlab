@@ -33,7 +33,7 @@ disp('%%%%%%%%End Part A, B, C Solution:%%%%%%%');
 %%(using forward and back substitution as in part c) to find a matrix inverse 
 %%for the test problem defined by the A and bj matrices in testproblem.mat.
 disp('%%%%%%%%Part D Solution:%%%%%%%');
-%disp(stuff1);
+disp('Did not figure out');
 disp('%%%%%%%%End Part D Solution:%%%%%%%');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
