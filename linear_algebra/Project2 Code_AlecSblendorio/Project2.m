@@ -4,7 +4,7 @@
 %% Project #2
 % Problem #1: LU factorization and its application to solve linear systems
 % Problem #2: Iterative methods for solving linear systems
-
+%test for latest github
 %% Import test data for calibration of software
 Data1 = importdata('/Users/alecsblendorio/Documents/Projects/EP501_assignments/assignments/HW1/lowertriang_testproblem.mat');
 Data2 = importdata('/Users/alecsblendorio/Documents/Projects/EP501_assignments/assignments/HW1/testproblem.mat');
