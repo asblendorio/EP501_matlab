@@ -4,7 +4,7 @@ function [root,it,success]=newton_exact(f,fprime,x0,maxit,tol,verbose)
 %
 % finds a set of roots corresponding to the function f (input as a handle)
 % given a function which computes the derivative
-% git test
+
 
 %% Error checking of input
 narginchk(3,6);   %check for correct number of inputs to function
