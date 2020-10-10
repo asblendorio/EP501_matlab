@@ -2,9 +2,9 @@
 %% Due Date: October 15, 2020
 %% Subject: EP 501 Numerical Methods for Scientists and Engineers 
 %% Project #3
-% Problem #1: Finding roots of functions lacking a closed form:
-% Problem #2: Numerical solution for multiple polynomial roots:
-% Problem #3: Multivariate root finding:
+% Problem #1: Finding roots of functions lacking a closed form
+% Problem #2: Numerical solution for multiple polynomial roots
+% Problem #3: Multivariate root finding
 %% Import test data for calibration of software
 Data1 = importdata('/Users/alecsblendorio/Documents/Projects/EP501_assignments/assignments/HW1/lowertriang_testproblem.mat');
 Data2 = importdata('/Users/alecsblendorio/Documents/Projects/EP501_assignments/assignments/HW1/testproblem.mat');
@@ -17,7 +17,7 @@ b3 = Data2.b3;
 L = Data1.L;
 bL = Data1.bL;
 
-%% Problem #1: LU factorization and its application to solve linear systems
+%% Problem #1: Finding roots of functions lacking a closed form
 %%Part A:  Alter the Newton method function from the repository (newton exact.m)
 %%so that it implements the approximate Newton method, i.e. so that the derivative 
 %%is computed numerically as in Equation 3.77 in the course textbook.
@@ -35,76 +35,53 @@ bL = Data1.bL;
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 disp('%%%%%%%%Part A, B, C Solution:%%%%%%%');
-soln = @DoolittleLU; 
+soln = @newton_approx; 
 x = soln(A,b,b2,b3);
 disp('%%%%%%%%End Part A, B, C Solution:%%%%%%%');
 
-%%Part D: Use your LU factorization function and multiple right-hand side solution 
-%%(using forward and back substitution as in part c) to find a matrix inverse 
-%%for the test problem defined by the A and bj matrices in testproblem.mat.
-disp('%%%%%%%%Part D Solution:%%%%%%%');
-disp('Did not figure out');
-disp('%%%%%%%%End Part D Solution:%%%%%%%');
-
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
-%% Problem #2: Iterative methods for solving linear systems
+%% Problem #2: Numerical solution for multiple polynomial roots
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
-%%Part A and B: Starting with the Jacobi function source code from the 
-%repository create a new function that implements successive over-relaxation.
-%Try this solver on the iterative test problem in this directory 
-%Show that it gives the same results as the built-in Matlab utilities. 
+%%Part A: Suppose you have a polynomial of known or given order and need to find all of its roots.
+%%Write a block of code or a script that uses the exact Newton method (e.g. the function in the course repository)
+%%to find all of the real-valued roots of a polynomial. 
+%%Assume that you do not need to identify repeated roots (if any). 
+%%Test your code on the polynomial used in the book (Eqn. 3.115).
 
-disp('%%%%%%%%Part A and B Solution:%%%%%%%');
-soln3 = @test2.m;
-disp('Solution with Jacobi iterations:  ')
-disp(xit);
-disp('Number of iterations required and tolerance:  ')
-disp(iterations);
-disp(tol);
+disp('%%%%%%%%Part A Solution:%%%%%%%');
 
-disp('Matlab built-in solution:  ')
-disp(Ait\bit);
-disp('%%%%%%%%End Part A and B Solution:%%%%%%%');
+disp('%%%%%%%%End Part A Solution:%%%%%%%');
 
-%%Part C and D: By repeated application of your solver, iteratively adjust the relaxation 
-%parameter until you find the approximate value that minimizes the number of iterations needed to achieve converge. 
-%Use a fairly strict convergence criteria, e.g. 10−6 or less.
-%How many fewer iterations are needed for your optimal case vs. t
-%the standard Gauss-Seidel algorithm (relaxation parameter of one).
-%Approximately speaking which values of relaxation parameter (if any) 
-%perform worse than Gauss-Seidel?
-disp('%%%%%%%%Part C Solution:%%%%%%%');
+%%Part B: Produce an altered version of your code to deal with the fact that there are potentially complex roots
+%%to your polynomial. Use this code to find all roots, including complex-valued solutions
+%%of the following polynomial (Eqn 3.145 in the book). 
 
-j=1;
-tol=1e-9;
-for i=0.25:0.05:1.5
-    x=length(bit);
-    x0=zeros(x,1);
-    omega=i;
-    [xit,iterations]=sorFunc(x0,Ait,bit,tol,omega,true);
-    finalarray(1,j)=omega;
-    finalarray(2,j)=iterations;
-    j=j+1;
-end %for 
 
-disp('For Part C, the relaxation parameter is changed until the optimal value of iterations is reached.'); 
-disp('Displayed in the matrix titled FinalArray, are various iterations that show the'); 
-disp('optimal relaxation parameter.');
-disp(finalarray); 
-disp('%%%%%%%% End Part C Solution:%%%%%%%');
+disp('%%%%%%%%Part B Solution:%%%%%%%');
 
-disp('%%%%%%%% Part D Solution:%%%%%%%');
-disp('Number of iterations with Standard Gauss-Seidel Algorithm with a relaxtion parameter of 1:');
-disp(24.0);
-disp('Number of iterations with Optimal Case (relax parameter of 1.10)');
-disp(19.0);
+disp('%%%%%%%% End Part B Solution:%%%%%%%');
 
-disp('Approximately, anything less than 1.0 and greater than 1.25 will perform worse than Gauss-Seidel.');
 
-disp('%%%%%%%% End D Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
 
-%% END PROJECT #2 
+%% Problem #3: Multivariate root finding
+disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
+%%Part A: Use the multi-dimensional Newton method
+%%(given the in course repository: newton2D exact.m) to find all four roots of the system
+
+disp('%%%%%%%%Part A Solution:%%%%%%%');
+
+disp('%%%%%%%%End Part A Solution:%%%%%%%');
+
+%%Part B: Produce an altered multi-dimensional Newton method (start from newton2D exact.m)
+%%to find a root for the three equations system
+
+disp('%%%%%%%%Part B Solution:%%%%%%%');
+
+disp('%%%%%%%% End Part B Solution:%%%%%%%');
+
+disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER END%%%%%%%%%%%%%%%%%%');
+%% END PROJECT #3
 
 
 
