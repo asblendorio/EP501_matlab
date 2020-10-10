@@ -18,11 +18,21 @@ L = Data1.L;
 bL = Data1.bL;
 
 %% Problem #1: LU factorization and its application to solve linear systems
-%%Part A: New version of forward elimination to perform Doolittle-LU factorization
-%%Part B: Using just the output of the factorization and a back-substitution function 
-%%Solve the test linear system of equations given in the test problem
-%%Part C: Use your LU factorized test matrix to set up a solution 
-%%for the this system with different right hand sides
+%%Part A:  Alter the Newton method function from the repository (newton exact.m)
+%%so that it implements the approximate Newton method, i.e. so that the derivative 
+%%is computed numerically as in Equation 3.77 in the course textbook.
+
+%%Part B: Write a block of code that uses your newton approx.m function to 
+%%find the first root (i.e. the smallest one) of the Bessel function of order zero:
+%%J0(x) for the region 0 ≤ x ≤ ∞. Plot the Bessel function first and
+%%use the plot to select a starting point in the vicinity of the first root.
+
+%%Part C: Product a version of this script that finds the first six roots of the Bessel function
+%%of order zero (these roots are needed for solutions of various types of 
+%%boundary value problems in physics and engineering). 
+%%These roots are commonly listed in ODE and PDE textbooks; 
+%%look them up and verify your solutions (cite your sources).
+
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 disp('%%%%%%%%Part A, B, C Solution:%%%%%%%');
 soln = @DoolittleLU; 
