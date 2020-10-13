@@ -30,4 +30,4 @@ hold on;
 surf(X,Y,G);
 hold on;
 surf(X,Y,K);
-plot3(xm,ym,0,'wo','MarkerSize',32,'LineWidth',8);
+plot3(xm,ym,zm,0,'wo','MarkerSize',32,'LineWidth',8);

@@ -55,7 +55,7 @@ while(~converged && it<=maxit)
         gradgx,gradgy,gradgz; ...
         gradkx,gradky,gradkz];
     
-    fvec=[fval;gval];
+    fvec=[fval;gval;kval];
     [Amod,ord]=Gauss_elim(A,-1*fvec);
     dxvec=backsub(Amod(ord,:));
     detA=prod(diag(Amod(ord,1:2)));
@@ -65,6 +65,7 @@ while(~converged && it<=maxit)
         disp(rooty);
         disp(fval);
         disp(gval);
+        disp(kval);
         error(' Ended up at a point where Newton iteration is singular, try a different starting point')
     end %if
     
@@ -74,11 +75,11 @@ while(~converged && it<=maxit)
     fval=f(rootx,rooty,rootz);                  % see how far off we are from zero...
     gval=g(rootx,rooty,rootz);
     kval=k(rootx,rooty,rootz);
-    if (verbose)
-        fprintf('iteration: %d; x:  %f + %f i; y:  %f + %f i; f: %f, z: %f + %f i; g:  %f\n',it,real(rootx),imag(rootx),real(rooty),imag(rooty),real(rootz),imag(rootz),fval,gval,kval);
-    end %if
+%     if (verbose)
+%         fprintf('iteration: %d; x:  %f + %f i; y:  %f + %f i; f: %f, z: %f + %f i; g:  %f\n',it,real(rootx),imag(rootx),real(rooty),imag(rooty),real(rootz),imag(rootz),fval,gval,kval);
+%     end %if
     it=it+1;
-    converged=abs(fval)+abs(gval)<tol;
+    converged=abs(fval)+abs(gval)+abs(kval)<tol;
 end %while
 it=it-1;
 
