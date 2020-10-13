@@ -15,16 +15,18 @@ G=gm(X,Y);
 %x0=i;
 %y0=0.258*i;
 % use for loop to iterate over inital x0 and y0 values
-
+%loop keep stopping after finding 1 value, need to keep it going to find
+%all 4 roots
 j=1;
-for i=0.5:0.05:1.5
+for i=-2.5:0.25:2.5
     x0=i;
     y0=i-0.4;
     [xm,ym,it2D,success2D]=newton2D_exactAS(fm,gradfm,gm,gradgm,x0,y0,100,1e-6,true);
 %     finalarray(1,j)=xm;
 %     finalarray(2,j)=ym;
     j=j+1;
-end %for    
+end %for
+
 disp('Solution');
 %disp(finalarray);
 disp(xm);

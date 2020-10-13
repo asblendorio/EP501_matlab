@@ -19,15 +19,22 @@ K=km(X,Y,Z);
 %x0=i;
 %y0=0.258*i;
 %z0=0.58*i;
-x0=0.1;
-y0=0.1;
-z0=0.1;
+x0=0.5;
+y0=0.5;
+z0=0.5;
 [xm,ym,zm,it3D,success3D]=newton3D_exactAS(fm,gradfm,gm,gradgm,km,gradkm,x0,y0,z0,100,1e-6,true);
 
-figure;
-surf(X,Y,F);
-hold on;
-surf(X,Y,G);
-hold on;
-surf(X,Y,K);
-plot3(xm,ym,zm,0,'wo','MarkerSize',32,'LineWidth',8);
+disp('Intersection of Circles');
+disp(xm);
+disp(ym);
+disp(zm);
+
+
+%plotting
+% figure;
+% surf(X,Y,F);
+% hold on;
+% surf(X,Y,G);
+% hold on;
+% surf(X,Y,K);
+% plot3(xm,ym,zm,0,'wo','MarkerSize',32,'LineWidth',8);
