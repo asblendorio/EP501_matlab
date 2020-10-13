@@ -44,14 +44,14 @@ disp(itNew);
 
 
 % %% Newton approach for suspected complex roots
-% [xNewton,itNew]=newton_exact(f,fprime,7*i,100,tol,verbose);
-% disp('Root value through Newton method:  ');
-% disp(xNewton);
-% disp('Number of iterations required to reach tolerance:  ');
-% disp(itNew);
-% 
-% [xNewton,itNew]=newton_exact(f,fprime,-7*i,100,tol,verbose);
-% disp('Root value through Newton method:  ');
-% disp(xNewton);
-% disp('Number of iterations required to reach tolerance:  ');
-% disp(itNew);
+[xNewton,itNew]=newton_exact(f,fprime,7*i,100,tol,verbose);
+disp('Root value through Newton method:  ');
+disp(xNewton);
+disp('Number of iterations required to reach tolerance:  ');
+disp(itNew);
+
+[xNewton,itNew]=newton_exact(f,fprime,-7*i,100,tol,verbose);
+disp('Root value through Newton method:  ');
+disp(xNewton);
+disp('Number of iterations required to reach tolerance:  ');
+disp(itNew);

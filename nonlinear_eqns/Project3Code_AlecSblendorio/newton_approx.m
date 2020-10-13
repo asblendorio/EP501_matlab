@@ -6,18 +6,6 @@ function [root,it,success]=newton_approx(f,fprime,x0,maxit,tol,verbose)
 % given a function which computes the derivative
 % need to add Epsilon term 
 
-%% Error checking of input
-narginchk(3,6);   %check for correct number of inputs to function
-if (nargin<4)
-    maxit=100;       %maximum number of iterations allowed
-end %if
-if (nargin<5)
-    tol=1e-6;        %how close to zero we need to get to cease iterations
-end %if
-if (nargin<6)
-    verbose=false;
-end %if
-
 
 %% Make sure we don't start at an inflection point with zero derivative
 if (abs(fprime(x0))<tol)
@@ -25,19 +13,21 @@ if (abs(fprime(x0))<tol)
     x0=x0+1;   %bump the guess a ways off of initial value to see if we can get anything sensible
 end %if
 
-
 %% Newton iterations
 it=1;
 root=x0;
 fval=f(root);
+e=1e-12; %epsilon
 converged=false;
 while(~converged && it<=maxit)
-    derivative=fprime(root);
+    %derivative=fprime(root);
+    derivative=(f(root)+e)-(f(root)./e);
     if (abs(derivative)<100*tol)    %this (inflection point) will end up kicking the root really far away...
         converged=false;
         warning(' Derivative close to zero, terminating iterations with failed convergence... ');
         break;
     else
+        
         root=root-fval./derivative;    % update root estimate
         fval=f(root);                  % see how far off we are from zero...
         if (verbose)

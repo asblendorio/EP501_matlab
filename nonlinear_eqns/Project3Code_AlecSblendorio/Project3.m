@@ -6,16 +6,7 @@
 % Problem #2: Numerical solution for multiple polynomial roots
 % Problem #3: Multivariate root finding
 %% Import test data for calibration of software
-Data1 = importdata('/Users/alecsblendorio/Documents/Projects/EP501_assignments/assignments/HW1/lowertriang_testproblem.mat');
-Data2 = importdata('/Users/alecsblendorio/Documents/Projects/EP501_assignments/assignments/HW1/testproblem.mat');
-%Data3 = importdata('/Users/alecsblendorio/Documents/Projects/EP501_assignments/assignments/HW2/iterative_testproblem.mat');
-load('iterative_testproblem.mat');
-A = Data2.A;
-b = Data2.b;
-b2 = Data2.b2;
-b3 = Data2.b3;
-L = Data1.L;
-bL = Data1.bL;
+
 
 %% Problem #1: Finding roots of functions lacking a closed form
 %%Part A:  Alter the Newton method function from the repository (newton exact.m)
@@ -35,8 +26,8 @@ bL = Data1.bL;
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 disp('%%%%%%%%Part A, B, C Solution:%%%%%%%');
-soln = @newton_approx; 
-x = soln(A,b,b2,b3);
+soln = @Newton_Rhapson; 
+x = soln();
 disp('%%%%%%%%End Part A, B, C Solution:%%%%%%%');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
@@ -70,6 +61,8 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 %%(given the in course repository: newton2D exact.m) to find all four roots of the system
 
 disp('%%%%%%%%Part A Solution:%%%%%%%');
+soln5 = @Newton_Rhapson2DAS;
+s = soln5();
 
 disp('%%%%%%%%End Part A Solution:%%%%%%%');
 
