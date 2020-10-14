@@ -30,13 +30,13 @@ axis tight;
 
 %% Newton-Rhapson root-finding method
 verbose=true;
-[xNewton,itNew,flag]=newton_exact(f,fprime,-5*i,100,tol,verbose);
+[xNewton,itNew,flag]=newton_approx(f,-0.1*i,100,tol,verbose);
 disp('Root value through Newton method:  ');
 disp(xNewton);
 disp('Number of iterations required to reach tolerance:  ');
 disp(itNew);
 
-[xNewton,itNew,flag]=newton_exact(f,fprime,5*i,100,tol,verbose);
+[xNewton,itNew,flag]=newton_approx(f,0.1*i,100,tol,verbose);
 disp('Root value through Newton method:  ');
 disp(xNewton);
 disp('Number of iterations required to reach tolerance:  ');
@@ -44,13 +44,13 @@ disp(itNew);
 
 
 % %% Newton approach for suspected complex roots
-[xNewton,itNew]=newton_exact(f,fprime,7*i,100,tol,verbose);
+[xNewton,itNew]=newton_approx(f,7*i,100,tol,verbose);
 disp('Root value through Newton method:  ');
 disp(xNewton);
 disp('Number of iterations required to reach tolerance:  ');
 disp(itNew);
 
-[xNewton,itNew]=newton_exact(f,fprime,-7*i,100,tol,verbose);
+[xNewton,itNew]=newton_approx(f,-7*i,100,tol,verbose);
 disp('Root value through Newton method:  ');
 disp(xNewton);
 disp('Number of iterations required to reach tolerance:  ');
