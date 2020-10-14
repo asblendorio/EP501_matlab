@@ -63,7 +63,6 @@ disp(xNewton);
 disp('Number of iterations required to reach tolerance:  ');
 disp(itNew);
 
-
 % %% Newton approach for suspected complex roots
 disp('Complex Stuff');
 [xNewton,itNew]=newton_approx(f,7*i,100,tol,verbose);
@@ -80,8 +79,10 @@ disp(itNew);
 
 disp('%%%%%%%%End Part A Solution:%%%%%%%');
 
-
 disp('%%%%%%%%Part B Solution:%%%%%%%');
+%%In Office Hours, Dr. Z alluded to looping over values form 0 to 20 to
+%%calculate the first root of the Bessel function. 
+maxit=100;
 
 
 disp('%%%%%%%%End Part B Solution:%%%%%%%');
