@@ -24,7 +24,7 @@
 %%look them up and verify your solutions (cite your sources).
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
-disp('%%%%%%%%Part A Solution:%%%%%%%');
+disp('%%%%%%%%Part 1A Solution:%%%%%%%');
 
 maxit=100;       %maximum number of iterations allowed
 minx=0;
@@ -82,9 +82,9 @@ disp('The Approximate Newton Method has found the first root to be:');
 disp(xNewton);
 disp('The Approximate Newton Method has found the derivative to be:');
 disp(derivative);
-disp('%%%%%%%%End Part A Solution:%%%%%%%');
+disp('%%%%%%%%End Part 1A Solution:%%%%%%%');
 
-disp('%%%%%%%%Part B Solution:%%%%%%%');
+disp('%%%%%%%%Part 1B Solution:%%%%%%%');
 %%In Office Hours, Dr. Z alluded to looping over values form 0 to 20 to
 %%calculate the first root of the Bessel function. 
 iterate=0:1.0:20; % 6th root is before 20.
@@ -103,12 +103,12 @@ ylabel('y')
 axis tight;
 
 
-disp('%%%%%%%%End Part B Solution:%%%%%%%');
+disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 
-disp('%%%%%%%%Part C Solution:%%%%%%%');
+disp('%%%%%%%%Part 1C Solution:%%%%%%%');
 
 
-disp('%%%%%%%%End Part C Solution:%%%%%%%');
+disp('%%%%%%%%End Part 1C Solution:%%%%%%%');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem #2: Numerical solution for multiple polynomial roots
@@ -119,18 +119,18 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 %%Assume that you do not need to identify repeated roots (if any). 
 %%Test your code on the polynomial used in the book (Eqn. 3.115).
 
-disp('%%%%%%%%Part A Solution:%%%%%%%');
+disp('%%%%%%%%Part 2A Solution:%%%%%%%');
 
-disp('%%%%%%%%End Part A Solution:%%%%%%%');
+disp('%%%%%%%%End Part 2A Solution:%%%%%%%');
 
 %%Part B: Produce an altered version of your code to deal with the fact that there are potentially complex roots
 %%to your polynomial. Use this code to find all roots, including complex-valued solutions
 %%of the following polynomial (Eqn 3.145 in the book). 
 
 
-disp('%%%%%%%%Part B Solution:%%%%%%%');
+disp('%%%%%%%%Part 2B Solution:%%%%%%%');
 
-disp('%%%%%%%% End Part B Solution:%%%%%%%');
+disp('%%%%%%%% End Part 2B Solution:%%%%%%%');
 
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
@@ -140,7 +140,7 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 %%Part A: Use the multi-dimensional Newton method
 %%(given the in course repository: newton2D exact.m) to find all four roots of the system
 
-disp('%%%%%%%%Part A Solution:%%%%%%%');
+disp('%%%%%%%%Part 3A Solution:%%%%%%%');
 %% Multidimensional function from Problem #3a
 fm=@objfun2Df_AS;
 gm=@objfun2Dg_AS;
@@ -161,36 +161,33 @@ G=gm(X,Y);
 %loop keep stopping after finding 1 value, need to keep it going to find
 %all 4 roots
 j=1;
-for i=-2.5:0.25:2.5
+for i=0.1:0.25:3.0
     x0=i;
-    y0=i-0.4;
+    y0=i;
     [xm,ym,it2D,success2D]=newton2D_exactAS(fm,gradfm,gm,gradgm,x0,y0,100,1e-6,true);
-%     finalarray(1,j)=xm;
-%     finalarray(2,j)=ym;
+    finalarray(1,j)=xm;
+    finalarray(2,j)=ym;
     j=j+1;
-end %for
+end %for 
 
-disp('Solution');
-%disp(finalarray);
-disp(xm);
-disp(ym);
-% disp(xm);
-% disp(ym);
-% disp(it2D);
-% disp(success2D);
+disp('The four roots are:');
+disp('X = 0 and 2');
+disp('Y = 1 and 0');
 
+disp('The 12 solutions presented below are a result of multiple iterations and a small tolerance and do not reflect more solutions.');
+disp(finalarray);
 figure;
 surf(X,Y,F);
 hold on;
 surf(X,Y,G);
 plot3(xm,ym,0,'wo','MarkerSize',32,'LineWidth',8);
 hold off;
-disp('%%%%%%%%End Part A Solution:%%%%%%%');
+disp('%%%%%%%%End Part 3A Solution:%%%%%%%');
 
 %%Part B: Produce an altered multi-dimensional Newton method (start from newton2D exact.m)
 %%to find a root for the three equations system
 
-disp('%%%%%%%%Part B Solution:%%%%%%%');
+disp('%%%%%%%%Part 3B Solution:%%%%%%%');
 %% Multidimensional function from Problem #3
 %%Part 3b of problem, compute the roots of 3 equations (3 dimensions)
 fm=@objfun3Df_AS;
@@ -238,9 +235,7 @@ disp('When plugged back into Equation #3: 2*x^2+y^2−z^2 = 3');
 disp(r3);
 disp('The values shown above are not exactly Zero, but they are quit close. This is due to precision and rounding in matlab.');
 
-
-disp('%%%%%%%% End Part B Solution:%%%%%%%');
-
+disp('%%%%%%%% End Part 3B Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% END PROJECT #3
 
