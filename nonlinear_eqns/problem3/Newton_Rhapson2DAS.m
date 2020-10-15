@@ -29,8 +29,8 @@ end %for
 
 disp('Solution');
 %disp(finalarray);
-disp(xm);
-disp(ym);
+% disp(xm);
+% disp(ym);
 % disp(xm);
 % disp(ym);
 % disp(it2D);

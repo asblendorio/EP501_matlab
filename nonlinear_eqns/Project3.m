@@ -29,13 +29,13 @@ disp('%%%%%%%%Part A Solution:%%%%%%%');
 maxit=100;       %maximum number of iterations allowed
 minx=0;
 maxx=2*pi;
-tol=1e-9;        %how close to zero we need to get to cease iterations
+tol=1e-6;        %how close to zero we need to get to cease iterations
 
 
 %% Objective function defs.
 f=@objfun2;      %set the function for which we are finding roots, change to illustrate different problems
 fprime=@objfun2_deriv;
-x=linspace(minx,maxx,64);   %grid for basic plotting purposes
+x=linspace(minx,20,64);   %grid for basic plotting purposes
 ygrid=f(x);
 verbose=true;
 
@@ -76,16 +76,39 @@ disp('Root value through Newton method:  ');
 disp(xNewton);
 disp('Number of iterations required to reach tolerance:  ');
 disp(itNew);
-
+%%using Approximate Newton Function 
+[xNewton,derivative]=newton_approx(f,2,maxit,tol,verbose);
+disp('The Approximate Newton Method has found the first root to be:');
+disp(xNewton);
+disp('The Approximate Newton Method has found the derivative to be:');
+disp(derivative);
 disp('%%%%%%%%End Part A Solution:%%%%%%%');
 
 disp('%%%%%%%%Part B Solution:%%%%%%%');
 %%In Office Hours, Dr. Z alluded to looping over values form 0 to 20 to
 %%calculate the first root of the Bessel function. 
+iterate=0:1.0:20; % 6th root is before 20.
 maxit=100;
+tol=1e-9;
+verbose=true;
+f=@Bessel_objfun1;
+minx=0;
+maxx=20;
+%% Plot the function we are finding roots for
+figure(2);
+plot(x,f(x));
+title('Bessel Function of Order Zero')
+xlabel('x')
+ylabel('y')
+axis tight;
 
 
 disp('%%%%%%%%End Part B Solution:%%%%%%%');
+
+disp('%%%%%%%%Part C Solution:%%%%%%%');
+
+
+disp('%%%%%%%%End Part C Solution:%%%%%%%');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem #2: Numerical solution for multiple polynomial roots
@@ -161,7 +184,7 @@ surf(X,Y,F);
 hold on;
 surf(X,Y,G);
 plot3(xm,ym,0,'wo','MarkerSize',32,'LineWidth',8);
-
+hold off;
 disp('%%%%%%%%End Part A Solution:%%%%%%%');
 
 %%Part B: Produce an altered multi-dimensional Newton method (start from newton2D exact.m)

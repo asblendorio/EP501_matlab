@@ -60,12 +60,12 @@ while(~converged && it<=maxit)
     dxvec=backsub(Amod(ord,:));
     detA=prod(diag(Amod(ord,1:2)));
     if (abs(detA) < 1e-6)
-        disp(A);
-        disp(rootx)
-        disp(rooty);
-        disp(fval);
-        disp(gval);
-        disp(kval);
+%         disp(A);
+%         disp(rootx)
+%         disp(rooty);
+%         disp(fval);
+%         disp(gval);
+%         disp(kval);
         error(' Ended up at a point where Newton iteration is singular, try a different starting point')
     end %if
     
