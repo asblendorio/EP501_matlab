@@ -273,10 +273,3 @@ disp(r3);
 disp('%%%%%%%% End Part 3B Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% END PROJECT #3
-
-
-
-
-
-
-
