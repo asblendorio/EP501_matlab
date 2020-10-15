@@ -47,7 +47,7 @@ axis tight;
 
 %% Newton-Rhapson root-finding method
 %%using Approximate Newton Function 
-[xNewton,derivative]=newton_approx(f,2,maxit,tol,verbose);
+[xNewton,derivative]=newton_approx(f,1,maxit,tol,verbose);
 disp('The Approximate Newton Method has found the first root to be:');
 disp(xNewton);
 disp('The Approximate Newton Method has found the derivative to be:');
@@ -57,7 +57,6 @@ disp('%%%%%%%%End Part 1A Solution:%%%%%%%');
 disp('%%%%%%%%Part 1B Solution:%%%%%%%');
 %%In Office Hours, Dr. Z alluded to looping over values form 0 to 20 to
 %%calculate the first root of the Bessel function. 
-iterate=0:1.0:20; % 6th root is before 20.
 maxit=100;
 tol=1e-9;
 verbose=true;
@@ -66,11 +65,12 @@ minx=0;
 maxx=20;
 %% Newton-Rhapson root-finding method
 verbose=true;
-[xNewton,itNew,flag]=newton_approx(f,-0.1,100,tol,verbose);
-disp('Root value through Newton method:  ');
+[xNewton,itNew,flag]=newton_approx(f,1,100,tol,verbose);
+disp('The first Root value of the Bessel Function is:');
 disp(xNewton);
 disp('Number of iterations required to reach tolerance:  ');
 disp(itNew);
+
 %% Plot the function we are finding roots for
 figure(2);
 plot(x,f(x));
@@ -84,7 +84,20 @@ disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 disp('%%%%%%%%Part 1C Solution:%%%%%%%');
 disp('To aid in finding the roots of the Bessel function, a fellow classmate provided the class a document cited below. This gives us the first 10 roots.');
 disp('https://thalis.math.upatras.gr/~vrahatis/papers/journals/VrahatisGRZ97_Z_ANGEW_MATH_MECH_77_pp467-475_1997.pdf\n');
-
+j=0;
+for i = 0:1.0:20  % 6th root is before 20
+    [xNewton,itNew,flag]=newton_approx(f,i,100,tol,verbose);    
+    j=j+1; 
+    rootarray(j)=xNewton; 
+end
+%disp(rootarray);
+ans1=rootarray(1,2);
+ans2=rootarray(1,6);
+ans3=rootarray(1,10);
+ans4=rootarray(1,12);
+ans5=rootarray(1,16);
+ans6=rootarray(1,21);
+fprintf('The First Six Roots of the Bessel Function are: %f,%f,%f,%f,%f,%f\n',ans1,ans2,ans3,ans4,ans5,ans6);
 
 disp('%%%%%%%%End Part 1C Solution:%%%%%%%');
 
