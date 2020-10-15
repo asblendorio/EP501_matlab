@@ -66,7 +66,7 @@ minx=0;
 maxx=20;
 %% Newton-Rhapson root-finding method
 verbose=true;
-[xNewton,itNew,flag]=newton_approx(f,0.3*i,100,tol,verbose);
+[xNewton,itNew,flag]=newton_approx(f,-0.1,100,tol,verbose);
 disp('Root value through Newton method:  ');
 disp(xNewton);
 disp('Number of iterations required to reach tolerance:  ');
@@ -227,14 +227,6 @@ km=@objfun3Dk_AS;
 gradfm=@grad_objfun3Df_AS;
 gradgm=@grad_objfun3Dg_AS;
 gradkm=@grad_objfun3Dk_AS;
-%this is for plotting
-x=linspace(-1.5,1.5,20);
-y=linspace(-1.5,1.5,20);
-z=linspace(-1.5,1.5,20);
-[X,Y,Z]=meshgrid(x,y,z);
-F=fm(X,Y,Z);
-G=gm(X,Y,Z);
-K=km(X,Y,Z);
 
 %% Newton's method for multi-variable nonlinear equations
 %x0=i;
