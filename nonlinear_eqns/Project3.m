@@ -46,32 +46,6 @@ axis tight;
 
 
 %% Newton-Rhapson root-finding method
-verbose=true;
-[xNewton,itNew,flag]=newton_approx(f,-0.3*i,100,tol,verbose);
-disp('Root value through Newton method:  ');
-disp(xNewton);
-disp('Number of iterations required to reach tolerance:  ');
-disp(itNew);
-
-[xNewton,itNew,flag]=newton_approx(f,0.3*i,100,tol,verbose);
-disp('Root value through Newton method:  ');
-disp(xNewton);
-disp('Number of iterations required to reach tolerance:  ');
-disp(itNew);
-
-% %% Newton approach for suspected complex roots
-disp('Complex Stuff');
-[xNewton,itNew]=newton_approx(f,7*i,100,tol,verbose);
-disp('Root value through Newton method:  ');
-disp(xNewton);
-disp('Number of iterations required to reach tolerance:  ');
-disp(itNew);
-
-[xNewton,itNew]=newton_approx(f,-7*i,100,tol,verbose);
-disp('Root value through Newton method:  ');
-disp(xNewton);
-disp('Number of iterations required to reach tolerance:  ');
-disp(itNew);
 %%using Approximate Newton Function 
 [xNewton,derivative]=newton_approx(f,2,maxit,tol,verbose);
 disp('The Approximate Newton Method has found the first root to be:');
@@ -90,6 +64,13 @@ verbose=true;
 f=@Bessel_objfun1;
 minx=0;
 maxx=20;
+%% Newton-Rhapson root-finding method
+verbose=true;
+[xNewton,itNew,flag]=newton_approx(f,0.3*i,100,tol,verbose);
+disp('Root value through Newton method:  ');
+disp(xNewton);
+disp('Number of iterations required to reach tolerance:  ');
+disp(itNew);
 %% Plot the function we are finding roots for
 figure(2);
 plot(x,f(x));
@@ -97,7 +78,6 @@ title('Bessel Function of Order Zero')
 xlabel('x')
 ylabel('y')
 axis tight;
-
 
 disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 
@@ -275,16 +255,15 @@ disp(zm);
 disp('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
 %%Root Checker:
 disp('This section evaluates the roots and checks if the equations go to Zero:');
-r1=fm(xm,ym,zm);
+r1=round(fm(xm,ym,zm));
 disp('When plugged back into Equation #1: x^2+y^2+z^2 = 6');
 disp(r1);
-r2=gm(xm,ym,zm);
+r2=round(gm(xm,ym,zm));
 disp('When plugged back into Equation #2: x^2−y^2+2*z^2 = 2');
 disp(r2);
-r3=km(xm,ym,zm);
+r3=round(km(xm,ym,zm));
 disp('When plugged back into Equation #3: 2*x^2+y^2−z^2 = 3');
 disp(r3);
-disp('The values shown above are not exactly Zero, but they are quit close. This is due to precision and rounding in matlab.');
 
 disp('%%%%%%%% End Part 3B Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER END%%%%%%%%%%%%%%%%%%');
