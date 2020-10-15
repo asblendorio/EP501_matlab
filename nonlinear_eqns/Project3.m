@@ -2,11 +2,9 @@
 %% Due Date: October 15, 2020
 %% Subject: EP 501 Numerical Methods for Scientists and Engineers 
 %% Project #3
-% Problem #1: Finding roots of functions lacking a closed form
-% Problem #2: Numerical solution for multiple polynomial roots
+% Problem #1: Finding roots of functions lacking a closed form\n
+% Problem #2: Numerical solution for multiple polynomial roots\n
 % Problem #3: Multivariate root finding
-%% Import test data for calibration of software
-
 %% Problem #1: Finding roots of functions lacking a closed form
 %%Part A:  Alter the Newton method function from the repository (newton exact.m)
 %%so that it implements the approximate Newton method, i.e. so that the derivative 
@@ -31,14 +29,12 @@ minx=0;
 maxx=2*pi;
 tol=1e-6;        %how close to zero we need to get to cease iterations
 
-
 %% Objective function defs.
 f=@objfun2;      %set the function for which we are finding roots, change to illustrate different problems
 fprime=@objfun2_deriv;
 x=linspace(minx,20,64);   %grid for basic plotting purposes
 ygrid=f(x);
 verbose=true;
-
 
 %% Plot the function we are finding roots for
 figure(1);
@@ -102,6 +98,8 @@ xlabel('x')
 ylabel('y')
 axis tight;
 
+disp('To aid in finding the roots of the Bessel function, a fellow classmate provided the class a document cited below. This gives us the first 10 roots.');
+disp('https://thalis.math.upatras.gr/~vrahatis/papers/journals/VrahatisGRZ97_Z_ANGEW_MATH_MECH_77_pp467-475_1997.pdf\n');
 
 disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 
@@ -113,16 +111,14 @@ disp('%%%%%%%%End Part 1C Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem #2: Numerical solution for multiple polynomial roots
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
+
+disp('%%%%%%%%Part 2A Solution:%%%%%%%');
+%% Problem 2 (a)
 %%Part A: Suppose you have a polynomial of known or given order and need to find all of its roots.
 %%Write a block of code or a script that uses the exact Newton method (e.g. the function in the course repository)
 %%to find all of the real-valued roots of a polynomial. 
 %%Assume that you do not need to identify repeated roots (if any). 
 %%Test your code on the polynomial used in the book (Eqn. 3.115).
-
-disp('%%%%%%%%Part 2A Solution:%%%%%%%');
-%% Problem 2 (a)
-%%Suppose you have a polynomial of known or given order and need to find all of its roots.
-%%Write a block of code or a script that uses the exact Newton method 
 %% Params for Newton iteration
 maxit=100;       %maximum number of iterations allowed
 minx=0;
@@ -155,15 +151,11 @@ fprintf('The Real Roots of the polynomial are: %d,%d,%d,%d,%d\n',result1,result2
 
 disp('%%%%%%%%End Part 2A Solution:%%%%%%%');
 
+disp('%%%%%%%%Part 2B Solution:%%%%%%%');
+%% Problem 2 (b)
 %%Part B: Produce an altered version of your code to deal with the fact that there are potentially complex roots
 %%to your polynomial. Use this code to find all roots, including complex-valued solutions
 %%of the following polynomial (Eqn 3.145 in the book). 
-
-disp('%%%%%%%%Part 2B Solution:%%%%%%%');
-%% Problem 2 (b)
-%%Produce an altered version of your code to deal with the fact that there 
-%%are potentially complex roots to your polynomial. Use this code to find all roots, 
-%%including complex-valued solutions of the following polynomial
 %%x3 −3x2 +4x−2 = 0
 
 %% Params for Newton iteration
@@ -171,28 +163,24 @@ maxit=100;       %maximum number of iterations allowed
 minx=0;
 maxx=2*pi;
 tol=1e-9;        %how close to zero we need to get to cease iterations
-
 %% Newton-Rhapson root-finding method for polynomials 
-%%this method will find all of the REAL-valued roots of a polynomial
-f=@objfunProblem2b;      %set the function for which we are finding roots, change to illustrate different problems
+f=@objfunProblem2b;      
 fprime=@objfunProblem2b_deriv;
-x=linspace(minx,maxx,64);   %grid for basic plotting purposes
-ygrid=f(x);
 verbose=true;
 j=0;
-rec = 0;
 finalarray3=[];
 
-for g = -5:0.25:5 % changed variable name to g because of complex component
-    [xNewton,itNew,flag]=newton_exact(f,fprime,g+g.*i,maxit,tol,verbose);    
+for g = -2:0.15:2 % changed variable name to g because of complex component
+    [xNewton,itNew,flag]=newton_exactwithComplex(f,fprime,g.*i,maxit,tol,verbose);    
     j=j+1; 
     finalarray3(j)=xNewton; 
 end
-
- result1=finalarray3(1,1);
- result2=finalarray3(1,11);
+% disp(finalarray3);
+result1=finalarray3(1,6);
+result2=finalarray3(1,26);
+result3=finalarray3(1,20);
  
- fprintf('The Real and Complex Roots of the polynomial are: %f + %f i and %f - %f i \n',real(result1),imag(result1),real(result2),imag(result2));
+fprintf('The Real and Complex Roots of the polynomial are: %f, %f + %f i, and %f - %f i \n',real(result3),(result1),(result1),(result2),(result2));
 
 disp('%%%%%%%% End Part 2B Solution:%%%%%%%');
 
