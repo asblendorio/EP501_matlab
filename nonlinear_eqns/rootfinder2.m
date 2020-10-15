@@ -1,6 +1,9 @@
-%% Problem 2 (a)
-%%Suppose you have a polynomial of known or given order and need to find all of its roots.
-%%Write a block of code or a script that uses the exact Newton method 
+%% Problem 2 (b)
+%%Produce an altered version of your code to deal with the fact that there 
+%%are potentially complex roots to your polynomial. Use this code to find all roots, 
+%%including complex-valued solutions of the following polynomial
+%%x3 −3x2 +4x−2 = 0
+
 %% Params for Newton iteration
 maxit=100;       %maximum number of iterations allowed
 minx=0;
@@ -23,13 +26,11 @@ for g = -5:0.25:5 % changed variable name to g because of complex component
     j=j+1; 
     finalarray3(j)=xNewton; 
 end
-disp(finalarray3);
-% result1=finalarray3(1,2);
-% result2=finalarray3(1,3);
-% result3=finalarray3(1,4);
-% result4=finalarray3(1,5);
-% result5=finalarray3(1,6);
-% fprintf('The Real and Complex Roots of the polynomial are: %d,%d,%d,%d,%d',result1,result2,result3,result4,result5);
+
+ result1=finalarray3(1,1);
+ result2=finalarray3(1,11);
+ 
+ fprintf('The Real and Complex Roots of the polynomial are: %f + %f i and %f - %f i \n',real(result1),imag(result1),real(result2),imag(result2));
 
 
 
