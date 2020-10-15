@@ -1,5 +1,5 @@
 function y=objfunProblem2_deriv(x)
 
-y=-1*exp(-x)-cos(pi*x/3)*pi/3;    %modified test problem B from chapter 3 exercises
+y=5.*x.^4-60.*x.^3+255.*x.^2-450.*x+274;   
 
 end %function

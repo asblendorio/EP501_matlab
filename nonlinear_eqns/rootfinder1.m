@@ -7,7 +7,8 @@ minx=0;
 maxx=2*pi;
 tol=1e-9;        %how close to zero we need to get to cease iterations
 
-%% Objective function defs.
+%% Newton-Rhapson root-finding method for polynomials 
+%%this method will find all of the REAL-valued roots of a polynomial
 f=@objfunProblem2;      %set the function for which we are finding roots, change to illustrate different problems
 fprime=@objfunProblem2_deriv;
 x=linspace(minx,maxx,64);   %grid for basic plotting purposes
@@ -17,18 +18,20 @@ j=0;
 rec = 0;
 finalarray2=[];
 
-for i = 0:0.5:10
-    [xNewton,itNew,flag]=newton_exact(f,fprime,i,maxit,tol,verbose);  % The only difference between repository's and mine is the iteration records not outputted. 
-    j=j+1;  
-    finalarray2(j)=xNewton;       % this is a data bank of the roots computed from the iteration process, may have repeats of the same root, but does not matter -- just pick unique ones for the final results. 
+for i = 0:1.0:10
+    [xNewton,itNew,flag]=newton_exact(f,fprime,i,maxit,tol,verbose);    
+    j=j+1; 
+    finalarray2(j)=xNewton; 
 end
 
-sorted=sort(finalarray2);
-disp('between my guess of 0 to 10 with increment of 0.5, the roots I could obtain are: ')
-disp(sorted);
+result1=finalarray2(1,2);
+result2=finalarray2(1,3);
+result3=finalarray2(1,4);
+result4=finalarray2(1,5);
+result5=finalarray2(1,6);
+fprintf('The Roots of the polynomial are: %d,%d,%d,%d,%d',result1,result2,result3,result4,result5);
 
-disp('Therefore, the roots of the equation 3.115, without identity repeated roots, are: ')
-disp('1, 2, 3, 5, and 5')
+
 
 
 
