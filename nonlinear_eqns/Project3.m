@@ -98,12 +98,12 @@ xlabel('x')
 ylabel('y')
 axis tight;
 
-disp('To aid in finding the roots of the Bessel function, a fellow classmate provided the class a document cited below. This gives us the first 10 roots.');
-disp('https://thalis.math.upatras.gr/~vrahatis/papers/journals/VrahatisGRZ97_Z_ANGEW_MATH_MECH_77_pp467-475_1997.pdf\n');
 
 disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 
 disp('%%%%%%%%Part 1C Solution:%%%%%%%');
+disp('To aid in finding the roots of the Bessel function, a fellow classmate provided the class a document cited below. This gives us the first 10 roots.');
+disp('https://thalis.math.upatras.gr/~vrahatis/papers/journals/VrahatisGRZ97_Z_ANGEW_MATH_MECH_77_pp467-475_1997.pdf\n');
 
 
 disp('%%%%%%%%End Part 1C Solution:%%%%%%%');
