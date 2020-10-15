@@ -14,8 +14,6 @@ tol=1e-9;        %how close to zero we need to get to cease iterations
 %%this method will find all of the REAL-valued roots of a polynomial
 f=@objfunProblem2b;      %set the function for which we are finding roots, change to illustrate different problems
 fprime=@objfunProblem2b_deriv;
-x=linspace(minx,maxx,64);   %grid for basic plotting purposes
-ygrid=f(x);
 verbose=true;
 j=0;
 rec = 0;
