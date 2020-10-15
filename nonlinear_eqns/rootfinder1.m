@@ -8,12 +8,11 @@ maxx=2*pi;
 tol=1e-9;        %how close to zero we need to get to cease iterations
 
 %% Objective function defs.
-f=@objfun2;      %set the function for which we are finding roots, change to illustrate different problems
-fprime=@objfun2_deriv;
+f=@objfunProblem2;      %set the function for which we are finding roots, change to illustrate different problems
+fprime=@objfunProblem2_deriv;
 x=linspace(minx,maxx,64);   %grid for basic plotting purposes
 ygrid=f(x);
 verbose=true;
-
 j=0;
 rec = 0;
 finalarray2=[];
