@@ -5,8 +5,8 @@
 %%solve times for each method and each system size in separate arrays and plot times vs. number
 %%of unknowns for each method on a single graph.
 
-% Evaluate performance and scaling of Gaussian elimination, Jacobi
-% iteration, and Tri-Diagonal Solver by solving systems of different size and timing the solves
+% Evaluate performance and scaling of Gaussian elimination, Jacobi iteration,
+% and Tri-Diagonal Solver by solving systems of different size and timing the solves
 
 nvals=50:50:500;
 testtimes=zeros(size(nvals));
