@@ -6,7 +6,6 @@
 % Evaluate performance and scaling of Gaussian elimination and Jacobi iteration
 %    by solving systems of different size and timing the solves
 
-
 nvals=50:50:500;
 testtimes=zeros(size(nvals));
 lrep=10;     %how many times to repeat each test
@@ -50,6 +49,7 @@ for in=1:numel(nvals)
     end %for
     disp([' JI solution for system of size ',num2str(nlarge),' takes average time ',num2str(testtimes(in)),' s']);
 end %for
+
 
 figure(1);
 hold on
