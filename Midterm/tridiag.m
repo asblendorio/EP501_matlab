@@ -3,9 +3,9 @@
 %%using the Thomas algorithm. Verify your solution by applying it to the iterative test problem for
 %%HW2 in the EP501 Assignments repository
 
-function [Atom] = tridiag(Ait,bit)
+function [Atom,ord] = tridiag(Ait,bit)
 nref=length(bit);                %system size for reference problem
-Atom=cat(2,Ait,bit);          
+Atom=cat(2,Ait,bit); 
 for ir1=2:nref
     for ir2=ir1:nref
         fact=Atom(ir2,ir1-1);                                       
