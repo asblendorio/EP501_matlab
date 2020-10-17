@@ -1,4 +1,4 @@
-%%Problem #1
+%%Problem #1a
 %%Write a MATLAB or Python function tridiag() that solves a tridiagonal system of equations
 %%using the Thomas algorithm. Verify your solution by applying it to the iterative test problem for
 %%HW2 in the EP501 Assignments repository

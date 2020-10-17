@@ -1,7 +1,9 @@
-%%Problem #1
-%%Write a MATLAB or Python function tridiag() that solves a tridiagonal system of equations
-%%using the Thomas algorithm. Verify your solution by applying it to the iterative test problem for
-%%HW2 in the EP501 Assignments repository
+%%Problem #1b
+%%Produce a new version of the benchmark.(py,m) script that runs timed tests for all three of:
+%%Gaussian elimination, Jacobi iteration, and your new tridiag solver. Use the same tridiagonal
+%%problem for testing each of the solvers (as in the existing benchmark.(py,m) script). Store the
+%%solve times for each method and each system size in separate arrays and plot times vs. number
+%%of unknowns for each method on a single graph.
 
 % Evaluate performance and scaling of Gaussian elimination and Jacobi iteration
 %    by solving systems of different size and timing the solves
