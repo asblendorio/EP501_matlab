@@ -9,27 +9,38 @@ nref=length(b);                %system size for reference problem
 Atom=cat(2,A,b); 
 Aprime=zeros(nref,3);
 for i=2:nref-1
-    Aprime(nref,1)=Atom(nref,nref-1);
-    Aprime(nref,2)=Atom(nref,nref);
+    Aprime(i,1)=Atom(i,i-1);
+    Aprime(i,2)=Atom(i,i);
+    Aprime(i,3)=Atom(i,i+1);
 end %for    
-Aprime(1,2)=Atom(1,2);
-Aprime(1,3)=Atom(1,3);
+Aprime(1,2)=Atom(1,1);
+Aprime(1,3)=Atom(1,2);
+Aprime(50,1)=Atom(50,49);
+Aprime(50,2)=Atom(50,50);
+% disp('This is my Aprime matrix');
+% disp(Aprime);
 
 for ir1=2:nref
-    em=Atom(ir1,1)./Atom(ir1-1,2);
-    Atom(ir1,1)=em;
-    Atom(ir1,2)=Atom(ir1,2)-em.*Atom(ir1-1,3);
-    b(ir1)=b(ir1)-Atom(ir1,1).*b(ir1-1);
+    em=Aprime(ir1,1)./Aprime(ir1-1,2);
+    Aprime(ir1,1)=em;
+    Aprime(ir1,2)=Aprime(ir1,2)-em.*Aprime(ir1-1,3);
+    b(ir1)=b(ir1)-Aprime(ir1,1).*b(ir1-1);
 end %for
 
 %% Illustrate back substitution on B using provided Matlab function
-x(nref)=b(nref)/Atom(nref,2);
+x(nref)=b(nref)/Aprime(nref,2);
 for ir1=nref-1:-1:1
-    x(ir1)=(b(ir1)-Atom(ir1,3)).*x(ir1+1)./Atom(ir1,2);
+    x(ir1)=(b(ir1)-Aprime(ir1,3)).*x(ir1+1)./Aprime(ir1,2);
 end %for
 
+for i=1:length(x)
+    fprintf('\nx%d = %e\n',i,x(i));
+end %for
+
+finalarray = zeros(50,1);
+
 disp('Elimination/back sub solution:  ');
-disp(x);
+disp(finalarray);
 
 % disp('Matlab,GNU/Octave built-in solution:  ');
 % disp(A\b);
