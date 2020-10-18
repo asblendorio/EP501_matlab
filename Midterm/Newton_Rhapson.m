@@ -30,7 +30,7 @@ axis tight;
 
 %% Newton-Rhapson root-finding method
 verbose=true;
-[xNewton,itNew,flag]=newton_exact(f,-0.1*i,100,tol,verbose);
+[xNewton,itNew,flag]=newton_approx(f,-0.1*i,100,tol,verbose);
 disp('Root value through Newton method:  ');
 disp(xNewton);
 disp('Number of iterations required to reach tolerance:  ');

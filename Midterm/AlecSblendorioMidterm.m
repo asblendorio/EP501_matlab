@@ -40,7 +40,11 @@ disp(x);
 % divide out a factor of (x − 5) from the polynomial:
 % x^5 −15x^4 +85x^3 −225x^2 +274x−120 = 0
 
- 
+%% Part C
+% Use an approximate Newton’s method (using an approximate derivative) to
+% find one root of Eqn. 7
+% x^5 −15x^4 +85x^3 −225x^2 +274x−120 = 0
+
 
 
 

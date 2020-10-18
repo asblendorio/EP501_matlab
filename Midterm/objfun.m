@@ -1,5 +1,5 @@
-function y=objfun2(x)
+function y=objfun(x)
 
-y=exp(-x)-sin(pi*x/3);    %modified test problem B from chapter 3 exercises
+y=x.^5-15.*x.^4 + 85.*x.^3 - 225.*x.^2 + 274.*x - 120;    
 
 end %function
