@@ -8,18 +8,23 @@ function [Atom] = tridiag(A,b)
 nref=length(b);                %system size for reference problem
 Atom=cat(2,A,b); 
 for ir1=2:nref
-    for ir2=ir1:nref
-        fact=Atom(ir2,ir1-1);                                       
-        Atom(ir2,:)=Atom(ir2,:)-fact/Atom(ir1-1,ir1-1).*Atom(ir1-1,:);
-    end %for
+    em=Atom(ir1,1)./Atom(ir1-1,2);
+    Atom(ir1,1)=em;
+    Atom(ir1,2)=Atom(ir1,2)-em.*Atom(ir1-1,3);
+    b(ir1)=b(ir1)-Atom(ir1,1).*b(ir1-1);
 end %for
 
-disp('elim([Aref,bref]) = ');
-disp(Atom);
 %% Illustrate back substitution on B using provided Matlab function
-xsoln=backsub(Atom);
+x(nref)=b(nref)/Atom(nref,2);
+for ir1=nref-1:1:-1
+    x(ir1)=(b(ir1)-Atom(ir1,ic)).*x(ic+1)./Atom(ir1,2);
+end %for
 disp('Elimination/back sub solution:  ');
-disp(xsoln);
-disp('Matlab,GNU/Octave built-in solution:  ');
-disp(Ait\bit);
+disp(x);
+
+% xsoln=backsub(Atom);
+% disp('Elimination/back sub solution:  ');
+% disp(xsoln);
+% disp('Matlab,GNU/Octave built-in solution:  ');
+% disp(a\b);
 end %function 
