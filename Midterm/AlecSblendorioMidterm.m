@@ -14,6 +14,8 @@
 % (c) For what system sizes does Gaussian elimination perform better than Jacobi iteration (on your computer)?
 % (d) Explain why the Thomas algorithm is more efficient for large numbers of unknowns. 
 % Try to be as quantitative as possible by discussing the number of operations requires to execute each algorithm/iteration.
+%% Part A 
+
 
 %% Problem 2
 
