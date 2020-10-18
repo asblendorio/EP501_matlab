@@ -17,14 +17,14 @@ end %for
 %% Illustrate back substitution on B using provided Matlab function
 x(nref)=b(nref)/Atom(nref,2);
 for ir1=nref-1:1:-1
-    x(ir1)=(b(ir1)-Atom(ir1,ic)).*x(ic+1)./Atom(ir1,2);
+    x(ir1)=(b(ir1)-Atom(ir1,3)).*x(ir1+1)./Atom(ir1,2);
 end %for
+
 disp('Elimination/back sub solution:  ');
 disp(x);
-
-% xsoln=backsub(Atom);
-% disp('Elimination/back sub solution:  ');
-% disp(xsoln);
+%  xsoln=backsub(Atom);
+%  disp('Elimination/back sub solution:  ');
+%  disp(xsoln);
 % disp('Matlab,GNU/Octave built-in solution:  ');
 % disp(a\b);
 end %function 
