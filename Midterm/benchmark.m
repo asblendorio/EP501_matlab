@@ -8,7 +8,7 @@
 % Evaluate performance and scaling of Gaussian elimination, Jacobi iteration,
 % and Tri-Diagonal Solver by solving systems of different size and timing the solves
 
-nvals=50:50:500;
+nvals=25:25:250;
 testtimes=zeros(size(nvals));
 lrep=10;     %how many times to repeat each test
 
