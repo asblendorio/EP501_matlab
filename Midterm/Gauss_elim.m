@@ -80,6 +80,8 @@ end %for
 
 %first need to re-order the matrix 
 Areorder = Amod(ord,:);
+disp('Matrix before backsub:');
+disp(Areorder);
 %once re-ordered, compute the backsubstitution 
 xback = backsub(Areorder);
 disp('Back Substitution of matrix:');

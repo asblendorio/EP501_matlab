@@ -92,7 +92,9 @@ result5=finalarray1(1,6);
 fprintf('The Five Roots of the polynomial are: %d,%d,%d,%d,%d\n',result1,result2,result3,result4,result5);
 
 %% Part D 
-
+%Use your synthetic division algorithm to factor the root found in part c out of Eqn. 7 
+%to produce a lower-order polynomial (i.e. Qn−1(x)). 
+%The result will be a set of coefficients for a fourth order polynomial, denoted Q4.
 
 
 

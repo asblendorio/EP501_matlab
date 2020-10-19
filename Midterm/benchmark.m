@@ -8,7 +8,7 @@
 % Evaluate performance and scaling of Gaussian elimination, Jacobi iteration,
 % and Tri-Diagonal Solver by solving systems of different size and timing the solves
 
-nvals=25:25:250;
+nvals=10:10:100;
 testtimes=zeros(size(nvals));
 lrep=10;     %how many times to repeat each test
 
@@ -67,8 +67,8 @@ for in=1:numel(nvals)
     blarge=ones(nlarge,1);
     for irep=1:lrep     %benchmark will repeat the same solution several times to eliminate random variations from CPU load, etc.
         tstart=cputime;
-        [Atom]=tridiag2(Blarge,blarge);
-        %xlarge=backsub(Atom(1,:));
+        [Jerry]=tridiag3(Blarge,blarge);
+        xlarge=backsub(Jerry(1,:));
         tend=cputime;
         testtimes(in)=testtimes(in)+(tend-tstart)/lrep;
     end %for
