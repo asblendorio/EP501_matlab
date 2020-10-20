@@ -34,11 +34,11 @@ rec = 0;
 finalarray1=[];
 
 for i = 0:1.0:10
-    [xNewton,derivative]=newton_approx(f,i,maxit,tol,verbose);    
+    [xNewton,derivative]=newton_exact(f,i,maxit,tol,verbose);    
     j=j+1; 
     finalarray1(j)=xNewton; 
 end
-
+o
 result1=finalarray1(1,2);
 result2=finalarray1(1,3);
 result3=finalarray1(1,4);

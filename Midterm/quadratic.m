@@ -3,13 +3,13 @@
 %%equation of the form: %  A(x^2)+B(x)+C=0
 %%and compare against roots that you find by hand via factorization or quadratic formula. 
 function [s,j]=quadratic(coef,x)
-q = input('Press 1 to show general solution. Press 2 to solve analytically.');
+q = input('Press 1 to show general/analysitcal solution. Press 2 to solve.');
 
 if q == 1
 syms a b c x
 eqn1 = a.*x.^2 + b.*x + c == 0;
 s = solve(eqn1);
-disp('The solution to the quadratic equation is:');
+disp('The analystical solution to the quadratic equation is:');
 disp(s);
 end %if
 
