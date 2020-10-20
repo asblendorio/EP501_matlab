@@ -1,5 +1,5 @@
 function y=objfun_deriv(x)
 
-y=5.*x.^4 - 60.*x.^3 + 255.*x.^2 - 450.*x + 274;   
+y=2.*(3.*x.^5 - 2.*x.^3 + x);   
 
 end %function

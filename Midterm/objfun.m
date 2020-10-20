@@ -1,5 +1,4 @@
 function y=objfun(x)
-
-y=x.^5-15.*x.^4 + 85.*x.^3 - 225.*x.^2 + 274.*x - 120;    
-
+% A , B, C are constants to allow for derivative to be computed 
+y=x.^6 - x.^4 + x.^2 - 1;    
 end %function
