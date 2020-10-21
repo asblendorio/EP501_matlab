@@ -67,8 +67,8 @@ for in=1:numel(nvals)
     blarge=ones(nlarge,1);
     for irep=1:lrep     %benchmark will repeat the same solution several times to eliminate random variations from CPU load, etc.
         tstart=cputime;
-        [Jerry]=tridiag3(Blarge,blarge);
-        xlarge=backsub(Jerry(1,:));
+        [Awork]=tridiag(Blarge,blarge);
+        xlarge=backsub(Awork(1,:));
         tend=cputime;
         testtimes(in)=testtimes(in)+(tend-tstart)/lrep;
     end %for
