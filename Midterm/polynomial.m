@@ -21,8 +21,5 @@ end %for
 v=b(nref);
 p=b(1:nref-1);
 
-disp('The polynomial is reduced to:');
-disp(p);
-
 end %function  
  
