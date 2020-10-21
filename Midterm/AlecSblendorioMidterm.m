@@ -102,6 +102,7 @@ for in=1:numel(nvals)
         testtimes(in)=testtimes(in)+(tend-tstart)/lrep;
     end %for
     disp([' Tridiagonal solution for system of size ',num2str(nlarge),' takes average time ',num2str(testtimes(in)),' s']);
+    disp(testtimes);
 end %for
 
 figure(1);

@@ -1,4 +1,3 @@
-function y=objfun(x)
-% A , B, C are constants to allow for derivative to be computed 
-y=x.^6 - x.^4 + x.^2 - 1;    
+function y=objfun(x) 
+y=x.^6 -(0.01368).*x.^4 + (0.0000558).*x.^2 - (0.0000000007766);    
 end %function
