@@ -28,10 +28,10 @@ ord=(1:n)';               %ord is a mapping from input row being operated upon t
 %indices must be screen through ord mapping.
 for ir1=1:n-1
     if (verbose)
-        disp('Starting Gauss elimination from row:  ');
-        disp(ir1);
-        disp('Current state of matrix:  ');
-        disp(Amod(ord,:));
+%         disp('Starting Gauss elimination from row:  ');
+%         disp(ir1);
+%         disp('Current state of matrix:  ');
+%         disp(Amod(ord,:));
     end %if
     
     %check scaled pivot elements to see if reordering should be done
@@ -52,12 +52,12 @@ for ir1=1:n-1
         ord(ipivmax)=itmp;
         
         if (verbose)
-            disp('Interchanging rows:  ');
-            disp(itmp);
-            disp(' and:  ');
-            disp(ord(ir1));
-            disp('Current matrix state after interchange:  ');
-            disp(Amod(ord,:));
+%             disp('Interchanging rows:  ');
+%             disp(itmp);
+%             disp(' and:  ');
+%             disp(ord(ir1));
+%             disp('Current matrix state after interchange:  ');
+%             disp(Amod(ord,:));
         end %if
     end %if
     
@@ -69,10 +69,10 @@ for ir1=1:n-1
     end %for
     
     if (verbose)
-        disp('Following elimination for row:  ');
-        disp(ir1);
-        disp(' matrix state:  ');
-        disp(Amod(ord,:));
+%         disp('Following elimination for row:  ');
+%         disp(ir1);
+%         disp(' matrix state:  ');
+%         disp(Amod(ord,:));
     end %if
 end %for
 
@@ -80,21 +80,21 @@ end %for
 
 %first need to re-order the matrix 
 Areorder = Amod(ord,:);
-disp('Matrix before backsub:');
-disp(Areorder);
+% disp('Matrix before backsub:');
+% disp(Areorder);
 %once re-ordered, compute the backsubstitution 
 xback = backsub(Areorder);
-disp('Back Substitution of matrix:');
-disp(xback);
+% disp('Back Substitution of matrix:');
+% disp(xback);
 %to compute determinant need to take the product of the diagonals of the
 %reordered matrix
 determinant1 = prod(diag(Areorder));
 %apply "counter" 
 Adet = determinant1*count;
-disp('The determinant of the Matrix A is:')
-disp(Adet);
+% disp('The determinant of the Matrix A is:')
+% disp(Adet);
 
-disp('Matlab,GNU/Octave built-in solution:');
-disp(det(A));
+% disp('Matlab,GNU/Octave built-in solution:');
+% disp(det(A));
 
 end %function
