@@ -1,4 +1,5 @@
-
+% Problem 3d and e
+% 
 function[r,Pnew]= polySolver(a,r0,tol,nmax)
 nref=length(a)-1;
 r=zeros(nref,1);
@@ -17,13 +18,11 @@ for i=1:1:nref
         err=abs(xn-x);
         ni=ni+1;
         x=xn;
-    end %while 
-    if (ni==nmax && err>tol)
-        disp('Error: not converging');
-    end %if
+    end %while    
     r(i)=x;
     Pnew(i)=ni;
     [~,a]=polynomial(a,x); %deflated
       
 end %for
+
 end %function 
