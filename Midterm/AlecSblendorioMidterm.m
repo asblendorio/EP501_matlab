@@ -24,6 +24,7 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 disp('%%%%%%%%Part 1A Solution:%%%%%%%');
 soln = @tridiag; 
 x = soln(Ait,bit);
+disp('Thomas Algorithm Solution:');
 disp(x);
 disp('%%%%%%%%End Part 1A Solution:%%%%%%%');
 %% Part B
@@ -36,7 +37,7 @@ disp('%%%%%%%%End Part 1A Solution:%%%%%%%');
 % Evaluate performance and scaling of Gaussian elimination, Jacobi iteration,
 % and Tri-Diagonal Solver by solving systems of different size and timing the solves
 disp('%%%%%%%%Part 1B Solution:%%%%%%%');
-nvals=25:25:250;
+nvals=50:50:500;
 testtimes=zeros(size(nvals));
 lrep=10;     %how many times to repeat each test
 
@@ -210,8 +211,8 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 syms x
 coef=[2;-6;4];
 f=@quadratic;
-x=f(coef,x);
-disp(x);
+y=f(coef,x);
+disp(y);
 %% Part B
 % Write a polynomial division algorithm capable of dividing a given polynomial 
 % Pn(x) (of order n and defined by a set of coefficients) by a given divisor (x − N).

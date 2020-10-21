@@ -15,11 +15,11 @@ for ir1=2:nref                                           %loop over rows from 2 
 end %for
 
 %disp('elim([Aref,bref]) = ');
-disp(Awork);
+%disp(Awork);
 %% Illustrate back substitution on B using provided Matlab function
 xsoln=backsub(Awork);
 % disp('Elimination/back sub solution:  ');
-disp(xsoln);
+% disp(xsoln);
 % disp('Matlab,GNU/Octave built-in solution:  ');
 % disp(A\b);
 end %function 
