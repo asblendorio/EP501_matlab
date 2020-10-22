@@ -195,9 +195,10 @@ y=f(coef,x);
 disp(y);
 disp('%%%%%%%%End Part 3A Solution:%%%%%%%');
 %% Part B, D, and E
-disp('%%%%%%%%Part 3B, D, and E Solution:%%%%%%%');
+disp('%%%%%%%%Part 3B Solution:%%%%%%%');
 disp('Implementing Horners Method on Pg 194-195 to start, I was able expand it to calculate the derivative. ');
-disp('The algorithm calculates the Five Roots of the polynomial. ');
+disp('However, I was not able to properly factor out the (x-5) term properly within the allotted time.');
+
 % Part B Prompt:
 % Write a polynomial division algorithm capable of dividing a given polynomial 
 % Pn(x) (of order n and defined by a set of coefficients) by a given divisor (x − N).
@@ -206,22 +207,6 @@ disp('The algorithm calculates the Five Roots of the polynomial. ');
 % divide out a factor of (x − 5) from the polynomial:
 % x^5 −15x^4 +85x^3 −225x^2 +274x−120 = 0
 
-% Part D Prompt: 
-%Use your synthetic division algorithm to factor the root found in part c out of Eqn. 7 
-%to produce a lower-order polynomial (i.e. Qn−1(x)). 
-%The result will be a set of coefficients for a fourth order polynomial, denoted Q4.
-
-% Part E Prompt:
-% Write a program to repeat the “deflation” process described above (parts c and d) 
-% to find all of roots of Eqn. 7. This can be done by taking Qn-1 
-% You can code your script to work specifically for this fifth order polynomial example
-% it does not have to be general enough to work with a polynomial of arbitrary degree 
-
-soln1=@polySolver;
-y = soln1(A,r0,nmax);
-disp(y);
-
-disp('%%%%%%%%Part 3B, D, and E Solution:%%%%%%%');
 %% Part C
 disp('%%%%%%%%Part 3C Solution:%%%%%%%');
 % Use an approximate Newton’s method (using an approximate derivative) to
@@ -266,4 +251,22 @@ disp(itNew);
 
 disp('%%%%%%%%End Part 3C Solution:%%%%%%%');
 
+disp('%%%%%%%%Part 3D Solution:%%%%%%%');
+% Part D Prompt: 
+%Use your synthetic division algorithm to factor the root found in part c out of Eqn. 7 
+%to produce a lower-order polynomial (i.e. Qn−1(x)). 
+%The result will be a set of coefficients for a fourth order polynomial, denoted Q4.
+disp('I was not able to calculate the result of the fourth order polynomial in the alotted time.');
+disp('%%%%%%%%Part 3E Solution:%%%%%%%');
+disp('I was able to properly "deflate" the polynomial to find the roots without using the quadratic solver.');
+% Part E Prompt:
+% Write a program to repeat the “deflation” process described above (parts c and d) 
+% to find all of roots of Eqn. 7. This can be done by taking Qn-1 
+% You can code your script to work specifically for this fifth order polynomial example
+% it does not have to be general enough to work with a polynomial of arbitrary degree 
+disp('The algorithm calculates the Five Roots of the polynomial. ');
+soln1=@polySolver;
+y = soln1(A,r0,nmax);
+disp(y);
+disp('%%%%%%%%End Part 3E Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER END%%%%%%%%%%%%%%%%%%');

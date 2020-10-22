@@ -7,17 +7,17 @@ nref=length(A)-1;
 r=zeros(nref,1);    % setting up empty array
 Pnew=zeros(nref,1);  % setting up empty array
 for i=1:1:nref      
-    ni=0;
+    j=0;
     x=r0;
-    while ni<nmax   
+    while j<nmax   
         [v,p]=polynomial(A,x);   % pass in the synthetic polynomial division algorithm to perform factoring 
         [dv,~]=polynomial(p,x);   % computes the derivative by applying SPDA  
         xn=x-v/dv;              
-        ni=ni+1;
+        j=j+1;
         x=xn;
     end %while    
     r(i)=x;                 
-    Pnew(i)=ni;
+    Pnew(i)=j;
     [~,A]=polynomial(A,x); %performs deflation for each polynomial
 end %for
 
