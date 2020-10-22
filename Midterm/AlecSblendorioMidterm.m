@@ -239,8 +239,9 @@ disp('%%%%%%%%Part 3B, D, and E Solution:%%%%%%%');
 % to find all of roots of Eqn. 7. This can be done by taking Qn-1 
 % You can code your script to work specifically for this fifth order polynomial example
 % it does not have to be general enough to work with a polynomial of arbitrary degree 
-
-
+soln1=@polySolver;
+y = soln1(A,r0,nmax);
+disp(y);
 
 disp('%%%%%%%%Part 3B, D, and E Solution:%%%%%%%');
 %% Part C
@@ -250,33 +251,43 @@ disp('%%%%%%%%Part 3C Solution:%%%%%%%');
 % A script to demonstrate solutions to nonlinear equations on closed
 % and open domains
 % requires:  objfun?.m (set function pointer f to desired function at beginning of program)
+%% Params for Newton iteration
+maxit=100;       %maximum number of iterations allowed
+minx=0;
+maxx=2*pi;
+tol=1e-9;        %how close to zero we need to get to cease iterations
+
+%% Objective function defs.
+f=@objfun2;      %set the function for which we are finding roots, change to illustrate different problems
+fprime=@objfun2_deriv;
+x=linspace(minx,maxx,64);   %grid for basic plotting purposes
+ygrid=f(x);
+verbose=true;
 
 %% Plot the function we are finding roots for
-figure(2);
+figure(3);
 plot(x,ygrid);
 title('Objective function')
 xlabel('x')
 ylabel('y')
 axis tight;
 
-disp('%%%%%%%%End Part 3B Solution:%%%%%%%');
-%% Part D 
-disp('%%%%%%%%Part 3D Solution:%%%%%%%');
-%Use your synthetic division algorithm to factor the root found in part c out of Eqn. 7 
-%to produce a lower-order polynomial (i.e. Qn−1(x)). 
-%The result will be a set of coefficients for a fourth order polynomial, denoted Q4.
-disp('%%%%%%%%End Part 3D Solution:%%%%%%%');
+%% Newton-Rhapson root-finding method
+verbose=true;
+[xNewton,itNew,flag]=newton_approx(f,-0.1*i,100,tol,verbose);
+disp('1st Root value through Approx Newton method:  ');
+disp(xNewton);
+disp('Number of iterations required to reach tolerance:  ');
+disp(itNew);
 
-%% Part E
-disp('%%%%%%%%Part 3E Solution:%%%%%%%');
-% Write a program to repeat the “deflation” process described above (parts c and d) 
-% to find all of roots of Eqn. 7. This can be done by taking Qn-1 
-% You can code your script to work specifically for this fifth order polynomial example
-% it does not have to be general enough to work with a polynomial of arbitrary degree 
+[xNewton,itNew,flag]=newton_approx(f,0.1*i,100,tol,verbose);
+disp('1st Root value through Approx Newton method:  ');
+disp(xNewton);
+disp('Number of iterations required to reach tolerance:  ');
+disp(itNew);
 
+disp('%%%%%%%%End Part 3C Solution:%%%%%%%');
 
-
-disp('%%%%%%%%End Part 3E Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER END%%%%%%%%%%%%%%%%%%');
 
 

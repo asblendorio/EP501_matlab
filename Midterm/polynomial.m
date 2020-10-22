@@ -14,13 +14,14 @@ function [v,p] = polynomial(a,x)
 % p(x)=a(1) x^n +a(2) x^(n-1) + ...
 nref = length(a);
 b=zeros(nref,1);
-b(1)=a(1);
+b(1)=a(1);      
 for i=2:1:nref
     b(i)=a(i)+b(i-1).*x;
 end %for  
 v=b(nref);
 p=b(1:nref-1);
-disp('The Polynomial has been factored to:  ');
+
+disp('The Polynomial has been factored to: ');
 disp(p);
 
 end %function  
