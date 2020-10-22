@@ -243,7 +243,7 @@ ygrid=f(x);
 verbose=true;
 
 %% Plot the function we are finding roots for
-figure(3);
+figure(2);
 plot(x,ygrid);
 title('Objective function')
 xlabel('x')
