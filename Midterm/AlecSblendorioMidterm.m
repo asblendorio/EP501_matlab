@@ -105,7 +105,7 @@ for in=1:numel(nvals)
         testtimes(in)=testtimes(in)+(tend-tstart)/lrep;
     end %for
     disp([' Tridiagonal solution for system of size ',num2str(nlarge),' takes average time ',num2str(testtimes(in)),' s']);
-    disp(testtimes);
+    
 end %for
 
 figure(1);
@@ -118,7 +118,6 @@ title('Empirically Determined Performance');
 disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 %% Part C & D
 % % Handwritten Components are scanned and added in here
-
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem 2
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
@@ -140,26 +139,23 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 % compute values for the sound and Alfven speeds in the plasma.
 %% Part F
 disp('%%%%%%%%Part 2F Solution:%%%%%%%');
+disp('Part 2F has required considerable time to figure out a sensible convergence.');
+disp('I was not able to identify the correct criteria within the timeframe.');
 % Use an exact Newton method (i.e. use analytically computed derivatives)
 % to find numerical values for all roots using θ = π/4 for the angle of propagation. 
 % Make sure you select a sensible convergence criteria given the coefficients 
 % for this problem and treat all parameters except for the unknown roots for v 
 % to be constant for purposes of developing derivatives needed to implement Newton’s method.
-% A script to demonstrate solutions to nonlinear equations on closed
-% and open domains
-%
-% requires:  objfun?.m (set function pointer f to desired function at beginning of program)
 
 % A script to demonstrate solutions to nonlinear equations on closed
 % and open domains
-%
 % requires:  objfun?.m (set function pointer f to desired function at beginning of program)
 
 %% Params for Newton iteration
 maxit=100;       %maximum number of iterations allowed
 minx=0;
 maxx=pi/4;
-tol=1e-6;        %how close to zero we need to get to cease iterations
+tol=1e-9;        %how close to zero we need to get to cease iterations
 
 %% Objective function defs.
 f=@objfun;      %set the function for which we are finding roots, change to illustrate different problems
@@ -169,38 +165,17 @@ ygrid=f(x);
 verbose=true;
 
 %% Newton-Rhapson root-finding method
-% verbose=true;
-% [xNewton,itNew,flag]=newton_exact(f,fprime,-1*i,100,tol,verbose);
-% disp('Root value through Newton method:  ');
-% disp(xNewton);
-% disp('Number of iterations required to reach tolerance:  ');
-% disp(itNew);
-% 
-% [xNewton,itNew,flag]=newton_exact(f,fprime,1*i,100,tol,verbose);
-% disp('Root value through Newton method:  ');
-% disp(xNewton);
-% disp('Number of iterations required to reach tolerance:  ');
-% disp(itNew);
-
 j=0;
 rec = 0;
 finalarray=[];
 verbose=true;
 
-for i = 0:0.15:10
+for i = -10:0.15:10
     [xNewton,itNew,flag]=newton_exact(f,fprime,i,100,tol,verbose);    
     j=j+1; 
     finalarray(j)=xNewton; 
 end
 
-disp(finalarray);
-
-% result1=finalarray1(1,2);
-% result2=finalarray1(1,3);
-% result3=finalarray1(1,4);
-% result4=finalarray1(1,5);
-% result5=finalarray1(1,6);
-% fprintf('The Six Roots of the polynomial are: %d,%d,%d,%d,%d\n',result1,result2,result3,result4,result5);
 disp('%%%%%%%%End Part 2F Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem 3 
@@ -221,6 +196,8 @@ disp(y);
 disp('%%%%%%%%End Part 3A Solution:%%%%%%%');
 %% Part B, D, and E
 disp('%%%%%%%%Part 3B, D, and E Solution:%%%%%%%');
+disp('Implementing Horners Method on Pg 194-195 to start, I was able expand it to calculate the derivative. ');
+disp('The algorithm calculates the Five Roots of the polynomial. ');
 % Part B Prompt:
 % Write a polynomial division algorithm capable of dividing a given polynomial 
 % Pn(x) (of order n and defined by a set of coefficients) by a given divisor (x − N).
@@ -239,6 +216,7 @@ disp('%%%%%%%%Part 3B, D, and E Solution:%%%%%%%');
 % to find all of roots of Eqn. 7. This can be done by taking Qn-1 
 % You can code your script to work specifically for this fifth order polynomial example
 % it does not have to be general enough to work with a polynomial of arbitrary degree 
+
 soln1=@polySolver;
 y = soln1(A,r0,nmax);
 disp(y);
@@ -289,6 +267,3 @@ disp(itNew);
 disp('%%%%%%%%End Part 3C Solution:%%%%%%%');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER END%%%%%%%%%%%%%%%%%%');
-
-
-

@@ -1,4 +1,4 @@
-% Problem 3 B through E 
+% Problem 3 B , D, and E 
 % This is an implementation of the Newton Method found on pg 194-195.
 % that will perform all tasks laid out in problems 3 B through E. 
 % This expands on the original synthetic division algorithm (SPDA) 
