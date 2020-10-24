@@ -20,7 +20,5 @@ for i=2:1:nref
 end %for  
 v=b(nref);
 p=b(1:nref-1);
-disp(p);
-
 end %function  
  
