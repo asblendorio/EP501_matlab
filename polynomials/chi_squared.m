@@ -7,17 +7,17 @@
 % ν is the number of degrees of freedom in your fit.
 % ν  = number of data points(n) minus number of parameters(P) being estimated
 function chi2 = chi_squared(ynoisy,x,P,sigmay)
+n = length(ynoisy);
+finalarray=zeros();
+j=1;
+for i=1:n
+    terms = (((ydata(i)-ynoisy(i).^2)./(sigmay(i)).^2));
+    finalarray(1,j)=terms;
+    j = j+1;
+end % for    
 
-n = max(size(ynoisy));
-terms = (((ynoisy-x).^2)./sigmay).^2;
 dof = (n-P);
-chi2 = (1./dof)*sum(terms);
-disp('degrees of freedom:');
-disp(dof);
-t = chi2/dof;
-disp('testing if fit is good:');
-disp(t);
-
+chi2 = (1./dof)*sum(finalarray);
 disp('The reduced Chi Squared Value of a polynomial of order N is: ');
 
 end %function 

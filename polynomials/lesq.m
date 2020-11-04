@@ -9,37 +9,61 @@
 % Test your results against the built-in Matlab functions polyfit and polyval 
 % Compare the error vectors and residuals for the two fits.
 
-function [x] = lesq(ndim,ndeg,nref,x,f,a,b,c)
-nref = length(); % number of data points and polynomial coefficients
-x = size(10,1);
-f = size(10,1);
-a = size(10,10);
-b = size(10,1);
-c = size(10,1); 
-sumx=0.0;
-sumxx=0.0;
-sumf=0.0;
-sumxf=0.0;
-for i = 1:nref
-    sumx=sumx+x(i);
-    sumxx=sumxx+x(i).*2;
-    sumf=sumf+f(i);
-    sumxf=sumxf+x(i).*f(i);
+function lesq(x,ynoisy,sigmay,n)
+nref = length(x); % number of data points and polynomial coefficients
+J=cat(2,ones(nref,1),x(:)); 
+if n >= 1
+    for i=2:n
+        J=cat(2,J,x(:).^i);
+    end %for
+end %if
+
+M=J'*J;
+yprime=J'*ynoisy(:);
+
+[Mmod,ord]=Gauss_elim(M,yprime);
+avec=backsub(Mmod(ord,:));
+yfit=avec(1);
+
+% loop over yfit data 
+for i=1:n
+    yfit=yfit+avec(i+1).*x.^i;
 end %for
 
-a(1,1) = nref;
-a(1,2) = sumx;
-a(2,1) = sumx;
-a(2,2) = sumxx;
-b(1) = sumf;
-b(2) = sumxf;
+% calculate the error and residual from Dr. Z
+er = abs(yfit-ynoisy);  
+residual = sum(er);
+% disp('Error');
+% disp(residual);
 
-%Perform Gaussian Elimination here 
-verbose = true;
-gaussx = Gauss_elim(A,b,true);
-disp(gaussx);
+%% Plotter and Compare against MATLAB and Polyval
+figure;
+plot(x,ynoisy,'b*','MarkerSize',2);
+hold on; 
 
-%% Plotter 
+l=2;
+coeffs=polyfit(x,ynoisy,l);
+xlarge=linspace(-1,1,50);
+ylarge=polyval(coeffs,xlarge);
+hold on;
 
+plot(xlarge,ylarge,'--','linewidth',2);
+hold on;
+%linear fit 
+plot(x,yfit,'--','linewidth',2);
+hold on;
+%quadratic fit 
+plot(x,yfit,'--','linewidth',2);
+hold on;
+
+legend('Data','PolyVal Fit','Linear Fit','Quadratic Fit');
+disp('LLS');
+disp(avec);
+disp('Matlab,GNU/Octave built-in solution:');
+disp(coeffs);
+
+%% Perform Chi Squared Goodness of Fit 
+[chi2] = chi_squared(ynoisy,x,2,sigmay);
+disp(chi2);
 
 end %function 
