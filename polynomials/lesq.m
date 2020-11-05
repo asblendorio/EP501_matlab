@@ -20,25 +20,26 @@ end %if
 
 M=J'*J;
 yprime=J'*ynoisy(:);
-
 [Mmod,ord]=Gauss_elim(M,yprime);
 avec=backsub(Mmod(ord,:));
+% Manual Linear Fit 
 yfit=avec(1);
-
-% loop over yfit data 
+% yfitlin=avec(1)+avec(2).*x;
+% yfitquad=avec(1);
+% loop over yfit data for quadratic and higher order 
 for i=1:n
     yfit=yfit+avec(i+1).*x.^i;
 end %for
 
 % calculate the error and residual from Dr. Z
-er = abs(yfit-ynoisy);  
-residual = sum(er);
+% er = abs(yfit-ynoisy);  
+% residual = sum(er);
 % disp('Error');
 % disp(residual);
 
 %% Plotter and Compare against MATLAB and Polyval
 figure;
-plot(x,ynoisy,'b*','MarkerSize',2);
+plot(x,ynoisy,'o','MarkerSize',2);
 hold on; 
 
 l=2;
@@ -47,23 +48,24 @@ xlarge=linspace(-1,1,50);
 ylarge=polyval(coeffs,xlarge);
 hold on;
 
-plot(xlarge,ylarge,'--','linewidth',2);
+plot(xlarge,ylarge,'k--','linewidth',2);
 hold on;
 %linear fit 
-plot(x,yfit,'--','linewidth',2);
+plot(x,yfit,'b--','linewidth',2);
 hold on;
 %quadratic fit 
-plot(x,yfit,'--','linewidth',2);
-hold on;
+% plot(x,yfitquad,'g--','linewidth',2);
+hold off;
 
-legend('Data','PolyVal Fit','Linear Fit','Quadratic Fit');
-disp('LLS');
+% legend('Data','PolyVal Fit','Linear Fit','Quadratic Fit');
+disp('Linear Least Square');
 disp(avec);
 disp('Matlab,GNU/Octave built-in solution:');
 disp(coeffs);
 
 %% Perform Chi Squared Goodness of Fit 
-[chi2] = chi_squared(ynoisy,x,2,sigmay);
-disp(chi2);
-
+% [chi2_lin] = chi_squared(ynoisy,x,yfitlin,sigmay);
+% disp(chi2_lin);
+% [chi2_quad] = chi_squared(ynoisy,x,yfitquad,sigmay);
+% disp(chi2_quad);
 end %function 
