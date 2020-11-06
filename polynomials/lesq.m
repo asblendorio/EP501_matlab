@@ -9,7 +9,7 @@
 % Test your results against the built-in Matlab functions polyfit and polyval 
 % Compare the error vectors and residuals for the two fits.
 
-function lesq(x,ynoisy,sigmay,n)
+function [avec,coeffs,]= lesq(x,ynoisy,sigmay,n)
 nref = length(x); % number of data points and polynomial coefficients
 J=cat(2,ones(nref,1),x(:)); 
 if n >= 1

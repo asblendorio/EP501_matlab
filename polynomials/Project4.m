@@ -32,9 +32,12 @@
 %%Part D: Use your goodness-of-fit statistic to determine whether is best 
 %%to fit these data with a linear, quadratic, or cubic polynomial.
 %%Show how you reached your decision.
- 
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
+disp('This is for linear fit');
+soln1=@lesq;
+x=soln1(x,ynoisy,sigmay,1);
+disp(x);
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem #2: This problem concerns bilinear interpolation methods and requires use of the grid (variables xg,yg) and data samples (f2D) from test interp.mat.
@@ -61,6 +64,7 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 
 disp('%%%%%%%%Part 2A Solution:%%%%%%%');
+
 
 disp('%%%%%%%%End Part 2A Solution:%%%%%%%');
 
