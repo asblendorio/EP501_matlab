@@ -9,7 +9,7 @@
 % Test your results against the built-in Matlab functions polyfit and polyval 
 % Compare the error vectors and residuals for the two fits.
 
-function [avec,coeffs,]= lesq(x,ynoisy,sigmay,n)
+function [coeffs,yfit,chi2_lin,chi2_quad] = lesq(x,ynoisy,sigmay,n)
 nref = length(x); % number of data points and polynomial coefficients
 J=cat(2,ones(nref,1),x(:)); 
 if n >= 1
@@ -66,6 +66,6 @@ disp(coeffs);
 %% Perform Chi Squared Goodness of Fit 
 [chi2_lin] = chi_squared(ynoisy,yfit,1,sigmay);
 disp(chi2_lin);
-% [chi2_quad] = chi_squared(ynoisy,yfitquad,x,sigmay);
-% disp(chi2_quad);
+[chi2_quad] = chi_squared(ynoisy,yfit,2,sigmay);
+disp(chi2_quad);
 end %function 
