@@ -18,7 +18,7 @@ end %for
 v = (n-P);
 chi2 = (1./v).*sum(finalarray);
 
-disp('The reduced Chi Squared Value of a polynomial of order:');
+fprintf('The reduced Chi Squared Value of a polynomial of order %d is %f',(P),(chi2));
 
 end %function 
 

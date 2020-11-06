@@ -2,9 +2,11 @@
 %% Due Date: November 6, 2020
 %% Subject: EP 501 Numerical Methods for Scientists and Engineers 
 %% Project #4
-% Problem #1: This problem concerns least squares and data fitting and requires use of the example dataset from the repository, test lsq.mat, which provides data for variables xi, yi, σyi referenced below.\n
-% Problem #2: This problem concerns bilinear interpolation methods and requires use of the grid (variables xg,yg) and data samples (f2D) from test interp.mat.\n
-
+%%Problem 1: This problem concerns least squares and data fitting and requires use of the example dataset from the repository, test lsq.mat, which provides data for variables xi, yi, σyi referenced below.
+%%Problem #2: This problem concerns bilinear interpolation methods and requires use of the grid (variables xg,yg) and data samples (f2D) from test interp.mat
+%% Data Input 
+load('test_lsq.mat');
+load('test_interp.mat');
 %% Problem #1: Finding roots of functions lacking a closed form
 %%Part A: Write a program that performs a linear least squares fit of a set 
 %%of data to a polynomial of arbitrary order n. You may use any functions 
@@ -36,10 +38,21 @@
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 disp('This is for linear fit');
 soln1=@lesq;
-x=soln1(x,ynoisy,sigmay,1);
-disp(x);
+a=soln1(x,ynoisy,sigmay,1);
+disp(a);
+
+disp('This is for quadratic fit');
+soln2=@lesq;
+b=soln2(x,ynoisy,sigmay,2);
+disp(b);
+
+disp('This is for cubic fit');
+soln3=@lesq;
+c=soln3(x,ynoisy,sigmay,3);
+disp(c);
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
+disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER PLOTS%%%%%%%%%%%%%%%%%%'
 %% Problem #2: This problem concerns bilinear interpolation methods and requires use of the grid (variables xg,yg) and data samples (f2D) from test interp.mat.
 %%Part A:  Write a function that takes in a grid of points describing some independent variable
 %%(say xi), and a point to which the data are to be interpolated x′ and 

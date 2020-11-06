@@ -9,7 +9,7 @@
 % Test your results against the built-in Matlab functions polyfit and polyval 
 % Compare the error vectors and residuals for the two fits.
 
-function [coeffs,yfit,chi2_lin,chi2_quad] = lesq(x,ynoisy,sigmay,n)
+function [coeffs] = lesq(x,ynoisy,sigmay,n)
 nref = length(x); % number of data points and polynomial coefficients
 J=cat(2,ones(nref,1),x(:)); 
 if n >= 1
@@ -51,21 +51,17 @@ hold on;
 plot(xlarge,ylarge,'k--','linewidth',2);
 hold on;
 %linear fit 
-plot(x,yfit,'b--','linewidth',2);
-hold on;
-%quadratic fit 
-% plot(x,yfitquad,'g--','linewidth',2);
+plot(x,yfit,'r--','linewidth',2);
+legend('Input Data','True Function ','New Fit');
 hold off;
 
 % legend('Data','PolyVal Fit','Linear Fit','Quadratic Fit');
-disp('Linear Least Square');
+fprintf('Coefficients of polynomial of order ,%d, from Linear Least Square Algorithm:',(n));
 disp(avec);
 disp('Matlab,GNU/Octave built-in solution:');
 disp(coeffs);
 
 %% Perform Chi Squared Goodness of Fit 
-[chi2_lin] = chi_squared(ynoisy,yfit,1,sigmay);
-disp(chi2_lin);
-[chi2_quad] = chi_squared(ynoisy,yfit,2,sigmay);
-disp(chi2_quad);
+[chi2] = chi_squared(ynoisy,yfit,n,sigmay);
+disp(chi2);
 end %function 
