@@ -6,7 +6,7 @@ x=xg;
 y=yg;
 f=f2D;
 [X,Y] = meshgrid(x,y);
-[xprime,yprime] = bilinear(x,y,4);
+[yi,y1,yi1,xi,x1,xi1] = bilinear(order,yg,ygi,xg,xgi);
 x1=xprime;
 y1=yprime;
 

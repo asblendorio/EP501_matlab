@@ -6,15 +6,19 @@
 % σ_i is the uncertainty of the data 
 % ν is the number of degrees of freedom in your fit.
 % ν  = number of data points(n) minus number of parameters(P) being estimated
-function chi2 = chi_squared(ynoisy,yfit,x,P,sigmay)
+function chi2 = chi_squared(ynoisy,yfit,P,sigmay)
 n = max(size(ynoisy));
+finalarray=zeros(length(n));
+t=1;
 for i=1:n
-    terms = ((ynoisy(i)-yfit(x(i))).^2/(sigmay(i).^2));
+    terms = (((ynoisy(i)-yfit(i))).^2/(sigmay(i).^2));
+    finalarray(1,t)=terms;
+    t=t+1;
 end %for
-dof = (n-P);
-chi2 = (1./dof).*sum(terms);
+v = (n-P);
+chi2 = (1./v).*sum(finalarray);
 
-% fprintf('The reduced Chi Squared Value of a polynomial of order %f',abs(chi2));
+disp('The reduced Chi Squared Value of a polynomial of order:');
 
 end %function 
 

@@ -42,7 +42,7 @@ figure;
 plot(x,ynoisy,'o','MarkerSize',2);
 hold on; 
 
-l=2;
+l=n;
 coeffs=polyfit(x,ynoisy,l);
 xlarge=linspace(-1,1,50);
 ylarge=polyval(coeffs,xlarge);
@@ -64,7 +64,7 @@ disp('Matlab,GNU/Octave built-in solution:');
 disp(coeffs);
 
 %% Perform Chi Squared Goodness of Fit 
-[chi2_lin] = chi_squared(ynoisy,yfit,x,1,sigmay);
+[chi2_lin] = chi_squared(ynoisy,yfit,1,sigmay);
 disp(chi2_lin);
 % [chi2_quad] = chi_squared(ynoisy,yfitquad,x,sigmay);
 % disp(chi2_quad);
