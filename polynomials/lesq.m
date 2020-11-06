@@ -64,8 +64,8 @@ disp('Matlab,GNU/Octave built-in solution:');
 disp(coeffs);
 
 %% Perform Chi Squared Goodness of Fit 
-% [chi2_lin] = chi_squared(ynoisy,x,yfitlin,sigmay);
-% disp(chi2_lin);
-% [chi2_quad] = chi_squared(ynoisy,x,yfitquad,sigmay);
+[chi2_lin] = chi_squared(ynoisy,yfit,x,1,sigmay);
+disp(chi2_lin);
+% [chi2_quad] = chi_squared(ynoisy,yfitquad,x,sigmay);
 % disp(chi2_quad);
 end %function 
