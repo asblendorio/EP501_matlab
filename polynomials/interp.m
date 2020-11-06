@@ -1,12 +1,9 @@
-%% Set paths
-addpath ../linear_algebra;
-
 %% Illustration of bilinear interpolation, single interval of interest
 x=xg;
 y=yg;
 f=f2D;
 [X,Y] = meshgrid(x,y);
-[yi,y1,yi1,xi,x1,xi1] = bilinear(order,yg,ygi,xg,xgi);
+[yi,y,yi1,xi,x,xi1] = bilinear(2,yg,ygi,xg,xgi);
 x1=xprime;
 y1=yprime;
 

@@ -4,6 +4,7 @@
 %% Project #4
 %%Problem 1: This problem concerns least squares and data fitting and requires use of the example dataset from the repository, test lsq.mat, which provides data for variables xi, yi, σyi referenced below.
 %%Problem #2: This problem concerns bilinear interpolation methods and requires use of the grid (variables xg,yg) and data samples (f2D) from test interp.mat
+% Collaboration with Sho Okayama, Dennis Turano, and Bartosz Kwiecisnki
 %% Data Input 
 load('test_lsq.mat');
 load('test_interp.mat');
@@ -51,8 +52,13 @@ soln3=@lesq;
 c=soln3(x,ynoisy,sigmay,3);
 disp(c);
 
+%Comments on Answers:
+% Inputting the function lesq.m into this script requires I have at least
+% one output argument so it can run. Because of that, there are several
+% instances of 'extra' answers throughout the execution of this code. 
+
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
-disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER PLOTS%%%%%%%%%%%%%%%%%%'
+disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER PLOTS%%%%%%%%%%%%%%%%%%');
 %% Problem #2: This problem concerns bilinear interpolation methods and requires use of the grid (variables xg,yg) and data samples (f2D) from test interp.mat.
 %%Part A:  Write a function that takes in a grid of points describing some independent variable
 %%(say xi), and a point to which the data are to be interpolated x′ and 
@@ -76,14 +82,55 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER PLOTS%%%%%%%%%%%%%%%%%%'
 %%grid point to which the data are to be interpolated for this test.
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 
-disp('%%%%%%%%Part 2A Solution:%%%%%%%');
+%% Illustration of bilinear interpolation, single interval of interest
+x=xg;
+y=yg;
+f=f2D;
+[X,Y] = meshgrid(x,y);
+[yi,y,yi1,xi,x,xi1] = bilinear(2,yg,ygi,xg,xgi);
+x1=xprime;
+y1=yprime;
+
+% Manually written
+fvec=f(:);
+xvec=X(:);
+yvec=Y(:);
+M=[ones(4,1),xvec(:),yvec(:),xvec(:).*yvec(:)];
+[Mmod,order]=Gauss_elim(M,fvec);
+avec=backsub(Mmod(order,:));
+finterpmanual=avec(1)+avec(2)*x1+avec(3)*y1+avec(4)*x1*y1;
+
+% Matlab version
+finterp=interp2(X,Y,f,x1,y1);
+
+%Visual interpolation point:  x1,y1
+figure(1);
+imagesc(x,y,f);
+axis xy;
+xlabel('x');
+ylabel('y');
+c=colorbar;
+ylabel(c,'f(x,y)')
+hold on;
+plot(xvec,yvec,'w^','MarkerSize',15,'MarkerFaceColor','white');
+plot(x1,y1,'wo','MarkerSize',20,'MarkerFaceColor','white');
+hold off;
 
 
-disp('%%%%%%%%End Part 2A Solution:%%%%%%%');
+%% Illustrate cubic spline approximations using Matlab functions
+x=linspace(-5,5,15);
+y=sin(x);
+figure(2);
+plot(x,y,'o','MarkerSize',20);
 
-disp('%%%%%%%%Part 2B Solution:%%%%%%%');
+splinedef=spline(x,y);
+x2=linspace(min(x),max(x),256);
+y2=ppval(splinedef,x2);
+hold on;
+plot(x2,y2,'.');
 
-disp('%%%%%%%% End Part 2B Solution:%%%%%%%');
+y2true=sin(x2);
+plot(x2,y2true,'-');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
 
