@@ -40,23 +40,21 @@ end %for
 %% Plotter and Compare against MATLAB and Polyval
 figure(1);
 plot(x,ynoisy,'o','MarkerSize',2);
-hold off; 
+hold on; 
 
-figure(2);
 l=n;
 coeffs=polyfit(x,ynoisy,l);
 xlarge=linspace(-1,1,50);
 ylarge=polyval(coeffs,xlarge);
-hold off;
+hold on;
 
-figure(3);
 plot(xlarge,ylarge,'k--','linewidth',2);
-hold off;
+hold on;
 %linear fit 
-figure(4);
+
 plot(x,yfit,'r--','linewidth',2);
-legend('Input Data','True Function ','New Fit');
-hold off;
+legend('Input Data','True Matlab Function ','New Algorithm Fit');
+hold on;
 
 fprintf('Coefficients of polynomial of order ,%d, from Linear Least Square Algorithm:',(n));
 disp(avec);

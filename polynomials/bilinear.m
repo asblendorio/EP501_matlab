@@ -38,7 +38,7 @@ disp(yi);
 disp(xi1);
 disp(xi);
 %% Plotter for 2 A and B
-figure(5);
+figure(3);
 plot(xint,yint,'*','MarkerSize',5,'MarkerFaceColor','red');
 hold on;
 plot(xg(xi),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
@@ -55,7 +55,7 @@ xvec=xi1(:);
 yvec=yi1(:);
 f = f2D;
 
-figure(6);
+figure(4);
 imagesc(x,y,f);
 axis xy;
 xlabel('x');
