@@ -20,6 +20,7 @@ finterpmanual=avec(1)+avec(2)*x1+avec(3)*y1+avec(4)*x1*y1;
 
 % Matlab version
 finterp=interp2(X,Y,f,x1,y1);
+disp(finterp);
 
 %Visual interpolation point:  x1,y1
 figure(1);

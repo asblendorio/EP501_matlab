@@ -13,33 +13,47 @@
 % of fk at the points {x′k,yk′ }. Write your program so that the input
 % points are simply a flat list and not necessarily a 2D grid of points 
 
-function [yi,y1,yi1,xi,x1,xi1] = bilinear(order,yg,ygi,xg,xgi)
-nref=length(yg);
-y=ygi(order);
-for i=1:1:nref-1
-    if (y-yg(i)) < 1
-       ynew=i;
-       yi=yg(i);
-       yi1=yg(i+1);
+function [xi,xi1,yi,yi1] = bilinear(xint,yint,yg,ygi,xg,xgi)
+xint=2;
+nref1=length(xg);
+x=zeros(1,nref1);
+for i=1:nref1
+    x(i) = (xg(i)-xint);
+    if x(i) > 0
+        if x(i-1) < 0 
+            xi1 = x(i);
+            xi = i-1;
+        end %if 
     end %if
 end %for 
 
-nref2=length(xg);
-x=xgi(order);
-for i=1:1:nref2-1
-    if (x-xg(i))<1
-        xnew=i;
-        xi=xg(i);
-        xi1=xg(i+1);
-    end %if 
-end %for     
+yint=1;
+nref2=length(yg);
+y=zeros(1,nref2);
+for i=1:nref2
+    y(i) = yg(i)-yint;
+    if y(i) > 0
+        if y(i-1) < 0 
+            yi1 = y(i);          
+            yi = i-1;
+        end %if 
+    end %if
+end %for 
 
 disp(yi1);
-disp(y);
-disp(yi);
-
+disp(yi); 
 disp(xi1);
-disp(x);
 disp(xi);
+
+plot(xint,yint,'*','MarkerSize',5,'MarkerFaceColor','red');
+hold on;
+plot(xg(xi),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
+hold on;
+plot(xg(xi+1),yg(yi+1),'o','MarkerSize',5,'MarkerFaceColor','blue');
+hold on;
+plot(xg(xi),yg(yi+1),'o','MarkerSize',5,'MarkerFaceColor','blue');
+hold on;
+plot(xg(xi+1),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
+hold off
 
 end % function 
