@@ -88,7 +88,7 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 % A point of interest is the values that are output as seen below. The
 % bilinear interpolation method was completed for a set of data with a
 % hardcoded value (as in xint and yint), and it works. However, when it is
-% applied to the test data (test_interp.m) then trouble ensues. 
+% applied to the test data (test_interp.m) then trouble ensues. clos
 %% Comments on Problem #2C
 % Figure 4 shows what the algorithm produces for a bilinear interpolation function 
 % that takes in a sequence of data points {x′k,yk′} to which data are being
