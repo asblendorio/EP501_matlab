@@ -82,17 +82,17 @@ end %for
 Areorder = Amod(ord,:);
 %once re-ordered, compute the backsubstitution 
 xback = backsub(Areorder);
-disp('Back Substitution of matrix:');
-disp(xback);
+% disp('Back Substitution of matrix:');
+% disp(xback);
 %to compute determinant need to take the product of the diagonals of the
 %reordered matrix
 determinant1 = prod(diag(Areorder));
 %apply "counter" 
 Adet = determinant1*count;
-disp('The determinant of the Matrix A is:')
-disp(Adet);
-
-disp('Matlab,GNU/Octave built-in solution:');
-disp(det(A));
+% disp('The determinant of the Matrix A is:')
+% disp(Adet);
+% 
+% disp('Matlab,GNU/Octave built-in solution:');
+% disp(det(A));
 
 end %function

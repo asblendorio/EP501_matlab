@@ -6,14 +6,7 @@
 % function that works over a 2D grid x, y. I.e. given two grids xi, yj 
 % find the indices i, j such that: xi ≤ x′ ≤ xi+1, yj ≤ y′ ≤ yj+1.
 
-% Problem 2(c) Use your results from parts a and b to create a bilinear 
-% interpolation function that takes in a sequence of data points {x′k,yk′ } 
-% to which data are being interpolated, a grid xi,yj, and a dataset fij 
-% that is defined over this grid and produces bilinearly interpolated values 
-% of fk at the points {x′k,yk′ }. Write your program so that the input
-% points are simply a flat list and not necessarily a 2D grid of points 
-
-function [xi,xi1,yi,yi1] = bilinear(xint,yint,yg,ygi,xg,xgi)
+function [xi,xi1,yi,yi1] = bilinear(yg,xg,f2D)
 xint=2;
 nref1=length(xg);
 x=zeros(1,nref1);
@@ -27,7 +20,7 @@ for i=1:nref1
     end %if
 end %for 
 
-yint=1;
+yint=2;
 nref2=length(yg);
 y=zeros(1,nref2);
 for i=1:nref2
@@ -45,15 +38,32 @@ disp(yi);
 disp(xi1);
 disp(xi);
 
-plot(xint,yint,'*','MarkerSize',5,'MarkerFaceColor','red');
+xvec=xi1(:);
+yvec=yi1(:);
+f = f2D;
+
+figure(1);
+imagesc(x,y,f);
+axis xy;
+xlabel('x');
+ylabel('y');
+c=colorbar;
+ylabel(c,'f(x,y)')
 hold on;
-plot(xg(xi),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
-hold on;
-plot(xg(xi+1),yg(yi+1),'o','MarkerSize',5,'MarkerFaceColor','blue');
-hold on;
-plot(xg(xi),yg(yi+1),'o','MarkerSize',5,'MarkerFaceColor','blue');
-hold on;
-plot(xg(xi+1),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
-hold off
+plot(xvec,yvec,'w^','MarkerSize',15,'MarkerFaceColor','white');
+plot(xint,yint,'wo','MarkerSize',20,'MarkerFaceColor','white');
+hold off;
+
+
+% plot(xint,yint,'*','MarkerSize',5,'MarkerFaceColor','red');
+% hold on;
+% plot(xg(xi),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
+% hold on;
+% plot(xg(xi+1),yg(yi+1),'o','MarkerSize',5,'MarkerFaceColor','blue');
+% hold on;
+% plot(xg(xi),yg(yi+1),'o','MarkerSize',5,'MarkerFaceColor','blue');
+% hold on;
+% plot(xg(xi+1),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
+% hold off
 
 end % function 

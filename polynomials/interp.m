@@ -1,6 +1,5 @@
 %% Illustration of bilinear interpolation, single interval of interest
-
-[xi,xi1,yi,yi1] = bilinear(1,1,yg,ygi,xg,xgi)
+[xi,xi1,yi,yi1] = bilinear(yg,xg,f2D);
 x=[xi,xi1];
 y=[yi,yi1];
 f=f2D;
@@ -22,29 +21,10 @@ for ir1 = 1:1:n-1
         finterpmanual(ir1,ir2)=avec(1)+avec(2)*x1(ir1)+avec(3)*y1(ir2)+avec(4)*x1(ir1)*y1(ir2);
     end %for
 end %for
-k = finterpmanual;
 
 % Matlab version
-finterp=interp2(X,Y,f,x1,y1);
-disp('Matlab,GNU/Octave built-in solution:');
-disp(finterp);
-
-vq = interp2(xg,yg,f2D,xgi,ygi);
-plot(vq);
-hold off;
-
-%Visual interpolation point:  x1,y1
-figure(1);
-imagesc(x,y,f);
-axis xy;
-xlabel('x');
-ylabel('y');
-c=colorbar;
-ylabel(c,'f(x,y)')
-hold on;
-plot(xvec,yvec,'w^','MarkerSize',15,'MarkerFaceColor','white');
-plot(x1,y1,'wo','MarkerSize',20,'MarkerFaceColor','white');
-hold off;
+% finterp=interp2(X,Y,f,x1,y1);
+% disp('Matlab,GNU/Octave built-in solution:');
 
 %% Illustrate cubic spline approximations using Matlab functions
 x=linspace(-5,5,15);
