@@ -81,6 +81,42 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER PLOTS%%%%%%%%%%%%%%%%%%');
 %%of the function at those points is in f2D. xgi,ygi are the densely sampled 
 %%grid point to which the data are to be interpolated for this test.
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
+%% Comments on Problem #2A and 2B
+% Figure 3 presents xi, yj with the indices i, j indicated with circles and
+% asterisks. Or so I believe. I was expecting to inquire about this plot in
+% the office hours on November 6, 2020 at 5 PM.
+% A point of interest is the values that are output as seen below. The
+% bilinear interpolation method was completed for a set of data with a
+% hardcoded value (as in xint and yint), and it works. However, when it is
+% applied to the test data (test_interp.m) then trouble ensues. 
+%% Comments on Problem #2C
+% Figure 4 shows what the algorithm produces for a bilinear interpolation function 
+% that takes in a sequence of data points {x′k,yk′} to which data are being
+% interpolated, a grid xi,yj, and a dataset fij that is defined over this 
+% grid and produces bilinearly interpolated values of fk at the points {x′k,yk′}. 
+% I do not believe this is the right answer however, this was another
+% question I would have asked during the office hours. Trying to debug this
+% code while not fully understanding the mathematical implications of it is
+% difficult. While I was able to figure out some of the problem, I don't
+% quite understand why the code is not interpolating correctly. 
+%% Comments on Problem #2D
+% Trying to use interp2 I was given an error message as seen below: 
+% Error using griddedInterpolant
+% The sample points arrays must have the same size as the sample values array.
+% 
+% Error in interp2>makegriddedinterp (line 228)
+%     F = griddedInterpolant(varargin{:});
+% 
+% Error in interp2 (line 136)
+%         F = makegriddedinterp(X, Y, V, method,extrap);
+% 
+% Error in Project4 (line 126)
+% finterp=interp2(X,Y,f,x1,y1);
+% 
+% I have not yet been able to figure out exactly how the interp2 function
+% actually operates so this message is cryptic and discussing with others
+% in the class, I was not able to debug it in time. 
+
 
 %% Illustration of bilinear interpolation, single interval of interest
 [xi,xi1,yi,yi1] = bilinear(yg,xg,f2D);
@@ -109,6 +145,7 @@ end %for
 % Matlab version
 % finterp=interp2(X,Y,f,x1,y1);
 % disp('Matlab,GNU/Octave built-in solution:');
+% disp(finterp);
 
 %% Illustrate cubic spline approximations using Matlab functions
 x=linspace(-5,5,15);

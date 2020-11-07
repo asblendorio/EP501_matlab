@@ -33,12 +33,18 @@ for i=1:nref2
     end %if
 end %for 
 
-disp(yi1);
-disp(yi); 
-disp(xi1);
-disp(xi);
-%% Plotter for 2 A and B
+disp('The interpolated points are: ');
+disp(xint);
+disp(yint);
+disp(yg(yi));
+disp(xg(xi));
+disp(xg(xi+1));
+disp(yg(yi+1));
+
+
+%% Plotter for 2A and B
 figure(3);
+title('Problem A and B Indices I and J');
 plot(xint,yint,'*','MarkerSize',5,'MarkerFaceColor','red');
 hold on;
 plot(xg(xi),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
