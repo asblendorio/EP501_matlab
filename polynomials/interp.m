@@ -5,6 +5,7 @@ y=[yi,yi1];
 f=f2D;
 x1=xg;
 y1=yg;
+
 % Manually written
 n = length(f(:,1));
 nref = length(f(:,1));
@@ -29,7 +30,7 @@ end %for
 %% Illustrate cubic spline approximations using Matlab functions
 x=linspace(-5,5,15);
 y=sin(x);
-figure(2);
+figure(7);
 plot(x,y,'o','MarkerSize',20);
 
 splinedef=spline(x,y);

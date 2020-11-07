@@ -37,12 +37,25 @@ disp(yi1);
 disp(yi); 
 disp(xi1);
 disp(xi);
+%% Plotter for 2 A and B
+figure(5);
+plot(xint,yint,'*','MarkerSize',5,'MarkerFaceColor','red');
+hold on;
+plot(xg(xi),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
+hold on;
+plot(xg(xi+1),yg(yi+1),'o','MarkerSize',5,'MarkerFaceColor','blue');
+hold on;
+plot(xg(xi),yg(yi+1),'o','MarkerSize',5,'MarkerFaceColor','blue');
+hold on;
+plot(xg(xi+1),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
+hold off
+
 
 xvec=xi1(:);
 yvec=yi1(:);
 f = f2D;
 
-figure(1);
+figure(6);
 imagesc(x,y,f);
 axis xy;
 xlabel('x');
@@ -55,15 +68,5 @@ plot(xint,yint,'wo','MarkerSize',20,'MarkerFaceColor','white');
 hold off;
 
 
-% plot(xint,yint,'*','MarkerSize',5,'MarkerFaceColor','red');
-% hold on;
-% plot(xg(xi),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
-% hold on;
-% plot(xg(xi+1),yg(yi+1),'o','MarkerSize',5,'MarkerFaceColor','blue');
-% hold on;
-% plot(xg(xi),yg(yi+1),'o','MarkerSize',5,'MarkerFaceColor','blue');
-% hold on;
-% plot(xg(xi+1),yg(yi), 'o','MarkerSize',5,'MarkerFaceColor','blue');
-% hold off
 
 end % function 

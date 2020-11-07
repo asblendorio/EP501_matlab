@@ -125,8 +125,6 @@ plot(x2,y2,'.');
 y2true=sin(x2);
 plot(x2,y2true,'-');
 
-
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
-
 
 %% END PROJECT #4
