@@ -1,11 +1,13 @@
 %% Multidimensional function and partial derivatives:  grad and div (laplacian and curl also useful)
 lx=20;
 ly=20;
+
 x=linspace(-5,5,lx);
 y=linspace(-5,5,ly);
-[X,Y]=meshgrid(x,y);
-f=exp(-(X.^2)/2/2).*exp(-Y.^2/2/1);
 
+[X,Y]=meshgrid(x,y);
+%f=exp(-(X.^2)/2/2).*exp(-Y.^2/2/1);
+        
 figure;
 contourf(x,y,f);
 xlabel('x');
@@ -61,6 +63,14 @@ for iy=2:ly-1
     divy(iy,:)=(g(iy+1,:)-g(iy-1,:))/2/dy;
 end %for
 divy(ly,:)=(g(ly,:)-g(ly-1,:))/dy;
+
+% %z-derivative part of the divergence 
+% divy=zeros(size(y));
+% divy(1,:)=(g(2,:)-g(1,:))/dy;
+% for iy=2:ly-1
+%     divy(iy,:)=(g(iy+1,:)-g(iy-1,:))/2/dy;
+% end %for
+% divy(ly,:)=(g(ly,:)-g(ly-1,:))/dy;
 
 div=divx+divy;    %this is really laplacian b/c input is gradient
 
