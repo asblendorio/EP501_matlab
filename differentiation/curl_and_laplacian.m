@@ -20,10 +20,10 @@ y = linspace(-3*a,3*a,ly);
 f = zeros(100,100);
 for i=1:100
     for j=1:100
-        if (sqrt((x(i))^2 +(y(i))^2) < a)
-            f(i,j) = ((((m0.*I)/(2.*pi.*(a.^2))).*(sqrt((x(i)).^2 +(y(i)).^2).*(-y(i))/(sqrt((x(i)).^2+(y(i)).^2)+(x(i))./(sqrt((x(i)).^2+(y(i)).^2))))));
+        if (sqrt(x(i).^2 +y(j).^2) < a)
+            f(i,j) = ((m0.*I)/(2.*pi.*a.^2).*sqrt(x(i).^2+y(j).^2)).*(-y(j)/sqrt(x(i).^2+y(j).^2)+(x(i)./sqrt(x(i).^2+y(j).^2)));
         else
-            f(i,j) = ((((m0.*I)/(2.*pi).*(sqrt((x(i)).^2 +(y(i)).^2).*(-y(i))./(sqrt((x(i)).^2+(y(i)).^2)+(x(i))/(sqrt((x(i)).^2+(y(i)).^2)))))));
+            f(i,j) = ((m0.*I)/(2.*pi.*sqrt(x(i).^2+y(j).^2))).*(-y(j)/sqrt(x(i).^2+y(j).^2)+(x(i)./sqrt(x(i).^2+y(j).^2)));
         end %if 
     end %for
 end %for
@@ -32,7 +32,6 @@ end %for
 %% plotter
 figure(1);
 pcolor(x,y,f);
-set(gcf,'color','white');
 shading flat;
 
 figure(2);
@@ -45,7 +44,7 @@ colorbar;
 %gradient of scalar function
 dx=x(2)-x(1);
 dy=y(2)-y(1);
-dz=z(2)-z(1);
+% dz=z(2)-z(1);
 
 %% Gradient
 gradx=zeros(size(f));
