@@ -13,7 +13,7 @@ y = linspace(-3*a,3*a,ly);
 % z = linspace(-3*a,3*a,lz);
 [X,Y]=meshgrid(x,y);
 %f=exp(-(X.^2)/2/2).*exp(-Y.^2/2/1);
-z=0;
+
 f = zeros(100,100);
 for i=1:100
     for j=1:100

@@ -62,6 +62,8 @@ quiver(X,Y,gradx,grady,'Color','white','LineWidth',2);
 set(gca,'FontSize',24);
 
 %% Curl 
+
+
 curlx=zeros(size(f));
 curly=zeros(size(f));
 
