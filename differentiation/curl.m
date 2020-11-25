@@ -61,33 +61,52 @@ hold on;
 quiver(X,Y,gradx,grady,'Color','white','LineWidth',2);
 set(gca,'FontSize',24);
 
+
+
 %% Curl 
+curlx=zeros(size(X));
+curly=zeros(size(Y));
+dy_dx=zeros(lx,1);
+dx_dy=zeros(ly,1);
 
-
-curlx=zeros(size(f));
-curly=zeros(size(f));
-
-%x component of curl
 curlx(:,1)=(f(:,2)-f(:,1))/dx;
-for ix=2:lx-1
-    curlx(:,ix)=(f(:,ix+1)-f(:,ix-1))/2/dx;    %\partial/\partial x
-end %for
-curlx(:,lx)=(f(:,lx)-f(:,lx-1))/dx;
-
-%y component of curl 
+dy_dx(lx)=(y(lx)-y(lx-1))/dx;
 curly(1,:)=(f(2,:)-f(1,:))/dy;
-for iy=2:ly-1
-    curly(iy,:)=(f(iy+1,:)-f(iy-1,:))/2/dy;    %\partial/\partial y
-end %for
-curly(ly,:)=(f(ly,:)-f(ly-1,:))/dy;
+dx_dy(ly)=(x(ly)-x(ly-1))/dy;
 
-%add quiver for curl on top of color plot
-contour3(x,y,f);
+%forward difference at the beginning
+% dy_dx(1)=(y(2)-y(1))/dx;
+
+%centered difference on the interior
+for ix=2:lx-1
+    for iy=2:ly-1
+        dy_dx(ix)=(y(ix+1)-y(ix-1))/2/dx;
+        dx_dy(iy)=(x(iy+1)-x(iy-1))/2/dy;
+    end %for
+end %for
+curl_B = dy_dx-dx_dy;
+
+figure(3);
+imagesc(x,y,curl_B);
 xlabel('x');
 ylabel('y');
-
-title('f(x,y) and grad(f)');
+title('Curl of B');
+hold on;
 colorbar;
-quiver(X,Y,curlx,curly,'Color','white','LineWidth',2);
+%quiver(X,Y,dx_dy,dy_dx,'Color','white','LineWidth',2);
 set(gca,'FontSize',24);
 hold off;
+
+% %x component of curl
+% for ix=2:lx-1
+%     curlx(:,ix)=(f(:,ix+1)-f(:,ix-1))/2/dx;    %\partial/\partial x
+% end %for
+% curlx(:,lx)=(f(:,lx)-f(:,lx-1))/dx;
+% 
+% %y component of curl 
+% for iy=2:ly-1
+%     curly(iy,:)=(f(iy+1,:)-f(iy-1,:))/2/dy;    %\partial/\partial y
+% end %for
+% curly(ly,:)=(f(ly,:)-f(ly-1,:))/dy;
+
+
