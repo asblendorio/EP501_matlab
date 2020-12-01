@@ -26,14 +26,15 @@ end %for
 figure(1);
 pcolor(x,y,f);
 shading flat;
+colorbar;
 hold off;
 
 figure(2);
 contourf(x,y,f);
 xlabel('x');
 ylabel('y');
-xlim([-0.02 0.02]);
-ylim([-0.02 0.02]);
+xlim([-0.015 0.015]);
+ylim([-0.015 0.015]);
 title('f(x,y) and grad(f)');
 colorbar;
 hold off;
@@ -66,32 +67,32 @@ quiver(X,Y,gradx,grady,'Color','white','LineWidth',2);
 set(gca,'FontSize',24);
 
 
-
 %% Curl Numerical
+curlx=zeros(ly,lx);
+curly=zeros(ly,lx);
 
-%forward difference at the beginning
-dy_dx(1)=(y(2)-y(1))/dx;
-
-%centered difference on the interior
+% x component of curl
+curlx(:,1)=(f(:,2)-f(:,1))/dx;
 for ix=2:lx-1
-    dy_dx(ix)=(y(ix+1)-y(ix-1))/2/dx;
+    curlx(:,ix)=(f(:,ix+1)-f(:,ix-1))/2/dx;    %\partial/\partial x
 end %for
+curlx(:,lx-1)=(f(:,lx-1)-f(:,lx-2))/dx;
 
-%backward difference at the end
-dy_dx(lx)=(y(lx)-y(lx-1))/dx;
-
-plot(x,dy_dx,'k--');
+%y component of curl 
+curly(1,:)=(f(2,:)-f(1,:))/dy;
+for iy=2:ly-1
+    curly(iy,:)=(f(iy+1,:)-f(iy-1,:))/2/dy;    %\partial/\partial y
+end %for
+curly(ly-1,:)=(f(ly-1,:)-f(ly-2,:))/dy;
 
 curl_B=curlx-curly;
+
 figure(3);
 imagesc(x,y,curl_B);
 xlabel('x');
 ylabel('y');
 title('Curl of B');
-hold on;
 colorbar;
-%quiver(X,Y,dx_dy,dy_dx,'Color','white','LineWidth',2);
-set(gca,'FontSize',24);
 hold off;
 
 %% Curl Analytical
