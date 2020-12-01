@@ -6,12 +6,17 @@ ly=100;
 I=10;
 a=0.005;
 m0=(4*pi)*10.^(-7);
+r0=2*a;
 
 x = linspace(-3*a,3*a,lx);
 y = linspace(-3*a,3*a,ly);
 [X,Y]=meshgrid(x,y);
 
 r_phi = zeros(100,100);
+r_phix = zeros(1,100);
+r_phiy = zeros(1,100);
+
+%Magnetic Field component from Problem #1 
 for i=1:100
     for j=1:100
         if (sqrt(x(i).^2 +y(j).^2) < a)
@@ -21,3 +26,20 @@ for i=1:100
         end %if 
     end %for
 end %for
+
+figure;
+pcolor(x,y,r_phi);
+shading flat;
+colorbar;
+hold on;
+
+phi_grid = linspace(0,2*pi,100);
+for i=1:100
+    for j=1:100
+    r_phix(i) = r0.*cos(phi_grid(i));
+    r_phiy(j) = r0.*sin(phi_grid(j));
+    end %for
+end %for
+
+plot(r_phix,r_phi);
+hold off;
