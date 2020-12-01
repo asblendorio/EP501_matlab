@@ -1,4 +1,4 @@
-%% Multidimensional function and partial derivatives:  grad and div (laplacian and curl also useful)
+%% Integration using the Iterated Trapezoidal method
 lx=100;
 ly=100;
 lz=100;
