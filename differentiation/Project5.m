@@ -6,7 +6,7 @@
 %%Problem #2: Numerical Vector Derivatives (gradient and laplacian)
 %%Problem #3: Integration in Multiple Dimensions
 %%Problem #4: Line Integration
-% Collaboration with Sho Okayama, Dennis Turano, and Bartosz Kwiecisnki
+% Collaboration with Dennis Turano, and Bartosz Kwiecisnki
 %% Data Input 
 
 %% Problem #1: Numerical Vector Derivatives (curl):

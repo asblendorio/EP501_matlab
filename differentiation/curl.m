@@ -26,13 +26,17 @@ end %for
 figure(1);
 pcolor(x,y,f);
 shading flat;
+hold off;
 
 figure(2);
 contourf(x,y,f);
 xlabel('x');
 ylabel('y');
+xlim([-0.02 0.02]);
+ylim([-0.02 0.02]);
 title('f(x,y) and grad(f)');
 colorbar;
+hold off;
 
 %gradient of scalar function
 dx=x(2)-x(1);
@@ -63,29 +67,22 @@ set(gca,'FontSize',24);
 
 
 
-%% Curl 
-curlx=zeros(size(X));
-curly=zeros(size(Y));
-dy_dx=zeros(lx,1);
-dx_dy=zeros(ly,1);
-
-curlx(:,1)=(f(:,2)-f(:,1))/dx;
-dy_dx(lx)=(y(lx)-y(lx-1))/dx;
-curly(1,:)=(f(2,:)-f(1,:))/dy;
-dx_dy(ly)=(x(ly)-x(ly-1))/dy;
+%% Curl Numerical
 
 %forward difference at the beginning
-% dy_dx(1)=(y(2)-y(1))/dx;
+dy_dx(1)=(y(2)-y(1))/dx;
 
 %centered difference on the interior
 for ix=2:lx-1
-    for iy=2:ly-1
-        dy_dx(ix)=(y(ix+1)-y(ix-1))/2/dx;
-        dx_dy(iy)=(x(iy+1)-x(iy-1))/2/dy;
-    end %for
+    dy_dx(ix)=(y(ix+1)-y(ix-1))/2/dx;
 end %for
-curl_B = dy_dx-dx_dy;
 
+%backward difference at the end
+dy_dx(lx)=(y(lx)-y(lx-1))/dx;
+
+plot(x,dy_dx,'k--');
+
+curl_B=curlx-curly;
 figure(3);
 imagesc(x,y,curl_B);
 xlabel('x');
@@ -97,16 +94,23 @@ colorbar;
 set(gca,'FontSize',24);
 hold off;
 
-% %x component of curl
-% for ix=2:lx-1
-%     curlx(:,ix)=(f(:,ix+1)-f(:,ix-1))/2/dx;    %\partial/\partial x
-% end %for
-% curlx(:,lx)=(f(:,lx)-f(:,lx-1))/dx;
-% 
-% %y component of curl 
-% for iy=2:ly-1
-%     curly(iy,:)=(f(iy+1,:)-f(iy-1,:))/2/dy;    %\partial/\partial y
-% end %for
-% curly(ly,:)=(f(ly,:)-f(ly-1,:))/dy;
+%% Curl Analytical
+f = zeros(100,100);
+for i=1:100
+    for j=1:100
+        if (sqrt(x(i).^2 +y(j).^2) < a)
+            f(i,j) = 2*((m0.*I)/(2.*pi.*a.^2)); %Hand calculated curl 
+        else
+            f(i,j) = 0; %Hand calculated curl 
+        end %if 
+    end %for
+end %for
 
+figure(4);
+imagesc(x,y,f);
+xlabel('x');
+ylabel('y');
+title('Analytical Curl of B');
+colorbar;
+shading flat; 
 

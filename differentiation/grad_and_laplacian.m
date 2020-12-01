@@ -114,3 +114,4 @@ ylabel('y');
 zlabel('z');
 title('laplacian(f)');
 colorbar;
+shading flat; 
