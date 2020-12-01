@@ -192,11 +192,14 @@ for i=1:100
 end %for
 
 %% plotter
-figure(1);
+figure(5);
 pcolor(x,y,f);
+xlabel('x');
+ylabel('y');
+title('Scalar Field');
 shading flat;
 
-figure(2);
+figure(6);
 contourf(x,y,f);
 xlabel('x');
 ylabel('y');
@@ -272,7 +275,7 @@ divy(ly,:)=(g(ly,:)-g(ly-1,:))/dy;
 
 div=divx+divy;    %this is really laplacian b/c input is gradient
 
-figure(4);
+figure(7);
 surface(x,y,div);
 set(gca,'FontSize',24);
 xlabel('x');
@@ -288,7 +291,6 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER PLOTS%%%%%%%%%%%%%%%%%%');
 %%R ≡ −3a ≤ x ≤ 3a,−3a ≤ y ≤ 3a, −3a ≤ z ≤ 3a, defined by the integral.
 %%using an iterated trapezoidal method (sweeps of single dimensional integrations) 
 %%or multi-dimensional trapezoidal method program that you write.
-
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 

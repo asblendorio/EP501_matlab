@@ -1,7 +1,7 @@
 %% Multidimensional function and partial derivatives:  grad and div (laplacian and curl also useful)
 lx=100;
 ly=100;
-% lz=100;
+lz=100;
 
 %constants
 Q=1;
