@@ -27,19 +27,15 @@ for i=1:100
     end %for
 end %for
 
-figure;
-pcolor(x,y,r_phi);
-shading flat;
-colorbar;
-hold on;
-
-phi_grid = linspace(0,2*pi,100);
+phi_grid = linspace(0,2*pi,lx);
 for i=1:100
     for j=1:100
     r_phix(i) = r0.*cos(phi_grid(i));
     r_phiy(j) = r0.*sin(phi_grid(j));
     end %for
 end %for
-
+figure;
 plot(r_phix,r_phi);
+shading flat;
+colorbar;
 hold off;

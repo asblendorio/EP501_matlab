@@ -38,5 +38,5 @@ for i=1:50
         end %for  
     end %for
 end %for
-
-fprintf('\n Total electrostatic energy We = %e Joules\n',WE);
+We = WE*(2.15*10.^-3);
+fprintf('\n Total electrostatic energy We = %e Joules\n',We);
