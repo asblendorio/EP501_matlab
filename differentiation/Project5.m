@@ -317,7 +317,7 @@ z = linspace(-3*a,3*a,lz);
 dx=x(2)-x(1);
 dy=y(2)-y(1);
 dz=z(2)-z(1);
-WE = 1; % energy initiliaztion 
+DE = 1; % energy initiliaztion 
 
 for i=1:50
     for j=1:50
@@ -329,12 +329,12 @@ for i=1:50
             phi(i,j,k) = 0; %boundary conditions sets this value at zero outside of source field
             end %if
             % Integral 
-            WE = ((0.5.*phi(i+1,j,k)+phi(i,j,k).*dx)+ (0.5.*phi(i,j+1,k)+phi(i,j,k).*dy)+(0.5.*phi(i,j,k+1)+phi(i,j,k).*dz) + DE);
+            DE = ((0.5.*phi(i+1,j,k)+phi(i,j,k).*dx)+ (0.5.*phi(i,j+1,k)+phi(i,j,k).*dy)+(0.5.*phi(i,j,k+1)+phi(i,j,k).*dz) + DE);
         end %for  
     end %for
 end %for
-
-fprintf('\n Total electrostatic energy We = %e Joules\n',WE);
+% We = WE*(2.15*10.^-3);
+fprintf('\n Total electrostatic energy We = %e Joules\n',We);
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem #4: Line Integration

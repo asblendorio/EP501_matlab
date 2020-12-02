@@ -13,8 +13,6 @@ y = linspace(-3*a,3*a,ly);
 [X,Y]=meshgrid(x,y);
 
 r_phi = zeros(100,100);
-r_phix = zeros(1,100);
-r_phiy = zeros(1,100);
 
 %Magnetic Field component from Problem #1 
 for i=1:100
@@ -31,16 +29,27 @@ pcolor(x,y,r_phi);
 shading flat;
 colorbar;
 hold on;
+% r_phix = zeros(1,100);
+% r_phiy = zeros(1,100);
 
 phi_grid = linspace(0,2*pi,lx);
-for i=1:100
-    for j=1:100
-    r_phix(i) = r0.*cos(phi_grid(i));
-    r_phiy(j) = r0.*sin(phi_grid(j));
-    end %for
-end %for
-
-plot(r_phix,r_phi);
+x = r0.*cos(phi_grid);
+y = r0.*sin(phi_grid);
+%% Plotter
+plot(x,y,'color','black','LineWidth',1.25)    
 shading flat;
 colorbar;
 hold off;
+
+
+%% Analytical derivative 
+dx = -phi_grid.*(r0).*sin(phi_grid);
+dy = phi_grid.*(r0).*cos(phi_grid);
+figure;
+plot(dx,dy,'color','black','LineWidth',1.25)    
+shading flat;
+colorbar;
+hold off;
+
+%% Numerical Derivative
+
