@@ -46,41 +46,39 @@ shading flat;
 colorbar;
 hold off;
 
-% Plotting Magnetic Field B in terms of r 
-rphi_x=r0*cos(phi); 
-rphi_y=r0*sin(phi); 
+%% Plotting Magnetic Field B in terms of r 
+rad=sqrt(x.^2+y.^2);
 
-rad=sqrt(rphi_x.^2+rphi_y.^2);
-
-B_x_phi=zeros(size(x,1),1); 
-B_y_phi=zeros(size(y,1),1);
+Bx_phi=zeros(size(x,1),1); 
+By_phi=zeros(size(y,1),1);
 
 for i=1:size(x,1)
-    B_x_phi(i)=((-m0*I)/(2*pi*rad(i)*rad(i)))*y(i);
-    B_y_phi(i)=((-m0*I)/(2*pi*rad(i)*rad(i)))*x(i);
+    for j=1:size(y,1)
+        Bx_phi(i)=((-m0*I)/(2*pi*(rad(i).^2)*y(i)));
+        By_phi(j)=((-m0*I)/(2*pi*(rad(j).^2)*x(j)));
+    end %for
 end %for
 
-B_phi=sqrt(B_x_phi.^2+B_y_phi.^2);
+B_phi=sqrt(Bx_phi.^2+By_phi.^2);
 
 figure(2);
 title('Plot of Magnetic field components along the pathline');
 yyaxis left;
-xlabel('\Phi (in radians)'); 
+xlabel('\Phi'); 
 ylabel('B_{x}(x,y)=B_{x}(\Phi) (in Tesla)'); 
-plot(phi,B_x_phi,'k-','LineWidth',2);
+plot(phi,Bx_phi,'k-','LineWidth',1);
 yyaxis right; 
-plot(phi,B_y_phi,'r-','LineWidth',2);
+plot(phi,By_phi,'r-','LineWidth',1);
 hold on;
 
-plot(phi,B_phi,'b--','LineWidth',1);
+plot(phi,B_phi,'b--','LineWidth',0.5);
 hold on;
 
 legend('B_x','B_y','B (right axis)');
-xlabel('\Phi (in radians)');
 ylabel('B_{y}(x,y)=B_{y}(\Phi) (in Tesla)'); 
 title('Magnetic field components plotted at r=0.01 m '); 
 grid on;
-
+hold off;
 
 %% Analytical derivative 
 dx = -(r0).*sin(phi);
