@@ -1,7 +1,7 @@
 %% Integration using the Iterated Trapezoidal method
-lx=51;
-ly=51;
-lz=51;
+lx=50;
+ly=50;
+lz=50;
 
 %constants
 Q=1;
@@ -27,16 +27,15 @@ DE = 1; % energy initiliaztion
 for i=1:50
     for j=1:50
         for k=1:50
-            if (sqrt(x(i).^2 + y(j).^2 + z(k).^2) < a)
-            phi(i,j,k) = ((-1/2).*e0.*-6.*(Q/(8.*pi.*e0.*a.^3))).*(Q/(4.*pi.*e0.*a)-(Q/(8.*pi.*e0.*a.^3))*sqrt(x(i).^2 +y(j).^2+z(k).^2).^2-a.^2);
-            
-            else
-            phi(i,j,k) = 0; %boundary conditions sets this value at zero outside of source field
-            end %if
+            phi(i,j,k) = Q/(4.*pi.*e0.*sqrt(x(i).^2 +y(j).^2 + z(k).^2)); %boundary conditions sets this value at zero outside of source field
             % Integral 
-            DE = ((0.5.*phi(i+1,j,k)+phi(i,j,k).*dx)+ (0.5.*phi(i,j+1,k)+phi(i,j,k).*dy)+(0.5.*phi(i,j,k+1)+phi(i,j,k).*dz) + DE);
+            DE = ((0.5.*phi(i+1,j,k)+phi(i,j,k).*dx)+ ...
+            (0.5.*phi(i,j+1,k)+phi(i,j,k).*dy)+...
+            (0.5.*phi(i,j,k+1)+phi(i,j,k).*dz) + DE);
+           
         end %for  
     end %for
 end %for
 We = DE;
 fprintf('\n Total electrostatic energy We = %e Joules\n',We);
+

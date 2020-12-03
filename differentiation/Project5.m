@@ -273,10 +273,10 @@ divy(ly,:)=(g(ly,:)-g(ly-1,:))/dy;
 % end %for
 % divz(lz,:)=(h(lz,:)-h(lz-1,:))/dz;
 
-div=divx+divy;    %this is really laplacian b/c input is gradient
+laplacian=divx+divy;    %this is really laplacian b/c input is gradient
 
 figure(7);
-surface(x,y,div);
+surface(x,y,laplacian);
 set(gca,'FontSize',24);
 xlabel('x');
 ylabel('y');

@@ -104,10 +104,10 @@ divy(ly,:)=(g(ly,:)-g(ly-1,:))/dy;
 % end %for
 % divz(lz,:)=(h(lz,:)-h(lz-1,:))/dz;
 
-div=divx+divy;    %this is really laplacian b/c input is gradient
+laplacian=divx+divy;    %this is really laplacian b/c input is gradient
 
 figure(4);
-surface(x,y,div);
+surface(x,y,laplacian);
 set(gca,'FontSize',24);
 xlabel('x');
 ylabel('y');
@@ -115,3 +115,45 @@ zlabel('z');
 title('laplacian(f)');
 colorbar;
 shading flat; 
+
+
+%% Integration using the Iterated Trapezoidal method
+lx=50;
+ly=50;
+lz=50;
+
+%constants
+Q=1;
+a=1;
+e0=8.854.*10.^(-12);
+
+x = linspace(-3*a,3*a,lx);
+y = linspace(-3*a,3*a,ly);
+z = linspace(-3*a,3*a,lz);
+[X,Y,Z]=meshgrid(x,y,z);
+
+%gradient of scalar function
+dx=x(2)-x(1);
+dy=y(2)-y(1);
+dz=z(2)-z(1);
+phi = (((Q./(4.*pi.*e0.*a) - Q./(8.*pi.*e0.*a.^3).* ...
+      (X.^2+Y.^2+Z.^2-a.^2)).*(sqrt(X.^2 +Y.^2 + Z.^2) < a)) + ...
+      (Q./(4.*pi.*e0.*sqrt(X.^2 +Y.^2 + Z.^2)).* (sqrt(X.^2 +Y.^2 + Z.^2) >= a)));
+  
+int = (e0.*laplacian).*phi;
+DE = 1; % energy initiliaztion 
+
+for i=1:50
+    for j=1:50
+        for k=1:50
+            % Integral 
+            DE = ((0.5.*int(i+1,j,k)+int(i,j,k).*dx)+ ...
+            (0.5.*int(i,j+1,k)+int(i,j,k).*dy)+...
+            (0.5.*int(i,j,k+1)+int(i,j,k).*dz) + DE);
+           
+        end %for  
+    end %for
+end %for
+We = DE;
+fprintf('\n Total electrostatic energy We = %e Joules\n',We);
+

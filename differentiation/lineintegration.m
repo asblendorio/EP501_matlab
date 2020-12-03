@@ -41,6 +41,18 @@ shading flat;
 colorbar;
 hold off;
 
+% Plotting Magnetic Field B in terms of r 
+
+for i=1:r_phi
+    
+end %for    
+figure(2);
+pcolor(x,y,r_phi);
+shading flat;
+colorbar;
+hold off;
+
+
 
 %% Analytical derivative 
 dx = -phi_grid.*(r0).*sin(phi_grid);
