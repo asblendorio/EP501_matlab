@@ -26,9 +26,13 @@ for i=1:100
 end %for
 figure;
 pcolor(x,y,r_phi);
+xlabel('x');
+ylabel('y');
+title('Parametric Path vs. Magnetic Field ');
 shading flat;
 colorbar;
 hold on;
+
 % r_phix = zeros(1,100);
 % r_phiy = zeros(1,100);
 

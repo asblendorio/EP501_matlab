@@ -136,24 +136,26 @@ z = linspace(-3*a,3*a,lz);
 dx=x(2)-x(1);
 dy=y(2)-y(1);
 dz=z(2)-z(1);
-phi = (((Q./(4.*pi.*e0.*a) - Q./(8.*pi.*e0.*a.^3).* ...
-      (X.^2+Y.^2+Z.^2-a.^2)).*(sqrt(X.^2 +Y.^2 + Z.^2) < a)) + ...
-      (Q./(4.*pi.*e0.*sqrt(X.^2 +Y.^2 + Z.^2)).* (sqrt(X.^2 +Y.^2 + Z.^2) >= a)));
+
+% phi = (((Q./(4.*pi.*e0.*a) - Q./(8.*pi.*e0.*a.^3).* ...
+%       (X.^2+Y.^2+Z.^2-a.^2)).*(sqrt(X.^2 +Y.^2 + Z.^2) < a)) + ...
+%       (Q./(4.*pi.*e0.*sqrt(X.^2 +Y.^2 + Z.^2)).* (sqrt(X.^2 +Y.^2 + Z.^2) >= a)));
   
-int = (e0.*laplacian).*phi;
-DE = 1; % energy initiliaztion 
+q = (e0.*laplacian).*f;
+DE = 0; % energy initiliaztion 
 
 for i=1:50
     for j=1:50
         for k=1:50
             % Integral 
-            DE = ((0.5.*int(i+1,j,k)+int(i,j,k).*dx)+ ...
-            (0.5.*int(i,j+1,k)+int(i,j,k).*dy)+...
-            (0.5.*int(i,j,k+1)+int(i,j,k).*dz) + DE);
-           
+            integral = (-0.0625)*(q(i,j,k) + q(i+1,j,k)+ ...
+            (q(i,j,k) + q(i,j+1,k)+...
+            (q(i,j,k) + q(i,j,k+1))));
+            DE = DE + integral.*dx.*dy.*dz;
         end %for  
     end %for
 end %for
+
 We = DE;
 fprintf('\n Total electrostatic energy We = %e Joules\n',We);
 

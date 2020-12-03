@@ -99,7 +99,7 @@ hold off;
 f = zeros(100,100);
 for i=1:100
     for j=1:100
-        if (sqrt(x(i).^2 +y(j).^2) < a)
+        if (sqrt(x(i).^2 + y(j).^2) < a)
             f(i,j) = 2*((m0.*I)/(2.*pi.*a.^2)); %Hand calculated curl 
         else
             f(i,j) = 0; %Hand calculated curl 
