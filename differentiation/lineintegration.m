@@ -36,10 +36,9 @@ hold on;
 % r_phix = zeros(1,100);
 % r_phiy = zeros(1,100);
 
-% phi_grid = linspace(0,2*pi,lx);
-phi=(0:pi/100:2*pi);
-x = r0.*cos(phi);
-y = r0.*sin(phi);
+phi_grid = linspace(0,2*pi,lx);
+x = r0.*cos(phi_grid);
+y = r0.*sin(phi_grid);
 %% Plotter
 plot(x,y,'color','black','LineWidth',1.25)    
 shading flat;
@@ -47,47 +46,59 @@ colorbar;
 hold off;
 
 %% Plotting Magnetic Field B in terms of r 
-rad=sqrt(x.^2+y.^2);
+B_phi = zeros(1,100); 
+Bx_phi= zeros(1,100); 
+By_phi= zeros(1,100);
 
-Bx_phi=zeros(size(x,1),1); 
-By_phi=zeros(size(y,1),1);
-
-for i=1:size(x,1)
-    for j=1:size(y,1)
-        Bx_phi(i)=((-m0*I)/(2*pi*(rad(i).^2)*y(i)));
-        By_phi(j)=((-m0*I)/(2*pi*(rad(j).^2)*x(j)));
-    end %for
+for i=1:lx
+        B_phi(i) = ((m0*I)/(2*pi*(sqrt(x(i)^2 + ...
+        y(i)^2)))*(-y(i)/(sqrt(x(i)^2 + y(i)^2)) + ...
+        x(i)/(sqrt(x(i)^2 + y(i)^2))));
+        
+        Bx_phi(i)=((m0*I)/(2*pi*(sqrt(x(i).^2+y(i).^2))*...
+        (-y(i)./sqrt(x(i).^2+y(i).^2))));
+        
+        By_phi(i)=((m0*I)/(2*pi*(sqrt(x(i).^2+y(i).^2))*...
+        (x(i)./sqrt(x(i).^2+y(i).^2)))); 
+    
 end %for
 
-B_phi=sqrt(Bx_phi.^2+By_phi.^2);
-
 figure(2);
-title('Plot of Magnetic field components along the pathline');
-yyaxis left;
-xlabel('\Phi'); 
+title('Plot of Magnetic Field');
+xlabel('\Phi (in radians)'); 
 ylabel('B_{x}(x,y)=B_{x}(\Phi) (in Tesla)'); 
-plot(phi,Bx_phi,'k-','LineWidth',1);
-yyaxis right; 
-plot(phi,By_phi,'r-','LineWidth',1);
+
+plot(phi_grid,B_phi,'b--','LineWidth',0.5);
+hold on;
+plot(phi_grid,Bx_phi,'r-','LineWidth',1);
+hold on;
+plot(phi_grid,By_phi,'k-','LineWidth',1);
 hold on;
 
-plot(phi,B_phi,'b--','LineWidth',0.5);
-hold on;
-
-legend('B_x','B_y','B (right axis)');
+legend('Bx','By','B');
+xlabel('\Phi'); 
 ylabel('B_{y}(x,y)=B_{y}(\Phi) (in Tesla)'); 
-title('Magnetic field components plotted at r=0.01 m '); 
+title('Magnetic Field Components at r=0.01 m '); 
 grid on;
 hold off;
 
 %% Analytical derivative 
-dx = -(r0).*sin(phi);
-dy = (r0).*cos(phi);
-% figure;
-% plot(dx,dy,'color','black','LineWidth',1.25)    
-% shading flat;
-% colorbar;
-% hold off;
+dx = -(r0).*sin(phi_grid);
+dy = (r0).*cos(phi_grid);
+figure(3);
+plot(dx,dy,'color','black','LineWidth',1.25);
+xlabel('x');
+ylabel('y');
+title('Analytical vs. Numerical Tangent Vector');
+shading flat;
+colorbar;
+hold off;
 
 %% Numerical Derivative
+%gradient of scalar function
+dx=x(2)-x(1);
+dy=y(2)-y(1);
+
+dx_dphi=zeros(lx,1);
+
 
