@@ -1,7 +1,7 @@
 %% Multidimensional function and partial derivatives:  grad and div (laplacian and curl also useful)
 lx=100;
 ly=100;
-% lz=100;
+lz=100;
 
 %constants
 Q=1;
@@ -10,7 +10,7 @@ e0=8.854.*10.^(-12);
 
 x = linspace(-3*a,3*a,lx);
 y = linspace(-3*a,3*a,ly);
-% z = linspace(-3*a,3*a,lz);
+z = linspace(-3*a,3*a,lz);
 [X,Y]=meshgrid(x,y);
 %f=exp(-(X.^2)/2/2).*exp(-Y.^2/2/1);
 
@@ -40,12 +40,12 @@ colorbar;
 %gradient of scalar function
 dx=x(2)-x(1);
 dy=y(2)-y(1);
-% dz=z(2)-z(1);
+dz=z(2)-z(1);
 
 %% Gradient
 gradx=zeros(size(f));
 grady=zeros(size(f));
-% gradz=zeros(size(f));
+gradz=zeros(size(f));
 
 %x component of gradient
 gradx(:,1)=(f(:,2)-f(:,1))/dx;
@@ -62,11 +62,11 @@ end %for
 grady(ly,:)=(f(ly,:)-f(ly-1,:))/dy;
 
 %z component of gradient
-% gradz(1,:)=(f(2,:)-f(1,:))/dz;
-% for iz=2:lz-1
-%     gradz(iz,:)=(f(iz+1,:)-f(iz-1,:))/2/dz;    %\partial/\partial y
-% end %for
-% gradz(lz,:)=(f(lz,:)-f(lz-1,:))/dz;
+gradz(1,:)=(f(2,:)-f(1,:))/dz;
+for iz=2:lz-1
+    gradz(iz,:)=(f(iz+1,:)-f(iz-1,:))/2/dz;    %\partial/\partial y
+end %for
+gradz(lz,:)=(f(lz,:)-f(lz-1,:))/dz;
 
 %add quiver on top of color plot
 hold on;
@@ -77,7 +77,7 @@ hold off;
 %% Take the Laplacian by taking divergence of the previously computed gradient
 f=gradx;
 g=grady;
-% h=gradz;
+h=gradz;
 
 %x-derivative part of the divergence
 divx=zeros(size(f));
@@ -97,14 +97,14 @@ divy(ly,:)=(g(ly,:)-g(ly-1,:))/dy;
 
 
 % z-derivative part of the divergence 
-% divz=zeros(size(z));
-% divz(1,:)=(h(2,:)-h(1,:))/dz;
-% for iz=2:lz-1
-%     divz(iz,:)=(h(iz+1,:)-h(iz-1,:))/2/dz;
-% end %for
-% divz(lz,:)=(h(lz,:)-h(lz-1,:))/dz;
+divz=zeros(size(z));
+divz(1,:)=(h(2,:)-h(1,:))/dz;
+for iz=2:lz-1
+    divz(iz,:)=(h(iz+1,:)-h(iz-1,:))/2/dz;
+end %for
+divz(lz,:)=(h(lz,:)-h(lz-1,:))/dz;
 
-laplacian=divx+divy;    %this is really laplacian b/c input is gradient
+laplacian=divx+divy+divz;    %this is really laplacian b/c input is gradient
 
 figure(4);
 surface(x,y,laplacian);
@@ -118,38 +118,25 @@ shading flat;
 
 
 %% Integration using the Iterated Trapezoidal method
-lx=50;
-ly=50;
-lz=50;
-
 %constants
 Q=1;
 a=1;
 e0=8.854.*10.^(-12);
 
-x = linspace(-3*a,3*a,lx);
-y = linspace(-3*a,3*a,ly);
-z = linspace(-3*a,3*a,lz);
-[X,Y,Z]=meshgrid(x,y,z);
-
 %gradient of scalar function
 dx=x(2)-x(1);
 dy=y(2)-y(1);
 dz=z(2)-z(1);
-
-% phi = (((Q./(4.*pi.*e0.*a) - Q./(8.*pi.*e0.*a.^3).* ...
-%       (X.^2+Y.^2+Z.^2-a.^2)).*(sqrt(X.^2 +Y.^2 + Z.^2) < a)) + ...
-%       (Q./(4.*pi.*e0.*sqrt(X.^2 +Y.^2 + Z.^2)).* (sqrt(X.^2 +Y.^2 + Z.^2) >= a)));
   
 q = (e0.*laplacian).*f;
 DE = 0; % energy initiliaztion 
 
-for i=1:50
-    for j=1:50
-        for k=1:50
+for i=1:length(lx)-1
+    for j=1:length(ly)-1
+        for k=1:length(lz)-1
             % Integral 
             integral = (-0.0625)*(q(i,j,k) + q(i+1,j,k)+ ...
-            (q(i,j,k) + q(i,j+1,k)+...
+            (q(i,j,k) + q(i,j+1,k)+ ...
             (q(i,j,k) + q(i,j,k+1))));
             DE = DE + integral.*dx.*dy.*dz;
         end %for  

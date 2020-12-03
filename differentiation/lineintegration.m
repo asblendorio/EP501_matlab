@@ -37,6 +37,7 @@ hold on;
 % r_phiy = zeros(1,100);
 
 phi_grid = linspace(0,2*pi,lx);
+phi=(0:pi/100:2*pi);
 x = r0.*cos(phi_grid);
 y = r0.*sin(phi_grid);
 %% Plotter
@@ -46,16 +47,30 @@ colorbar;
 hold off;
 
 % Plotting Magnetic Field B in terms of r 
-
-for i=1:r_phi
-    
-end %for    
-figure(2);
-pcolor(x,y,r_phi);
-shading flat;
-colorbar;
-hold off;
-
+rphi_x=r0*cos(phi); 
+rphi_y=r0*sin(phi); 
+radius=sqrt(rphi_x.^2+rphi_y.^2);
+B_x_phi=zeros(size(R_x,1),1); 
+B_y_phi=zeros(size(R_y,1),1);
+for i=1:size(R_x,1)
+    B_x_phi(i)=((-mu_0*I)/(2*pi*radius(i)*radius(i)))*R_y(i);
+    B_y_phi(i)=((-mu_0*I)/(2*pi*radius(i)*radius(i)))*R_x(i);
+end %for
+B_phi=sqrt(B_x_phi.^2+B_y_phi.^2);
+f5=figure('Name','Plot of Magnetic field components along the pathline','NumberTitle','Off');
+yyaxis left;
+plot(phi,B_x_phi,'k-','LineWidth',2);
+xlabel('\Phi (in radians)'); 
+ylabel('B_{x}(x,y)=B_{x}(\Phi) (in Tesla)'); 
+yyaxis right; plot(phi,B_y_phi,'r-','LineWidth',2);
+hold on;
+plot(phi,B_phi,'b--','LineWidth',1);
+hold off
+legend('B_x','B_y','B (right axis)');
+xlabel('\Phi (in radians)');
+ylabel('B_{y}(x,y)=B_{y}(\Phi) (in Tesla)'); 
+title('Magnetic field components plotted at r=0.01 m '); 
+grid on;
 
 
 %% Analytical derivative 
