@@ -24,7 +24,7 @@ for i=1:100
         end %if 
     end %for
 end %for
-figure;
+figure(1);
 pcolor(x,y,r_phi);
 xlabel('x');
 ylabel('y');
@@ -36,10 +36,10 @@ hold on;
 % r_phix = zeros(1,100);
 % r_phiy = zeros(1,100);
 
-phi_grid = linspace(0,2*pi,lx);
+% phi_grid = linspace(0,2*pi,lx);
 phi=(0:pi/100:2*pi);
-x = r0.*cos(phi_grid);
-y = r0.*sin(phi_grid);
+x = r0.*cos(phi);
+y = r0.*sin(phi);
 %% Plotter
 plot(x,y,'color','black','LineWidth',1.25)    
 shading flat;
@@ -49,23 +49,32 @@ hold off;
 % Plotting Magnetic Field B in terms of r 
 rphi_x=r0*cos(phi); 
 rphi_y=r0*sin(phi); 
-radius=sqrt(rphi_x.^2+rphi_y.^2);
-B_x_phi=zeros(size(R_x,1),1); 
-B_y_phi=zeros(size(R_y,1),1);
-for i=1:size(R_x,1)
-    B_x_phi(i)=((-mu_0*I)/(2*pi*radius(i)*radius(i)))*R_y(i);
-    B_y_phi(i)=((-mu_0*I)/(2*pi*radius(i)*radius(i)))*R_x(i);
+
+rad=sqrt(rphi_x.^2+rphi_y.^2);
+
+B_x_phi=zeros(size(x,1),1); 
+B_y_phi=zeros(size(y,1),1);
+
+for i=1:size(x,1)
+    B_x_phi(i)=((-m0*I)/(2*pi*rad(i)*rad(i)))*y(i);
+    B_y_phi(i)=((-m0*I)/(2*pi*rad(i)*rad(i)))*x(i);
 end %for
+
 B_phi=sqrt(B_x_phi.^2+B_y_phi.^2);
-f5=figure('Name','Plot of Magnetic field components along the pathline','NumberTitle','Off');
+
+figure(2);
+title('Plot of Magnetic field components along the pathline');
 yyaxis left;
-plot(phi,B_x_phi,'k-','LineWidth',2);
 xlabel('\Phi (in radians)'); 
 ylabel('B_{x}(x,y)=B_{x}(\Phi) (in Tesla)'); 
-yyaxis right; plot(phi,B_y_phi,'r-','LineWidth',2);
+plot(phi,B_x_phi,'k-','LineWidth',2);
+yyaxis right; 
+plot(phi,B_y_phi,'r-','LineWidth',2);
 hold on;
+
 plot(phi,B_phi,'b--','LineWidth',1);
-hold off
+hold on;
+
 legend('B_x','B_y','B (right axis)');
 xlabel('\Phi (in radians)');
 ylabel('B_{y}(x,y)=B_{y}(\Phi) (in Tesla)'); 
@@ -74,13 +83,13 @@ grid on;
 
 
 %% Analytical derivative 
-dx = -phi_grid.*(r0).*sin(phi_grid);
-dy = phi_grid.*(r0).*cos(phi_grid);
-figure;
-plot(dx,dy,'color','black','LineWidth',1.25)    
-shading flat;
-colorbar;
-hold off;
+dx = -phi.*(r0).*sin(phi);
+dy = phi.*(r0).*cos(phi);
+% figure;
+% plot(dx,dy,'color','black','LineWidth',1.25)    
+% shading flat;
+% colorbar;
+% hold off;
 
 %% Numerical Derivative
 
