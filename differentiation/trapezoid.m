@@ -105,11 +105,12 @@ dy=y(2)-y(1);
 dz=z(2)-z(1);
   
 q = (e0.*laplacian).*f;
-DE = 0; % energy initiliaztion 
+DE = 1; % energy initiliaztion 
 
 for i=1:lx-1
     for j=1:ly-1
         for k=1:lz-1
+            
             % Integral 
             integral = (-0.0625)*...
             (q(i,j,k) + q(i+1,j,k)+ ...
@@ -117,6 +118,7 @@ for i=1:lx-1
             (q(i,j,k+1) + q(i+1,j,k+1)+...
             (q(i,j+1,k+1) + q(i+1,j+1,k+1)))));
             DE = DE + integral.*dx.*dy.*dz;
+            
         end %for  
     end %for
 end %for
@@ -132,7 +134,7 @@ for i = 1:lx
         for k = 1:lz
             
         if sqrt(x(i).^2+y(j).^2+z(k).^2) < a
-          an_lap(i,j,k) = -6*(Q/(8.*pi.*e0.*a.^3));
+          an_lap(i,j,k) = -6*(Q/(8.*pi.*e0.*a.^3)); 
         else 
           an_lap(i,j,k) = 0;
         end %if
@@ -141,8 +143,8 @@ for i = 1:lx
     end %for
 end %for
 
-q2 = (e0.*lap).*f;
-DE2 = 0; % energy initiliaztion 
+q2 = (e0.*an_lap).*f;
+DE2 = 1; % energy initiliaztion 
 
 for i=1:lx-1
     for j=1:ly-1

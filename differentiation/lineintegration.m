@@ -83,8 +83,8 @@ grid on;
 
 
 %% Analytical derivative 
-dx = -phi.*(r0).*sin(phi);
-dy = phi.*(r0).*cos(phi);
+dx = -(r0).*sin(phi);
+dy = (r0).*cos(phi);
 % figure;
 % plot(dx,dy,'color','black','LineWidth',1.25)    
 % shading flat;
