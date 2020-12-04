@@ -1,6 +1,6 @@
 %% Electrostatic potential of a dielectric function 
-lx = 50;
-ly = 50;
+lx = 100;
+ly = 100;
 %constants 
 e0=8.854.*10.^(-12);
 a=0.01;
@@ -16,13 +16,13 @@ dxx = 9.*a./10;
 phi_a = 100; %volts
 dphi_dx_a = 1000; %volts
 
-e = e0.*(10.*tanh((x-dx)./l)-(10.*tanh((x-dxx)./l)));
+ep = e0*(10*tanh((x-dx)/l)-(10*tanh((x-dxx)/l)));
   
 figure(1);
-plot(e);
-shading flat;
-colorbar;
-hold off;
+plot(ep,'b--');
+xlabel('1/m');
+ylabel('Farads');
+title('Dielectric Function as a function of x');
 
 %% 1B
 %second order, centered
@@ -40,14 +40,18 @@ end %for
 %backward difference at the end
 dy_dx(lx)=(y(lx)-y(lx-1))/dx;
 
-plot(x,dy_dx,'k--')
+figure(2);
+plot(x,dy_dx,'k--');
+xlabel('fill-in');
+ylabel('fill-in');
+title('fill-in');
 
 
 %% 1C
 
-e = zeros(100,100);
-
-for i=1:lx
-    e(x(i)) = e0.*(10.*tanh((x(i)-dx(i))./l)-(10.*tanh((x(i)-dxx(i))./l)));
-end %for  
+% e = zeros(100,100);
+% 
+% for i=1:lx
+%     e(x(i)) = e0.*(10.*tanh((x(i)-dx(i))./l)-(10.*tanh((x(i)-dxx(i))./l)));
+% end %for  
 
