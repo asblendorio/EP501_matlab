@@ -426,7 +426,7 @@ for i=1:lx-1
             (q2(i,j+1,k) + q2(i+1,j+1,k)+ ...
             (q2(i,j,k+1) + q2(i+1,j,k+1)+...
             (q2(i,j+1,k+1) + q2(i+1,j+1,k+1)))));
-            DE2 = DE2 + integral2.*dx.*dy.*dz;
+           DE2 = DE2 + integral2.*dx.*dy.*dz;
         end %for  
     end %for
 end %for
@@ -456,6 +456,130 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER END%%%%%%%%%%%%%%%%%%');
 %%where the differential path length is given by:
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #4 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
+%% Line Integration 
+% Compute and plot the parametric path 
+lx=100;
+ly=100;
+%constants
+I=10;
+a=0.005;
+m0=(4*pi)*10.^(-7);
+r0=2*a;
+
+x = linspace(-3*a,3*a,lx);
+y = linspace(-3*a,3*a,ly);
+[X,Y]=meshgrid(x,y);
+
+r_phi = zeros(100,100);
+
+%Magnetic Field component from Problem #1 
+for i=1:100
+    for j=1:100
+        if (sqrt(x(i).^2 +y(j).^2) < a)
+            r_phi(i,j) = ((m0.*I)/(2.*pi.*a.^2).*sqrt(x(i).^2+y(j).^2)).*(-y(j)/sqrt(x(i).^2+y(j).^2)+(x(i)./sqrt(x(i).^2+y(j).^2)));
+        else
+            r_phi(i,j) = ((m0.*I)/(2.*pi.*sqrt(x(i).^2+y(j).^2))).*(-y(j)/sqrt(x(i).^2+y(j).^2)+(x(i)./sqrt(x(i).^2+y(j).^2)));
+        end %if 
+    end %for
+end %for
+figure(8);
+pcolor(x,y,r_phi);
+xlabel('x');
+ylabel('y');
+title('Parametric Path vs. Magnetic Field ');
+shading flat;
+colorbar;
+hold on;
+
+% r_phix = zeros(1,100);
+% r_phiy = zeros(1,100);
+
+phi_grid = linspace(0,2*pi,lx);
+x = r0.*cos(phi_grid);
+y = r0.*sin(phi_grid);
+%% Plotter
+plot(x,y,'color','black','LineWidth',1.25)    
+shading flat;
+colorbar;
+hold off;
+
+%% Plotting Magnetic Field B in terms of r 
+B_phi = zeros(1,100); 
+Bx_phi= zeros(1,100); 
+By_phi= zeros(1,100);
+
+for i=1:lx
+        B_phi(i) = ((m0*I)/(2*pi*(sqrt(x(i)^2 + ...
+        y(i)^2)))*(-y(i)/(sqrt(x(i)^2 + y(i)^2)) + ...
+        x(i)/(sqrt(x(i)^2 + y(i)^2))));
+        
+        Bx_phi(i)=((m0*I)/(2*pi*(sqrt(x(i).^2+y(i).^2))* ...
+        (-y(i)./sqrt(x(i).^2+y(i).^2))));
+        
+        By_phi(i)=((m0*I)/(2*pi*(sqrt(x(i).^2+y(i).^2))* ...
+        (x(i)./sqrt(x(i).^2+y(i).^2)))); 
+    
+end %for
+figure(9);
+plot(phi_grid,B_phi,'r','LineWidth',1);
+xlabel('\Phi (in radians)'); 
+ylabel('B_{x}(x,y)=B_{x}(\Phi) (in Tesla)'); 
+title('Magnetic Field Components at r=0.01 m '); 
+legend('B');
+grid on;
+hold off;
+
+
+%% Numerical Derivative
+phi_grid = linspace(0,2*pi,lx);
+x = r0.*cos(phi_grid);
+y = r0.*sin(phi_grid);
+
+%second order, centered
+dy_dx=zeros(lx,1);
+dx=x(2)-x(1);
+dx_dy=zeros(ly,1);
+dy=y(2)-y(1);
+
+%centered difference on the interior
+for ix=2:lx-1
+    dy_dx(ix)=(x(ix)-x(ix-1))/dx;
+end %for
+dy_dx(1)=dy_dx(2);
+%backward difference at the end
+
+%forward difference at the beginning
+for iy=2:ly-1
+    dx_dy(iy)=(y(iy)-y(iy-1))/dy;
+end %for
+dx_dy(1)=dx_dy(2);
+
+
+%% Analytical derivative 
+an_dx = -(r0).*sin(phi_grid);
+an_dy = (r0).*cos(phi_grid);
+%% Plotter
+figure(10);
+plot(an_dx,an_dy,'color','red','LineWidth',1.25);
+xlabel('dx');
+ylabel('f(x)');
+title('Analytical Vs. Numerical Tangent Vector');
+grid on;
+hold on;
+
+plot(dx_dy,dy_dx,'b--','Linewidth',1);
+% xlim([-3*a 3*a]);
+% ylim([-3*a 3*a]);
+
+% figure(5);
+% plot(0.01*dx_dphi,0.01*dy_dphi,'red','Linewidth',1);
+% xlabel('dx');
+% ylabel('f(x)');
+% title(' Numerical Tangent Vector');
+% grid on;
+
+%% Auxiliary Magnetic Field 
+
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #4 ANSWER END%%%%%%%%%%%%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #4 ANSWER PLOTS%%%%%%%%%%%%%%%%%%');

@@ -71,25 +71,68 @@ legend('B');
 grid on;
 hold off;
 
-% Analytical derivative 
-dx = -(r0).*sin(phi_grid);
-dy = (r0).*cos(phi_grid);
-figure(3);
-plot(dx,dy,'color','black','LineWidth',1.25);
-xlabel('x');
-ylabel('y');
-title('Analytical vs. Numerical Tangent Vector');
-shading flat;
-colorbar;
 
 %% Numerical Derivative
-%gradient of scalar function
+phi_grid = linspace(0,2*pi,lx);
+x = r0.*cos(phi_grid);
+y = r0.*sin(phi_grid);
+
+%second order, centered
+dy_dx=zeros(lx,1);
 dx=x(2)-x(1);
+dx_dy=zeros(ly,1);
 dy=y(2)-y(1);
 
-dx_dphi=zeros(lx,1);
+%centered difference on the interior
+for ix=2:lx-1
+    dy_dx(ix)=(x(ix)-x(ix-1))/dx;
+end %for
+dy_dx(1)=dy_dx(2);
+%backward difference at the end
+
+%forward difference at the beginning
+for iy=2:ly-1
+    dx_dy(iy)=(y(iy)-y(iy-1))/dy;
+end %for
+dx_dy(1)=dx_dy(2);
+
+
+%% Analytical derivative 
+an_dx = -(r0).*sin(phi_grid);
+an_dy = (r0).*cos(phi_grid);
+%% Plotter
+figure(3);
+plot(an_dx,an_dy,'color','red','LineWidth',1.25);
+xlabel('dx');
+ylabel('f(x)');
+title('Analytical Vs. Numerical Tangent Vector');
+grid on;
+hold on;
+
+plot(dx_dy,dy_dx,'b--','Linewidth',1);
+% xlim([-3*a 3*a]);
+% ylim([-3*a 3*a]);
+
+% figure(5);
+% plot(0.01*dx_dphi,0.01*dy_dphi,'red','Linewidth',1);
+% xlabel('dx');
+% ylabel('f(x)');
+% title(' Numerical Tangent Vector');
+% grid on;
 
 %% Auxiliary Magnetic Field 
 
+dr_dphi = dx_dy+dy_dx;
+dphi = phi_grid(2)-phi_grid(1);
+% differential path length
+dl = dr_dphi*dphi;
+
+dl = sum(dl,'all');
+B = sum(B_phi,'all');
+j = dl.*(B/m0);
+current = (B/m0).*dl;
+current = sum(current,'all');
+xsoln = current./2;
+disp(xsoln);
 
 
