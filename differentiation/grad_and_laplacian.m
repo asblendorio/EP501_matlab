@@ -117,32 +117,3 @@ colorbar;
 shading flat; 
 
 
-%% Integration using the Iterated Trapezoidal method
-%constants
-Q=1;
-a=1;
-e0=8.854.*10.^(-12);
-
-%gradient of scalar function
-dx=x(2)-x(1);
-dy=y(2)-y(1);
-dz=z(2)-z(1);
-  
-q = (e0.*laplacian).*f;
-DE = 0; % energy initiliaztion 
-
-for i=1:length(lx)-1
-    for j=1:length(ly)-1
-        for k=1:length(lz)-1
-            % Integral 
-            integral = (-0.0625)*(q(i,j,k) + q(i+1,j,k)+ ...
-            (q(i,j,k) + q(i,j+1,k)+ ...
-            (q(i,j,k) + q(i,j,k+1))));
-            DE = DE + integral.*dx.*dy.*dz;
-        end %for  
-    end %for
-end %for
-
-We = DE;
-fprintf('\n Total electrostatic energy We = %e Joules\n',We);
-

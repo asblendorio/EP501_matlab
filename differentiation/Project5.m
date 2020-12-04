@@ -40,7 +40,6 @@ m0=(4*pi)*10.^(-7);
 x = linspace(-3*a,3*a,lx);
 y = linspace(-3*a,3*a,ly);
 [X,Y]=meshgrid(x,y);
-%f=exp(-(X.^2)/2/2).*exp(-Y.^2/2/1);
 
 f = zeros(100,100);
 for i=1:100
@@ -176,9 +175,7 @@ e0=8.854.*10.^(-12);
 
 x = linspace(-3*a,3*a,lx);
 y = linspace(-3*a,3*a,ly);
-% z = linspace(-3*a,3*a,lz);
 [X,Y]=meshgrid(x,y);
-%f=exp(-(X.^2)/2/2).*exp(-Y.^2/2/1);
 
 f = zeros(100,100);
 for i=1:100
@@ -209,7 +206,6 @@ colorbar;
 %gradient of scalar function
 dx=x(2)-x(1);
 dy=y(2)-y(1);
-% dz=z(2)-z(1);
 
 %% Gradient
 gradx=zeros(size(f));
@@ -230,12 +226,6 @@ for iy=2:ly-1
 end %for
 grady(ly,:)=(f(ly,:)-f(ly-1,:))/dy;
 
-%z component of gradient
-% gradz(1,:)=(f(2,:)-f(1,:))/dz;
-% for iz=2:lz-1
-%     gradz(iz,:)=(f(iz+1,:)-f(iz-1,:))/2/dz;    %\partial/\partial y
-% end %for
-% gradz(lz,:)=(f(lz,:)-f(lz-1,:))/dz;
 
 %add quiver on top of color plot
 hold on;
@@ -246,7 +236,6 @@ hold off;
 %% Take the Laplacian by taking divergence of the previously computed gradient
 f=gradx;
 g=grady;
-% h=gradz;
 
 %x-derivative part of the divergence
 divx=zeros(size(f));
@@ -263,15 +252,6 @@ for iy=2:ly-1
     divy(iy,:)=(g(iy+1,:)-g(iy-1,:))/2/dy;
 end %for
 divy(ly,:)=(g(ly,:)-g(ly-1,:))/dy;
-
-
-% z-derivative part of the divergence 
-% divz=zeros(size(z));
-% divz(1,:)=(h(2,:)-h(1,:))/dz;
-% for iz=2:lz-1
-%     divz(iz,:)=(h(iz+1,:)-h(iz-1,:))/2/dz;
-% end %for
-% divz(lz,:)=(h(lz,:)-h(lz-1,:))/dz;
 
 laplacian=divx+divy;    %this is really laplacian b/c input is gradient
 
@@ -312,7 +292,7 @@ f = zeros(100,100,100);
 
 for i=1:100
     for j=1:100
-        for k = 1:100 % add z dimension 
+        for k = 1:100 % add 3rd dimension 
             
         if (sqrt(x(i).^2 +y(j).^2+z(k).^2) < a)
             f(i,j,k) = Q/(4.*pi.*e0.*a) - Q/(8.*pi.*e0.*a.^3).*(x(i).^2+y(j).^2+z(k).^2-a^2); 
@@ -328,7 +308,7 @@ end %for
 % dp_dy=zeros(size(phi));
 % dp_dz=zeros(size(phi));
 
-%gradient of scalar function
+%% Gradient of scalar function
 dx=x(2)-x(1);
 dy=y(2)-y(1);
 dz=z(2)-z(1);
@@ -354,10 +334,11 @@ grady(ly,:,:)=(f(ly,:,:)-f(ly-1,:,:))/dy;
 % z component of gradient
 gradz(:,:,1)=(f(:,:,2)-f(:,:,1))/dz;
 for iz=2:lz-1
-    gradz(:,:,iz)=(f(:,:,iz+1)-f(:,:,iz-1))/2/dz;    %\partial/\partial y
+    gradz(:,:,iz)=(f(:,:,iz+1)-f(:,:,iz-1))/2/dz;    %\partial/\partial z
 end %for
 grady(:,:,lz)=(f(:,:,lz)-f(:,:,lz-1))/dz;
 
+%% Divergence of Gradient
 k=gradx;
 g=grady;
 s=gradz;
@@ -382,24 +363,19 @@ divy(ly,:,:)=(g(ly,:,:)-g(ly-1,:,:))/dy;
 divz=zeros(size(s));
 divz(:,:,1)=(s(:,:,2)-s(:,:,2))/dz;
 for iz=2:lz-1
-    divz(:,:,iz)=(s(:,:,iz+1)-s(:,:,iz-1))/2/dz;    %\partial/\partial z
+    divz(:,:,iz)=(s(:,:,iz+1)-s(:,:,iz-1))/2/dz;    
 end %for
 divz(:,:,lz)=(s(:,:,lz)-s(:,:,lz-1))/dz;
 
-laplacian=divx+divy+divz;    %this is really laplacian b/c input is gradient
+laplacian2=divx+divy+divz;    %this is really laplacian b/c input is gradient
 
 %% Integration using the Iterated Trapezoidal method
-%constants
-Q=1;
-a=1;
-e0=8.854.*10.^(-12);
-
 %gradient of scalar function
 dx=x(2)-x(1);
 dy=y(2)-y(1);
 dz=z(2)-z(1);
-  
-q = (e0.*laplacian).*f;
+% input numerical laplacian  
+q = (e0.*laplacian2).*f;
 DE = 1; % energy initiliaztion 
 
 for i=1:lx-1
@@ -421,7 +397,7 @@ end %for
 We = DE;
 fprintf('\n Total electrostatic energy We (Numerical) = %e Joules\n',We);
 
-% Analytical Laplacian in 3D:
+% Analytical Laplacian:
 an_lap = zeros(100,100,100);
 
 for i = 1:lx

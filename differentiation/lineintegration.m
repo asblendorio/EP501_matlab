@@ -55,34 +55,23 @@ for i=1:lx
         y(i)^2)))*(-y(i)/(sqrt(x(i)^2 + y(i)^2)) + ...
         x(i)/(sqrt(x(i)^2 + y(i)^2))));
         
-        Bx_phi(i)=((m0*I)/(2*pi*(sqrt(x(i).^2+y(i).^2))*...
+        Bx_phi(i)=((m0*I)/(2*pi*(sqrt(x(i).^2+y(i).^2))* ...
         (-y(i)./sqrt(x(i).^2+y(i).^2))));
         
-        By_phi(i)=((m0*I)/(2*pi*(sqrt(x(i).^2+y(i).^2))*...
+        By_phi(i)=((m0*I)/(2*pi*(sqrt(x(i).^2+y(i).^2))* ...
         (x(i)./sqrt(x(i).^2+y(i).^2)))); 
     
 end %for
-
 figure(2);
-title('Plot of Magnetic Field');
+plot(phi_grid,B_phi,'r','LineWidth',1);
 xlabel('\Phi (in radians)'); 
 ylabel('B_{x}(x,y)=B_{x}(\Phi) (in Tesla)'); 
-
-plot(phi_grid,B_phi,'b--','LineWidth',0.5);
-hold on;
-plot(phi_grid,Bx_phi,'r-','LineWidth',1);
-hold on;
-plot(phi_grid,By_phi,'k-','LineWidth',1);
-hold on;
-
-legend('Bx','By','B');
-xlabel('\Phi'); 
-ylabel('B_{y}(x,y)=B_{y}(\Phi) (in Tesla)'); 
 title('Magnetic Field Components at r=0.01 m '); 
+legend('B');
 grid on;
 hold off;
 
-%% Analytical derivative 
+% Analytical derivative 
 dx = -(r0).*sin(phi_grid);
 dy = (r0).*cos(phi_grid);
 figure(3);
@@ -92,7 +81,6 @@ ylabel('y');
 title('Analytical vs. Numerical Tangent Vector');
 shading flat;
 colorbar;
-hold off;
 
 %% Numerical Derivative
 %gradient of scalar function
@@ -100,5 +88,8 @@ dx=x(2)-x(1);
 dy=y(2)-y(1);
 
 dx_dphi=zeros(lx,1);
+
+%% Auxiliary Magnetic Field 
+
 
 
