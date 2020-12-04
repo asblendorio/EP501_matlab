@@ -580,13 +580,13 @@ for i=1:lx-1
     fprime1 = ((dy_dx(i)+dx_dy(i))./m0);
     By_phi1(i) = (r0).*cos(x(i));
     Bx_phi1(i) = -(r0).*sin(x(i));
-    B_phi1(i) = fprime1.*(Bx_phi(i)+ By_phi1(i));
+    B_phi1(i) = fprime1.*(Bx_phi(i)+By_phi1(i));
     
 end %for 
 
 integral3 = 0;
 for j=1:99
-    integral3 = (1/4).*((B_phi1(i+1)+B_phi1(i).*dx))+integral3;
+    integral3 = (0.25).*((B_phi1(i+1)+B_phi1(i).*dx))+integral3;
 end %for    
 
 fprintf('\n The Magnetic field has a current of = %f Amps\n',integral3);
