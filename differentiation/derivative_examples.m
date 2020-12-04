@@ -28,7 +28,6 @@ dy_dx(lx)=(y(lx)-y(lx-1))/dx;
 
 plot(x,dy_dx,'k--')
 
-
 %first order derivative approximation (backward)
 %interior
 dy_dxbwd=zeros(lx,1);

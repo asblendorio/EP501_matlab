@@ -30,6 +30,7 @@ for n=2:Ns
 end %for
 
 
+
 %% Compare different solutions
 plot(ts,ybar);
 hold on;
