@@ -195,6 +195,7 @@ xlabel('x');
 ylabel('y');
 title('Scalar Field');
 shading flat;
+colorbar;
 
 figure(6);
 contourf(x,y,f);
@@ -570,23 +571,25 @@ xlim([-3*a 3*a]);
 ylim([-3*a 3*a]);
 
 %% Auxiliary Magnetic Field 
+B_phi1 = zeros(1,100); 
+Bx_phi1= zeros(1,100); 
+By_phi1= zeros(1,100);
 
-dr_dphi = dx_dy+dy_dx;
-dphi = phi_grid(2)-phi_grid(1);
-% differential path length
-dl = dr_dphi*dphi;
-dl = sum(dl,'all');
+for i=1:lx-1
+    
+    fprime1 = ((dy_dx(i)+dx_dy(i))./m0);
+    By_phi1(i) = (r0).*cos(x(i));
+    Bx_phi1(i) = -(r0).*sin(x(i));
+    B_phi1(i) = fprime1.*(Bx_phi(i)+ By_phi1(i));
+    
+end %for 
 
-B = sum(B_phi,'all');
-j = dl.*(B/m0);
+integral3 = 0;
+for j=1:99
+    integral3 = (1/4).*((B_phi1(i+1)+B_phi1(i).*dx))+integral3;
+end %for    
 
-% integral definition 
-current = (B/m0).*dl;
-current = sum(current,'all');
-xsoln = current./2;
-disp('The numerically computed auxiliary magnetic field integrated around the path r is:');
-disp(round(xsoln));
-
+fprintf('\n The Magnetic field has a current of = %f Amps\n',integral3);
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #4 ANSWER END%%%%%%%%%%%%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #4 ANSWER PLOTS%%%%%%%%%%%%%%%%%%');
