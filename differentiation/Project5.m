@@ -261,7 +261,7 @@ set(gca,'FontSize',24);
 xlabel('x');
 ylabel('y');
 zlabel('z');
-title('laplacian(f)');
+title('Numerically Computed Laplacian(f)');
 colorbar;
 shading flat; 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
@@ -397,8 +397,9 @@ end %for
 We = DE;
 fprintf('\n Total electrostatic energy We (Numerical) = %e Joules\n',We);
 
-% Analytical Laplacian:
+%% Analytical Laplacian:
 an_lap = zeros(100,100,100);
+
 
 for i = 1:lx
     for j = 1:ly
@@ -554,8 +555,7 @@ for iy=2:ly-1
 end %for
 dx_dy(1)=dx_dy(2);
 
-
-%% Analytical derivative 
+%% Analytical derivative
 an_dx = -(r0).*sin(phi_grid);
 an_dy = (r0).*cos(phi_grid);
 %% Plotter
@@ -566,19 +566,26 @@ ylabel('f(x)');
 title('Analytical Vs. Numerical Tangent Vector');
 grid on;
 hold on;
-
-plot(dx_dy,dy_dx,'b--','Linewidth',1);
-% xlim([-3*a 3*a]);
-% ylim([-3*a 3*a]);
-
-% figure(5);
-% plot(0.01*dx_dphi,0.01*dy_dphi,'red','Linewidth',1);
-% xlabel('dx');
-% ylabel('f(x)');
-% title(' Numerical Tangent Vector');
-% grid on;
+xlim([-3*a 3*a]);
+ylim([-3*a 3*a]);
 
 %% Auxiliary Magnetic Field 
+
+dr_dphi = dx_dy+dy_dx;
+dphi = phi_grid(2)-phi_grid(1);
+% differential path length
+dl = dr_dphi*dphi;
+dl = sum(dl,'all');
+
+B = sum(B_phi,'all');
+j = dl.*(B/m0);
+
+% integral definition 
+current = (B/m0).*dl;
+current = sum(current,'all');
+xsoln = current./2;
+disp('The numerically computed auxiliary magnetic field integrated around the path r is:');
+disp(round(xsoln));
 
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #4 ANSWER END%%%%%%%%%%%%%%%%%%');

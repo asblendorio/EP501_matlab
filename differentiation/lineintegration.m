@@ -108,17 +108,8 @@ ylabel('f(x)');
 title('Analytical Vs. Numerical Tangent Vector');
 grid on;
 hold on;
-
-plot(dx_dy,dy_dx,'b--','Linewidth',1);
-% xlim([-3*a 3*a]);
-% ylim([-3*a 3*a]);
-
-% figure(5);
-% plot(0.01*dx_dphi,0.01*dy_dphi,'red','Linewidth',1);
-% xlabel('dx');
-% ylabel('f(x)');
-% title(' Numerical Tangent Vector');
-% grid on;
+xlim([-3*a 3*a]);
+ylim([-3*a 3*a]);
 
 %% Auxiliary Magnetic Field 
 
@@ -126,13 +117,16 @@ dr_dphi = dx_dy+dy_dx;
 dphi = phi_grid(2)-phi_grid(1);
 % differential path length
 dl = dr_dphi*dphi;
-
 dl = sum(dl,'all');
+
 B = sum(B_phi,'all');
 j = dl.*(B/m0);
+
+% integral definition 
 current = (B/m0).*dl;
 current = sum(current,'all');
 xsoln = current./2;
-disp(xsoln);
+disp('The numerically computed auxiliary magnetic field integrated around the path r is:');
+disp(round(xsoln));
 
 
