@@ -1,5 +1,5 @@
 %% Author: Alec Sblendorio 
-%% Due Date: December 5, 2020
+%% Due Date: December 6, 2020
 %% Subject: EP 501 Numerical Methods for Scientists and Engineers 
 %% Project #6
 %%Problem 1: Electrostatic Potential in Dielectrics with Boundary

@@ -42,11 +42,11 @@ vx4=zeros(1,lt);
 vy4=zeros(1,lt);
 vx4(1)=1e3;     % vx initial conditions
 vy4(1)=1e3;     % vy initial conditions
-yval=zeros(1,lt);
+ynew=zeros(1,lt);
 % Loop for applying RK4 to a system of two equations
 for n=2:lt
-    yval(n) = yval(n-1) + (dt*vy4(n-1));
-    B2 = B*(1.5*(yval(n)));
+    ynew(n) = ynew(n-1)+(dt*vy4(n-1));
+    B2 = B*(1.5*(ynew(n)));
     omega2 = q*B2/m;
     
     k1x=dt*(omega2*vy4(n-1));    %k1 for the x differential equation
