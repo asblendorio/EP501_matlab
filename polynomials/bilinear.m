@@ -43,7 +43,7 @@ disp(yg(yi+1));
 
 
 %% Plotter for 2A and B
-figure(3);
+figure(5);
 title('Problem A and B Indices I and J');
 plot(xint,yint,'*','MarkerSize',5,'MarkerFaceColor','red');
 hold on;
@@ -61,7 +61,7 @@ xvec=xi1(:);
 yvec=yi1(:);
 f = f2D;
 
-figure(4);
+figure(6);
 imagesc(x,y,f);
 axis xy;
 xlabel('x');

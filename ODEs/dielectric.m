@@ -28,7 +28,7 @@ title('Dielectric Function as a function of x');
 %second order, centered
 dy_dx=zeros(lx,1);
 dx=x(2)-x(1);
-
+dy=y(2)-y(1);
 %forward difference at the beginning
 dy_dx(1)=(y(2)-y(1))/dx;
 

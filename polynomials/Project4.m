@@ -150,7 +150,7 @@ end %for
 %% Illustrate cubic spline approximations using Matlab functions
 x=linspace(-5,5,15);
 y=sin(x);
-figure(2);
+figure(3);
 plot(x,y,'o','MarkerSize',20);
 
 splinedef=spline(x,y);
