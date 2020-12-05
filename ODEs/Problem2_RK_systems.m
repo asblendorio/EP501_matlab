@@ -16,7 +16,7 @@ m=1.67e-31;
 B=5e-6;
 omega=q*B/m;    %frequency of oscillation (can be shown via solution by hand gives a SHO)
 tmin=0;
-tmax=2*2*pi/abs(omega);    % follow particle for one oscillation periods
+tmax=5*2*pi/abs(omega);    % follow particle for one oscillation periods
 t=linspace(tmin,tmax,100);
 dt=t(2)-t(1);
 lt=numel(t);
@@ -37,33 +37,14 @@ for n=2:lt
     vy(n)=vy(n-1)-dt*(omega*vxhalf);    
 end %for
 
-% %RK3 Method
-% vx=zeros(1,lt);
-% vy=zeros(1,lt);
-% vx(1)=1e3;     % vx initial conditions
-% vy(1)=1e3;     % vy initial conditions
-% % Loop for applying RK3 to a system of two equations
-% for n=2:lt
-%     k1x=dt*(omega*vy(n-1));    %k1 for the x differential equation
-%     k1y=-dt*(omega*vx(n-1));    %k1 for the y differential equation
-%     
-%     k2x=dt*omega*(vy(n-1)+k1y/2);
-%     k2y=-dt*omega*(vx(n-1)+k1x/2);
-%     
-%     k3x=dt*omega*(vy(n-1)-k1y+2*k2y);
-%     k3y=-dt*omega*(vx(n-1)-k1x+2*k2x); 
-%     
-%     vx(n)=vx(n-1)+1/6*(k1x+4*k2x+k3x);
-%     vy(n)=vy(n-1)+1/6*(k1y+4*k2y+k3y);
-% end %for
-
 
 %RK4 method
 vx4=zeros(1,lt);
 vy4=zeros(1,lt);
 vx4(1)=1e3;     % vx initial conditions
 vy4(1)=1e3;     % vy initial conditions
-% Loop for applying RK3 to a system of two equations
+
+% Loop for applying RK4 to a system of two equations
 for n=2:lt
     k1x=dt*(omega*vy4(n-1));    %k1 for the x differential equation
     k1y=-dt*(omega*vx4(n-1));    %k1 for the y differential equation
@@ -78,10 +59,9 @@ for n=2:lt
     k4y=-dt*omega*(vx4(n-1)-k1x+2*k2x+k3x); 
     
     vx4(n)=vx4(n-1)+1/6*(k1x+2*k2x+2*k3x+k4x);
-    vy4(n)=vy4(n-1)+1/6*(k1y+2*k2y+2*k3y+k4x);
+    vy4(n)=vy4(n-1)+1/6*(k1y+2*k2y+2*k3y+k4y);
     
 end %for
-
 
 %RK2 Integrate velocity to get position as a fn. of time, this assumes that the
 %particle is initially at x,y = (0,0)
@@ -96,7 +76,6 @@ x4=cumtrapz(t,vx4);
 y4=cumtrapz(t,vy4);
 vz4=1e3;
 z4=vz4*t;
-
 
 % Plot velocity solutions for both RK2 and RK4
 figure(1);
