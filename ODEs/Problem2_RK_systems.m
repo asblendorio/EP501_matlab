@@ -52,15 +52,14 @@ for n=2:lt
     k2x=dt*omega*(vy4(n-1)+k1y/2);
     k2y=-dt*omega*(vx4(n-1)+k1x/2);
     
-    k3x=dt*omega*(vy4(n-1)-k1y+2*k2y);
-    k3y=-dt*omega*(vx4(n-1)-k1x+2*k2x); 
+    k3x=dt*omega*(vy4(n-1)+k2y/2);
+    k3y=-dt*omega*(vx4(n-1)+k2x/2); 
     
-    k4x=dt*omega*(vy4(n-1)-k1y+2*k2y+k3y);
-    k4y=-dt*omega*(vx4(n-1)-k1x+2*k2x+k3x); 
+    k4x=dt*omega*(vy4(n-1)+k3y);
+    k4y=-dt*omega*(vx4(n-1)+k3x); 
     
     vx4(n)=vx4(n-1)+1/6*(k1x+2*k2x+2*k3x+k4x);
     vy4(n)=vy4(n-1)+1/6*(k1y+2*k2y+2*k3y+k4y);
-    
 end %for
 
 %RK2 Integrate velocity to get position as a fn. of time, this assumes that the

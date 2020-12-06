@@ -44,25 +44,25 @@ vx4(1)=1e3;     % vx initial conditions
 vy4(1)=1e3;     % vy initial conditions
 ynew=zeros(1,lt);
 % Loop for applying RK4 to a system of two equations
-for n=2:lt
-    ynew(n) = ynew(n-1)+(dt*vy4(n-1));
-    B2 = B*(1.5*(ynew(n)));
+for l=2:lt
+    ynew(l) = ynew(l-1)+(dt*vy4(l-1));
+    B2 = B*(1.5*(ynew(l)));
     omega2 = q*B2/m;
     
-    k1x=dt*(omega2*vy4(n-1));    %k1 for the x differential equation
-    k1y=-dt*(omega2*vx4(n-1));    %k1 for the y differential equation
+    k1x=dt*(omega2*vy4(l-1));    %k1 for the x differential equation
+    k1y=-dt*(omega2*vx4(l-1));    %k1 for the y differential equation
     
-    k2x=dt*omega2*(vy4(n-1)+k1y/2);
-    k2y=-dt*omega2*(vx4(n-1)+k1x/2);
+    k2x=dt*omega2*(vy4(l-1)+k1y/2);
+    k2y=-dt*omega2*(vx4(l-1)+k1x/2);
     
-    k3x=dt*omega2*(vy4(n-1)+k2y/2);
-    k3y=-dt*omega2*(vx4(n-1)+k2x/2); 
+    k3x=dt*omega2*(vy4(l-1)+k2y/2);
+    k3y=-dt*omega2*(vx4(l-1)+k2x/2); 
     
-    k4x=dt*omega2*(vy4(n-1)+k3y);
-    k4y=-dt*omega2*(vx4(n-1)+k3x); 
+    k4x=dt*omega2*(vy4(l-1)+k3y);
+    k4y=-dt*omega2*(vx4(l-1)+k3x); 
     
-    vx4(n)=vx4(n-1)+1/6*(k1x+2*k2x+2*k3x+k4x);
-    vy4(n)=vy4(n-1)+1/6*(k1y+2*k2y+2*k3y+k4y);
+    vx4(l)=vx4(l-1)+1/6*(k1x+2*k2x+2*k3x+k4x);
+    vy4(l)=vy4(l-1)+1/6*(k1y+2*k2y+2*k3y+k4y);
   
 end %for
 
