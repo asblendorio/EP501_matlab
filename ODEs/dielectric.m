@@ -1,6 +1,6 @@
 %% Electrostatic potential of a dielectric function 
-lx = 20;
-ly = 20;
+lx = 100;
+ly = 100;
 %constants 
 e0=8.854.*10.^(-12);
 a=0.01;
@@ -57,12 +57,12 @@ hold on;
 plot(x,dep_dx2,'r--');
 xlabel('x (m)');
 ylabel('\epsilon(x)');
-title('1st and 2nd order Finite Difference Derivative');
+title('1st and 2nd order Finite Difference Derivative with %d grid points');
 legend('2nd Order','1st Order');
 
 %% 1D solve using Matlab Operator 
-ep2(:)=ep(:);
-ep3=zeros(100,100);
+% ep2(:)=ep(:);
+ep3=zeros(lx,ly);
 ep3(1,:)=[-1/dx^2,1/dx,zeros(1,lx-2)];
 ep3(lx,:)=[zeros(1,lx-1),1];
 
