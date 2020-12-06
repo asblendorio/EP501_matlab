@@ -62,6 +62,8 @@ z4=vz4*t;
 figure(2);
 ax4=plotyy(t,vx4,t,vy4);
 xlabel('time (s)');
+ylabel(ax(1),'v_x');
+ylabel(ax(2),'v_y');
 title('Runge-Kutta 4th Order Method');
 
 % Comet plot demo
@@ -71,6 +73,5 @@ hold on;
 set(gca,'FontSize',20);
 xlabel('x(m)');
 ylabel('y(m)');
-plot(vx4,vy4);
-set(legend('X(t)','$\vec{x}$'));
+legend('X(t)');
 title('Runge-Kutta 4th Order Method');
