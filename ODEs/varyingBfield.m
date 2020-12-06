@@ -11,9 +11,9 @@
 %    m dvx/dt = q vy B
 %    m dvy/dt = -q vx B
 
-q=-1.6e-19;
-m=1.67e-31;
-B=5e-6;
+q=1.6e-19;
+m=1.67e-27;
+B=5e-5;
 omega=q*B/m;    %frequency of oscillation (can be shown via solution by hand gives a SHO)
 tmin=0;
 tmax=5*2*pi/abs(omega);    % follow particle for one oscillation periods
@@ -22,20 +22,20 @@ dt=t(2)-t(1);
 lt=numel(t);
 
 % RK2 Method
-vx=zeros(1,lt);
-vy=zeros(1,lt);
-vx(1)=1;     % vx initial conditions
-vy(1)=1;     % vy initial conditions
-% Loop for applying RK2 to a system of two equations
-for n=2:lt
-    %step x and y components together, this is the half update
-    vxhalf=vx(n-1)+dt/2*(omega*vy(n-1));
-    vyhalf=vy(n-1)-dt/2*(omega*vx(n-1));
-    
-    %now the full update
-    vx(n)=vx(n-1)+dt*(omega*vyhalf);
-    vy(n)=vy(n-1)-dt*(omega*vxhalf);    
-end %for
+% vx=zeros(1,lt);
+% vy=zeros(1,lt);
+% vx(1)=1;     % vx initial conditions
+% vy(1)=1;     % vy initial conditions
+% % Loop for applying RK2 to a system of two equations
+% for n=2:lt
+%     %step x and y components together, this is the half update
+%     vxhalf=vx(n-1)+dt/2*(omega*vy(n-1));
+%     vyhalf=vy(n-1)-dt/2*(omega*vx(n-1));
+%     
+%     %now the full update
+%     vx(n)=vx(n-1)+dt*(omega*vyhalf);
+%     vy(n)=vy(n-1)-dt*(omega*vxhalf);    
+% end %for
 
 %RK4 method
 vx4=zeros(1,lt);
@@ -45,8 +45,9 @@ vy4(1)=1e3;     % vy initial conditions
 ynew=zeros(1,lt);
 % Loop for applying RK4 to a system of two equations
 for l=2:lt
+    % set new value for the Magnetic Field each time as it varies in Y
     ynew(l) = ynew(l-1)+(dt*vy4(l-1));
-    B2 = B*(1.5*(ynew(l)));
+    B2 = B*(1+.5*(ynew(l)));
     omega2 = q*B2/m;
     
     k1x=dt*(omega2*vy4(l-1));    %k1 for the x differential equation
@@ -68,10 +69,10 @@ end %for
 
 %RK2 Integrate velocity to get position as a fn. of time, this assumes that the
 %particle is initially at x,y = (0,0)
-x=cumtrapz(t,vx);    %Matlab built-in for accumulating an integral value
-y=cumtrapz(t,vy);
-vz=1e3;
-z=vz*t;
+% x=cumtrapz(t,vx);    %Matlab built-in for accumulating an integral value
+% y=cumtrapz(t,vy);
+% vz=1e3;
+% z=vz*t;
 
 %RK4 integrate velocity to get position as a fn. of time, this assumes that the
 %particle is initially at x,y = (0,0)
@@ -81,37 +82,35 @@ vz4=1e3;
 z4=vz4*t;
 
 % Plot velocity solutions for both RK2 and RK4
-figure(1);
-ax=plotyy(t,vx,t,vy);
-set(ax(1),'FontSize',20);
-set(ax(2),'FontSize',20);
-xlabel('time (s)');
-ylabel(ax(1),'v_x');
-ylabel(ax(2),'v_y');
-title('Runge-Kutta 2nd Order Method');
+% figure(1);
+% ax=plotyy(t,vx,t,vy);
+% set(ax(1),'FontSize',20);
+% set(ax(2),'FontSize',20);
+% xlabel('time (s)');
+% ylabel(ax(1),'v_x');
+% ylabel(ax(2),'v_y');
+% title('Runge-Kutta 2nd Order Method');
 
 figure(2);
 ax4=plotyy(t,vx4,t,vy4);
-set(ax(1),'FontSize',20);
-set(ax(2),'FontSize',20);
 xlabel('time (s)');
-ylabel(ax(1),'v_x');
-ylabel(ax(2),'v_y');
 title('Runge-Kutta 4th Order Method');
 
 % Comet plot demo
-figure(3);
-comet3(x,y,z);
-set(gca,'FontSize',20);
-xlabel('x');
-ylabel('y');
-zlabel('z');
-title('Runge-Kutta 2nd Order Method');
+% figure(3);
+% comet3(x,y,z);
+% set(gca,'FontSize',20);
+% xlabel('x');
+% ylabel('y');
+% zlabel('z');
+% title('Runge-Kutta 2nd Order Method');
 
 figure(4);
-comet3(x4,y4,z4);
+comet(x4,y4);
+hold on;
 set(gca,'FontSize',20);
-xlabel('x');
-ylabel('y');
-zlabel('z');
+xlabel('x(m)');
+ylabel('y(m)');
+plot(vx4,vy4);
+legend('X(t)','$\vec{v}$');
 title('Runge-Kutta 4th Order Method');

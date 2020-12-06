@@ -12,14 +12,26 @@
 %    m dvy/dt = -q vx B
 
 q=-1.6e-19;
-m=1.67e-31;
+m=1.67e-27;
 B=5e-6;
-omega=q*B/m;    %frequency of oscillation (can be shown via solution by hand gives a SHO)
-tmin=0;
-tmax=2*2*pi/abs(omega);    % follow particle for one oscillation periods
-t=linspace(tmin,tmax,100);
-dt=t(2)-t(1);
-lt=numel(t);
+% omega=q*B/m;    %frequency of oscillation (can be shown via solution by hand gives a SHO)
+% tmin=0;
+% tmax=2*2*pi/abs(omega);    % follow particle for one oscillation periods
+% t=linspace(tmin,tmax,100);
+% dt=t(2)-t(1);
+% lt=numel(t);
+
+for j=75:-1:1
+    omega=q*B/m;    %frequency of oscillation (can be shown via solution by hand gives a SHO)
+    tmin(j)=0;
+    tmax(j)=2*2*pi/abs(omega);    % follow particle for one oscillation periods
+    t(j)=linspace(tmin,tmax,75);
+    dt(j)=t(2)-t(1);
+    lt=numel(t); 
+    if 
+        
+    end %    
+end %for    
 
 % RK2 Method
 vx=zeros(1,lt);
