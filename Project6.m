@@ -29,8 +29,8 @@
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 % Electrostatic potential of a dielectric function 
-lx = 20;
-ly = 20;
+lx = 100;
+ly = 100;
 %constants 
 e0=8.854.*10.^(-12);
 a=0.01;
@@ -251,7 +251,7 @@ set(ax(2),'FontSize',20);
 xlabel('time (s)');
 ylabel(ax(1),'v_x');
 ylabel(ax(2),'v_y');
-title('Comparison of Runge-Kurtta 2nd and 4th Order Methods');
+title('Comparison of Runge-Kutta 2nd and 4th Order Methods');
 
 
 %% Part C
