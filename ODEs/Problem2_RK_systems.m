@@ -96,8 +96,8 @@ set(ax(2),'FontSize',20);
 xlabel('time (s)');
 ylabel(ax(1),'v_x');
 ylabel(ax(2),'v_y');
-title('Runge-Kurtta 2nd Order Method');
-r
+title('Runge-Kutta 2nd Order Method');
+
 figure(2);
 ax4=plotyy(t,vx4,t,vy4);
 set(ax(1),'FontSize',20);
@@ -123,3 +123,12 @@ xlabel('x');
 ylabel('y');
 zlabel('z');
 title('Runge-Kutta 4th Order Method');
+
+figure(8);
+ax=plotyy(t,vy,t,vy4);
+set(ax(1),'FontSize',20);
+set(ax(2),'FontSize',20);
+xlabel('time (s)');
+ylabel(ax(1),'v_x');
+ylabel(ax(2),'v_y');
+title('Comparison of Runge-Kurtta 2nd and 4th Order Methods');
