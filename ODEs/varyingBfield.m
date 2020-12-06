@@ -21,22 +21,6 @@ t=linspace(tmin,tmax,100);
 dt=t(2)-t(1);
 lt=numel(t);
 
-% RK2 Method
-% vx=zeros(1,lt);
-% vy=zeros(1,lt);
-% vx(1)=1;     % vx initial conditions
-% vy(1)=1;     % vy initial conditions
-% % Loop for applying RK2 to a system of two equations
-% for n=2:lt
-%     %step x and y components together, this is the half update
-%     vxhalf=vx(n-1)+dt/2*(omega*vy(n-1));
-%     vyhalf=vy(n-1)-dt/2*(omega*vx(n-1));
-%     
-%     %now the full update
-%     vx(n)=vx(n-1)+dt*(omega*vyhalf);
-%     vy(n)=vy(n-1)-dt*(omega*vxhalf);    
-% end %for
-
 %RK4 method
 vx4=zeros(1,lt);
 vy4=zeros(1,lt);
@@ -67,13 +51,6 @@ for l=2:lt
   
 end %for
 
-%RK2 Integrate velocity to get position as a fn. of time, this assumes that the
-%particle is initially at x,y = (0,0)
-% x=cumtrapz(t,vx);    %Matlab built-in for accumulating an integral value
-% y=cumtrapz(t,vy);
-% vz=1e3;
-% z=vz*t;
-
 %RK4 integrate velocity to get position as a fn. of time, this assumes that the
 %particle is initially at x,y = (0,0)
 x4=cumtrapz(t,vx4);
@@ -81,30 +58,13 @@ y4=cumtrapz(t,vy4);
 vz4=1e3;
 z4=vz4*t;
 
-% Plot velocity solutions for both RK2 and RK4
-% figure(1);
-% ax=plotyy(t,vx,t,vy);
-% set(ax(1),'FontSize',20);
-% set(ax(2),'FontSize',20);
-% xlabel('time (s)');
-% ylabel(ax(1),'v_x');
-% ylabel(ax(2),'v_y');
-% title('Runge-Kutta 2nd Order Method');
-
+% Plot velocity solutions for  RK4
 figure(2);
 ax4=plotyy(t,vx4,t,vy4);
 xlabel('time (s)');
 title('Runge-Kutta 4th Order Method');
 
 % Comet plot demo
-% figure(3);
-% comet3(x,y,z);
-% set(gca,'FontSize',20);
-% xlabel('x');
-% ylabel('y');
-% zlabel('z');
-% title('Runge-Kutta 2nd Order Method');
-
 figure(4);
 comet(x4,y4);
 hold on;
@@ -112,5 +72,5 @@ set(gca,'FontSize',20);
 xlabel('x(m)');
 ylabel('y(m)');
 plot(vx4,vy4);
-legend('X(t)','$\vec{v}$');
+set(legend('X(t)','$\vec{x}$'));
 title('Runge-Kutta 4th Order Method');
