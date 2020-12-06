@@ -5,8 +5,7 @@
 %%Problem 1: Electrostatic Potential in Dielectrics with Boundary
 %%Conditions
 %%Problem #2: Application of Ordinary Differential Equations
-% Collaboration with Dennis Turano, and Bartosz Kwiecisnki, and Joseph
-% Akash
+% Collaboration with Dennis Turano and Bartosz Kwiecisnki
 
 %% Problem #1: Electrostatic Potential in Dielectrics with Boundary Conditions
 %%Part A: Plot the dielectric function and note that it varies rapidly near the edges of the domain of interest.
