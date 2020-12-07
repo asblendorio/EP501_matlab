@@ -99,31 +99,6 @@ disp('%%%%%%%%Part 2F Solution:%%%%%%%');
 % over interior grid points of your domain. Plot the result alongside the 
 % analytical fourth derivative that you compute by hand.
 
-%% Params for Newton iteration
-maxit=100;       %maximum number of iterations allowed
-minx=0;
-maxx=pi/4;
-tol=1e-9;        %how close to zero we need to get to cease iterations
-
-%% Objective function defs.
-f=@objfun;      %set the function for which we are finding roots, change to illustrate different problems
-fprime=@objfun_deriv;
-x=linspace(minx,maxx,64);   %grid for basic plotting purposes
-ygrid=f(x);
-verbose=true;
-
-%% Newton-Rhapson root-finding method
-j=0;
-rec = 0;
-finalarray=[];
-verbose=true;
-
-for i = -10:0.15:10
-    [xNewton,itNew,flag]=newton_exact(f,fprime,i,100,tol,verbose);    
-    j=j+1; 
-    finalarray(j)=xNewton; 
-end
-
 disp('%%%%%%%%End Part 2F Solution:%%%%%%%');
 
 %% Part G 
@@ -168,10 +143,8 @@ f=@quadratic;
 y=f(coef,x);
 disp(y);
 disp('%%%%%%%%End Part 3A Solution:%%%%%%%');
-%% Part B, D, and E
+%% Part B
 disp('%%%%%%%%Part 3B Solution:%%%%%%%');
-disp('Implementing Horners Method on Pg 194-195 to start, I was able expand it to calculate the derivative. ');
-disp('However, I was not able to properly factor out the (x-5) term properly within the allotted time.');
 
 % Write a MATLAB or Python script that solves Equation 16 using a backward
 % Euler in time method with a centered in space derivatives (Equation 18). 
@@ -195,40 +168,6 @@ disp('However, I was not able to properly factor out the (x-5) term properly wit
 % prior data from the n time level. Develop and write down your system of 
 % equations that would need to be solved at each time step.
 disp('%%%%%%%%Part 3C Solution:%%%%%%%');
-%% Params for Newton iteration
-maxit=100;       %maximum number of iterations allowed
-minx=0;
-maxx=2*pi;
-tol=1e-9;        %how close to zero we need to get to cease iterations
-
-%% Objective function defs.
-f=@objfun2;      %set the function for which we are finding roots, change to illustrate different problems
-fprime=@objfun2_deriv;
-x=linspace(minx,maxx,64);   %grid for basic plotting purposes
-ygrid=f(x);
-verbose=true;
-
-%% Plot the function we are finding roots for
-figure(2);
-plot(x,ygrid);
-title('Objective function')
-xlabel('x')
-ylabel('y')
-axis tight;
-
-%% Newton-Rhapson root-finding method
-verbose=true;
-[xNewton,itNew,flag]=newton_approx(f,-0.1*i,100,tol,verbose);
-disp('1st Root value through Approx Newton method:  ');
-disp(xNewton);
-disp('Number of iterations required to reach tolerance:  ');
-disp(itNew);
-
-[xNewton,itNew,flag]=newton_approx(f,0.1*i,100,tol,verbose);
-disp('1st Root value through Approx Newton method:  ');
-disp(xNewton);
-disp('Number of iterations required to reach tolerance:  ');
-disp(itNew);
 
 disp('%%%%%%%%End Part 3C Solution:%%%%%%%');
 
