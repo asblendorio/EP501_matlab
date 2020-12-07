@@ -28,8 +28,8 @@
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 %% Electrostatic potential of a dielectric function 
-lx = 100;
-ly = 100;
+lx = 20;
+ly = 20;
 %constants 
 e0=8.854.*10.^(-12);
 a=0.01;
@@ -80,19 +80,20 @@ end %for
 dep_dx2(1)=dep_dx2(2);
 
 %% Plotter
-figure(2);
-plot(x,dep_dx,'k--');
-hold on;
-plot(x,dep_dx2,'r--');
-xlabel('x (m)');
-ylabel('\epsilon(x)');
-title('1st and 2nd order Finite Difference Derivative with %d grid points');
-legend('2nd Order','1st Order');
+% figure(2);
+% plot(x,dep_dx,'k--');
+% hold on;
+% plot(x,dep_dx2,'r--');
+% xlabel('x (m)');
+% ylabel('\epsilon(x)');
+% title('1st and 2nd order Finite Difference Derivative');
+% legend('2nd Order','1st Order');
 
-%% 1D solve using Matlab Operator 
-% ep2(:)=ep(:);
+%% 1D and E solve using Matlab Operator 
+
 ep3=zeros(lx,ly);
-ep3(1,:)=[-1/dx^2,1/dx,zeros(1,lx-2)];
+ep3(1,:)=[-1/dx,...
+    1/dx,zeros(1,lx-2)];
 ep3(lx,:)=[zeros(1,lx-1),1];
 
 for i=2:lx-1
@@ -101,6 +102,7 @@ for i=2:lx-1
     ep3(i,i-1)=ep(i)./dx.^2-dep_dx(i)./(2.*dx);
 end %for  
 
+disp('We are asked to solve the system of equations with the MATLAB operator.');
 disp('Matlab,GNU/Octave built-in solution:');
 xsoln=ep3\bdcond;
 disp(xsoln);
@@ -109,7 +111,7 @@ figure(3);
 plot(xsoln,'r--');
 xlabel('x (m)');
 ylabel('y');
-title('Dielectric Function with x = -a at boundary');
+title('Matlab Function');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 
@@ -140,18 +142,6 @@ tmax=2*2*pi/abs(omega);    % follow particle for one oscillation periods
 t=linspace(tmin,tmax,100);
 dt=t(2)-t(1);
 lt=numel(t);
-
-% for j=75:-1:1
-%     omega=q*B/m;    %frequency of oscillation (can be shown via solution by hand gives a SHO)
-%     tmin(j)=0;
-%     tmax(j)=2*2*pi/abs(omega);    % follow particle for one oscillation periods
-%     t(j)=linspace(tmin,tmax,75);
-%     dt(j)=t(2)-t(1);
-%     lt=numel(t); 
-%     if 
-%         
-%     end %    
-% end %for    
 
 % RK2 Method
 vx=zeros(1,lt);
