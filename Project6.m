@@ -27,9 +27,9 @@
 %%first order forward difference.
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
-%% Electrostatic potential of a dielectric function 
-lx = 20;
-ly = 20;
+%% Problem 1 Part A: Electrostatic potential of a dielectric function 
+lx = 100;
+ly = 100;
 %constants 
 e0=8.854.*10.^(-12);
 a=0.01;
@@ -54,7 +54,7 @@ xlabel('1/m');
 ylabel('Farads');
 title('Dielectric Function as a function of x');
 
-%% 1B
+%% Problem 1 Part B
 %second order, centered
 dep_dx=zeros(lx,1);
 dx=x(2)-x(1);
@@ -69,7 +69,7 @@ end %for
 %backward difference at the end
 dep_dx(lx)=(ep(lx)-ep(lx-1))/2*dx;
 
-%%
+%% Problem 1 Part C
 dep_dx2=zeros(lx,1);
 dxx=x(2)-x(1);
 %first order derivative approximation (backward)
@@ -80,16 +80,16 @@ end %for
 dep_dx2(1)=dep_dx2(2);
 
 %% Plotter
-% figure(2);
-% plot(x,dep_dx,'k--');
-% hold on;
-% plot(x,dep_dx2,'r--');
-% xlabel('x (m)');
-% ylabel('\epsilon(x)');
-% title('1st and 2nd order Finite Difference Derivative');
-% legend('2nd Order','1st Order');
+figure(2);
+plot(x,dep_dx,'k--');
+hold on;
+plot(x,dep_dx2,'r--');
+xlabel('x (m)');
+ylabel('\epsilon(x)');
+title('1st and 2nd order Finite Difference Derivative');
+legend('2nd Order','1st Order');
 
-%% 1D and E solve using Matlab Operator 
+%% Problem 1 Parts D and E
 
 ep3=zeros(lx,ly);
 ep3(1,:)=[-1/dx,...
@@ -132,7 +132,7 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER PLOTS%%%%%%%%%%%%%%%%%%');
 %%HINT: The particle should execute trochoidal motion.
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
-
+%% Problem 2 Part A and B 
 q=-1.6e-19;
 m=1.67e-27;
 B=5e-6;
@@ -243,7 +243,7 @@ ylabel(ax(2),'v_y');
 title('Comparison of Runge-Kutta 2nd and 4th Order Methods');
 
 
-%% Part C
+%% Problem 2 Part C 
 
 q=1.6e-19;
 m=1.67e-27;
@@ -310,8 +310,6 @@ ylabel('y(m)');
 legend('X(t)');
 title('Runge-Kutta 4th Order Method');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
-
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER PLOTS%%%%%%%%%%%%%%%%%%');
-
 
 %% END PROJECT #6
