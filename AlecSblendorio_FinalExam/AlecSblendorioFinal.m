@@ -138,15 +138,30 @@ disp('%%%%%%%%End Part 2F Solution:%%%%%%%');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem 3 
+% Parabolic partial differential equations of the form are often difficult 
+% to deal with due to the highly restrictive stability condition applying 
+% to forward difference (in time) methods like a forward Euler approach 
+% (note the right-hand side is evaluated at the n time level)
+% In practice methods based on forward differencing in time are often 
+% unstable for reasonable time steps. Irrespective of the time differencing
+% used, the spatial derivative can be any reasonable finite difference
+% approximation; for this problem we use a second order accurate centered 
+% difference (here specified at an arbitrary mth time level):
+% Because of overly restrictive stability criteria for forward in time differences, 
+% backward time difference formulas (BDFs) are more commonly used for parabolic equations.
+% This problem explores several commonly-used BDFs that will be applied to
+% solve Equation 16.
+
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
-%% Part A
+%% Part A 
 disp('%%%%%%%%Part 3A Solution:%%%%%%%');
-% (a) Write a Python or MATLAB function that analytically solves a quadratic equation of the form:
-% ax2 +bx+c = 0 
-% and compare against roots that you find by hand via factorization or quadratic formula. 
-%%use quadratic function to solve the column vector of coefficients [a, b, c] .
-%%Test your code on the quadratic:
-%%2x^2 − 6x+4=0 
+% (a) The simplest BDF is just a backward Euler method where now the 
+% right-hand side is evaluated at the n + 1 time level (contrast with Equation 17). 
+% Such approaches are unconditionally stable for the linear test problem we are using.
+% Because the right-hand side is evaluated at the n+1 time you will need to 
+% solve a tridiagonal system of equations at each time step. 
+% Develop, starting from equation 19 the system of equations corresponding
+% to the backward Euler (in time) method.
 syms x
 coef=[2;-6;4];
 f=@quadratic;
@@ -158,21 +173,28 @@ disp('%%%%%%%%Part 3B Solution:%%%%%%%');
 disp('Implementing Horners Method on Pg 194-195 to start, I was able expand it to calculate the derivative. ');
 disp('However, I was not able to properly factor out the (x-5) term properly within the allotted time.');
 
-% Part B Prompt:
-% Write a polynomial division algorithm capable of dividing a given polynomial 
-% Pn(x) (of order n and defined by a set of coefficients) by a given divisor (x − N).
-% I.e. find Qn−1(x) such that: Pn(x) = (x − N)Qn−1(x) + R 
-% Qn−1 is the polynomial left once you divide (x − N) out of Pn. Test your code by using it to
-% divide out a factor of (x − 5) from the polynomial:
-% x^5 −15x^4 +85x^3 −225x^2 +274x−120 = 0
+% Write a MATLAB or Python script that solves Equation 16 using a backward
+% Euler in time method with a centered in space derivatives (Equation 18). 
+% You may use built-in MATLAB or Python utilities for the matrix solution 
+% or you can leverage your tridiagonal solver from the midterm or the 
+% Gaussian elimination tools from the repositories. Note that both repositories
+% have an example of the Crank-Nicolson method (in MATLAB or Python) 
+% which is quite similar to backward Euler and may serve as a useful template. 
+% Plot your results in a manner similar to what is done for the example script provided.
+% Use the parameters: λ=2; ∆x = 1/64; ∆t = 5*(∆x^2/2λ); 0≤x≤1 ; 0≤t≤1024
+% 1/λ(2π(2∆x)^2)
+
 
 %% Part C
+% The backward Euler method is only first order accurate in time. 
+% A second order in time BDF approach can be developed using a second order
+% accurate backward difference for the time derivative.
+% Develop a numerical solution to Equation 16 based on this approach. 
+% Note that you will need to store data for fi at two previous time levels 
+% (n and n − 1) as opposed to the backward Euler approach which only requires
+% prior data from the n time level. Develop and write down your system of 
+% equations that would need to be solved at each time step.
 disp('%%%%%%%%Part 3C Solution:%%%%%%%');
-% Use an approximate Newton’s method (using an approximate derivative) to
-% find one root of Eqn. 7: x^5 −15x^4 +85x^3 −225x^2 +274x−120 = 0
-% A script to demonstrate solutions to nonlinear equations on closed
-% and open domains
-% requires:  objfun?.m (set function pointer f to desired function at beginning of program)
 %% Params for Newton iteration
 maxit=100;       %maximum number of iterations allowed
 minx=0;
@@ -210,22 +232,12 @@ disp(itNew);
 
 disp('%%%%%%%%End Part 3C Solution:%%%%%%%');
 
+%%  Part D  
+% Make a version of your parabolic solver from part b that implements the 
+% second order BDF derived in part c and run it on the same test problem. 
+% Plot your results and compare them against the backward Euler approach 
+% and analytical solution.
 disp('%%%%%%%%Part 3D Solution:%%%%%%%');
-% Part D Prompt: 
-%Use your synthetic division algorithm to factor the root found in part c out of Eqn. 7 
-%to produce a lower-order polynomial (i.e. Qn−1(x)). 
-%The result will be a set of coefficients for a fourth order polynomial, denoted Q4.
-disp('I was not able to calculate the result of the fourth order polynomial in the alotted time.');
-disp('%%%%%%%%Part 3E Solution:%%%%%%%');
-disp('I was able to properly "deflate" the polynomial to find the roots without using the quadratic solver.');
-% Part E Prompt:
-% Write a program to repeat the “deflation” process described above (parts c and d) 
-% to find all of roots of Eqn. 7. This can be done by taking Qn-1 
-% You can code your script to work specifically for this fifth order polynomial example
-% it does not have to be general enough to work with a polynomial of arbitrary degree 
-disp('The algorithm calculates the Five Roots of the polynomial. ');
-soln1=@polySolver;
-y = soln1(A,r0,nmax);
-disp(y);
-disp('%%%%%%%%End Part 3E Solution:%%%%%%%');
+
+disp('%%%%%%%%End Part 3D Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER END%%%%%%%%%%%%%%%%%%');
