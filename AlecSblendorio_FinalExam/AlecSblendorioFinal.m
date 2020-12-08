@@ -16,12 +16,91 @@
 % describing the stability of RK4. Your condition should be of the form 
 % where G is a polynomial in the quantity ∆t.
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
-disp('%%%%%%%%Part 1A Solution:%%%%%%%');
+disp('%%%%%%%%Part 1A HANDWRITTEN Solution:%%%%%%%');
 
 disp('%%%%%%%%End Part 1A Solution:%%%%%%%');
 %% Part B
 % (b) Plot your gain factor G vs. α∆t and mark or otherwise identify regions 
 % of stability and instability in your plot.
+disp('%%%%%%%%Part 1B Solution:%%%%%%%');
+
+%% Gridding in time
+N=50;
+tmin=0;
+tmax=10;
+t=linspace(tmin,tmax,N);
+dt=t(2)-t(1);
+
+
+%% Test problem, true solution
+y0=1;
+alpha=2;
+ybar=y0*exp(-alpha*t);
+
+
+%% Second order method; RK2
+yRK2=zeros(1,N);
+yRK2(1)=y0;
+for n=2:N
+    yhalf=yRK2(n-1)+dt/2*(-alpha*yRK2(n-1));
+    yRK2(n)=yRK2(n-1)+dt*(-alpha*yhalf);
+end %for
+
+
+%% RK4 example; comparison against first and second order methods
+yRK4=zeros(1,N);
+yRK4(1)=y0;
+for n=2:N
+    dy1=dt*fRK(t(n-1),yRK4(n-1),alpha);
+    dy2=dt*fRK(t(n-1)+dt/2,yRK4(n-1)+dy1/2,alpha);
+    dy3=dt*fRK(t(n-1)+dt/2,yRK4(n-1)+dy2/2,alpha);
+    dy4=dt*fRK(t(n-1)+dt,yRK4(n-1)+dy3,alpha);
+    
+    yRK4(n)=yRK4(n-1)+1/6*(dy1+2*dy2+2*dy3+dy4);
+end %for
+
+
+%% Plots of RK solutions against true solution
+figure(1);
+clf;
+plot(t,ybar,'o-');
+xlabel('t');
+ylabel('y(t)');
+set(gca,'FontSize',20);
+figure(1);
+hold on;
+plot(t,yRK2,'--')
+figure(1);
+plot(t,yRK4,'^-')
+legend('exact','RK2','RK4')
+
+%% RK2 stability considerations, FDE analysis
+% adt=linspace(0.01,3,20);
+% ladt=numel(adt);
+% G=zeros(ladt,1);
+% for igain=1:ladt
+%     G(igain)=(1-adt(igain)+1/2*adt(igain).^2);
+% end %for
+% figure(2);
+% plot(adt,G,'o')
+% set(gca,'FontSize',20);
+% xlabel('\alpha \Delta t');
+% ylabel('gain factor');
+
+%% RK4 Stability Considertions, FDE Analysis
+adt2=linspace(0.01,3,50);
+ladt=numel(adt2);
+F=zeros(ladt,1);
+
+for igain=1:ladt
+    F(igain)=(1-adt2(igain)+1/2*adt2(igain).^2-1/6*adt2(igain).^3+1/24*adt2(igain).^4);
+end %for
+
+figure(2);
+plot(F,adt2,'*')
+set(gca,'FontSize',20);
+xlabel('\alpha \Delta t');
+ylabel('gain factor');
 
 
 disp('%%%%%%%%End Part 1B Solution:%%%%%%%');

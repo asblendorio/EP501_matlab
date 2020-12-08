@@ -1,5 +1,5 @@
 %% Gridding in time
-N=25;
+N=50;
 tmin=0;
 tmax=10;
 t=linspace(tmin,tmax,N);
@@ -49,20 +49,20 @@ plot(t,yRK4,'^-')
 legend('exact','RK2','RK4')
 
 %% RK2 stability considerations, FDE analysis
-adt=linspace(0.01,3,20);
-ladt=numel(adt);
-G=zeros(ladt,1);
-for igain=1:ladt
-    G(igain)=(1-adt(igain)+1/2*adt(igain).^2);
-end %for
-figure(2);
-plot(adt,G,'o')
-set(gca,'FontSize',20);
-xlabel('\alpha \Delta t');
-ylabel('gain factor');
+% adt=linspace(0.01,3,20);
+% ladt=numel(adt);
+% G=zeros(ladt,1);
+% for igain=1:ladt
+%     G(igain)=(1-adt(igain)+1/2*adt(igain).^2);
+% end %for
+% figure(2);
+% plot(adt,G,'o')
+% set(gca,'FontSize',20);
+% xlabel('\alpha \Delta t');
+% ylabel('gain factor');
 
 %% RK4 Stability Considertions, FDE Analysis
-adt2=linspace(0.01,3,20);
+adt2=linspace(0.01,3,50);
 ladt=numel(adt2);
 F=zeros(ladt,1);
 
@@ -70,9 +70,11 @@ for igain=1:ladt
     F(igain)=(1-adt2(igain)+1/2*adt2(igain).^2-1/6*adt2(igain).^3+1/24*adt2(igain).^4);
 end %for
 
-figure(3);
-plot(adt2,F,'o')
+figure(2);
+plot(F,adt2,'*')
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
+
+
 
