@@ -23,7 +23,17 @@ disp('%%%%%%%%End Part 1A HANDWRITTEN Solution:%%%%%%%');
 % (b) Plot your gain factor G vs. α∆t and mark or otherwise identify regions 
 % of stability and instability in your plot.
 disp('%%%%%%%%Part 1B Solution:%%%%%%%');
+%% Gridding in time
+N=50;
+tmin=0;
+tmax=10;
+t=linspace(tmin,tmax,N);
+dt=t(2)-t(1);
 
+%% Test problem, true solution
+y0=1;
+alpha=2;
+ybar=y0*exp(-alpha*t);
 %% RK4 Stability Considertions, FDE Analysis
 adt=linspace(0.001,3,50);
 ladt=numel(adt);
@@ -33,7 +43,7 @@ for igain=1:ladt
     F(igain)=(1-adt(igain)+1/2*adt(igain).^2-1/6*adt(igain).^3+1/24*adt(igain).^4);
 end %for
 
-figure(1);
+figure(2);
 plot(adt,F,'*');
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
@@ -52,7 +62,7 @@ disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 % appropriate numerical method.
 disp('%%%%%%%%Part 1C Solution:%%%%%%%');
 
-figure(2);
+figure(3);
 plot(adt,F-1,'*');
 hold on;
 plot(adt,F+1,'^');
