@@ -35,7 +35,7 @@ y0=1;
 alpha=2;
 ybar=y0*exp(-alpha*t);
 %% RK4 Stability Considertions, FDE Analysis
-adt=linspace(0.001,3,50);
+adt=linspace(0.001,3.5,50);
 ladt=numel(adt);
 F=zeros(ladt,1);
 
@@ -61,18 +61,22 @@ disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 % stability conditions and evaluate all real-valued roots using an 
 % appropriate numerical method.
 disp('%%%%%%%%Part 1C Solution:%%%%%%%');
+F1 = F+1;
+F2 = F-1;
+
+Fup = F1';
+Flow = F2';
 
 figure(3);
 plot(adt,F-1,'*');
 hold on;
 plot(adt,F+1,'^');
-%fill(adt,F-1,'g',adt,F+1,'b');
-%area(F+1,F-1);
+patch([adt fliplr(adt)],[Fup fliplr(Flow)],'b--');
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
 title('Marginal Stability Limits and Stable Region');
-
+legend('G-1','G+1');
 
 %%Using the Newton Exact Method, we will evaluate all real-valued roots
 %% Params for Newton iteration
@@ -83,43 +87,123 @@ tol=1e-6;        %how close to zero we need to get to cease iterations
 
 %% Newton-Rhapson root-finding method for polynomials 
 %%this method will find all of the REAL-valued roots of a polynomial
+% Real roots for G - 1 = 0;
 f=@objfun1;      %set the function for which we are finding roots, change to illustrate different problems
 fprime=@objfun1_deriv;
-% g=@objfun2;
-% gprime=@objfun2_deriv;
 verbose=true;
 j=0;
 finalarray=[];
 
 for i = 0:1.0:10
     [xNewton1,itNew1,flag1]=newton_exact(f,fprime,i,maxit,tol,verbose); 
-%     [xNewton2,itNew2,flag2]=newton_exact(g,gprime,i,maxit,tol,verbose); 
     j=j+1; 
     finalarray1(j)=xNewton1;
-%     finalarray2(j)=xNewton2;
 end
 
 result1=finalarray1(1,2);
-result2=finalarray1(1,3);
-result3=finalarray1(1,4);
-result4=finalarray1(1,5);
-result5=finalarray1(1,6);
-fprintf('The Roots of the first polynomial are: %d,%d,%d,%d,%d',result1,result2,result3,result4,result5);
+fprintf('The Roots of the first polynomial are: %d',result1);
+%% Complex Root finder for G+1 = 0
+g=@objfun2;
+gprime=@objfun2_deriv;
+verbose=true;
+k=0;
+finalarray2=[];
 
-% result6=finalarray2(1,2);
-% result7=finalarray2(1,3);
-% result8=finalarray2(1,4);
-% result9=finalarray2(1,5);
-% result10=finalarray2(1,6);
-% fprintf('The Roots of the second polynomial are: %d,%d,%d,%d,%d',result6,result7,result8,result9,result10);
+for j=-2:0.5:5
+    [xNewton2,itNew2,flag2]=newton_exactwithComplex(g,gprime,i,maxit,tol,verbose); 
+    k=k+1; 
+    finalarray2(k)=xNewton2;
+end % for
+
+result2=finalarray2(1,2);
+fprintf('The Real and Complex Roots of the polynomial are: %f, %f + %f i, and %f - %f i \n',real(result3),(result1),(result1),(result2),(result2));
 
 disp('%%%%%%%%End Part 1C Solution:%%%%%%%');
 %% Part D
 % (d) What is the largest time step for which RK4 will give stable results
 % for the test ODE of Equation 6? How does that compare to RK2 stability. 
+disp('%%%%%%%%Part 1D Solution:%%%%%%%');
+%% Gridding in time
+N=1000;
+tmin=0;
+tmax=10;
+t=linspace(tmin,tmax,N);
+dt=t(2)-t(1);
 
 
+%% Test problem, true solution
+y0=1;
+alpha=2;
+ybar=y0*exp(-alpha*t);
 
+
+%% Second order method; RK2
+yRK2=zeros(1,N);
+yRK2(1)=y0;
+for n=2:N
+    yhalf=yRK2(n-1)+dt/2*(-alpha*yRK2(n-1));
+    yRK2(n)=yRK2(n-1)+dt*(-alpha*yhalf);
+end %for
+
+
+%% RK4 example; comparison against first and second order methods
+yRK4=zeros(1,N);
+yRK4(1)=y0;
+for n=2:N
+    dy1=dt*fRK(t(n-1),yRK4(n-1),alpha);
+    dy2=dt*fRK(t(n-1)+dt/2,yRK4(n-1)+dy1/2,alpha);
+    dy3=dt*fRK(t(n-1)+dt/2,yRK4(n-1)+dy2/2,alpha);
+    dy4=dt*fRK(t(n-1)+dt,yRK4(n-1)+dy3,alpha);
+    
+    yRK4(n)=yRK4(n-1)+1/6*(dy1+2*dy2+2*dy3+dy4);
+end %for
+
+
+%% Plots of RK solutions against true solution
+figure(4);
+clf;
+plot(t,ybar,'o-');
+xlabel('t');
+ylabel('y(t)');
+set(gca,'FontSize',20);
+figure(5);
+hold on;
+plot(t,yRK2,'--')
+figure(1);
+plot(t,yRK4,'^-')
+legend('exact','RK2','RK4')
+
+%% RK2 stability considerations, FDE analysis
+adt=linspace(0.01,3,200);
+ladt=numel(adt);
+G=zeros(ladt,1);
+for igain=1:ladt
+    G(igain)=(1-adt(igain)+1/2*adt(igain).^2);
+end %for
+figure(6);
+plot(adt,G,'o')
+set(gca,'FontSize',20);
+xlabel('\alpha \Delta t');
+ylabel('gain factor');
+title('RK2 Stability');
+hold on;
+%% RK4 Stability Considertions, FDE Analysis
+adt2=linspace(0.01,3,200);
+ladt=numel(adt2);
+F=zeros(ladt,1);
+
+for igain=1:ladt
+    F(igain)=(1-adt2(igain)+1/2*adt2(igain).^2-1/6*adt2(igain).^3+1/24*adt2(igain).^4);
+end %for
+
+plot(adt2,F,'*')
+set(gca,'FontSize',20);
+xlabel('\alpha \Delta t');
+ylabel('gain factor');
+title('RK2 vs. RK4 Stability');
+legend('RK2','RK4');
+
+disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
 %% Part E 
 % (e) Numerically solve the given ODE with RK4 using time steps slightly above
 % and below your derived stability criteria and show plots for each simulation

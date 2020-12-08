@@ -1,5 +1,5 @@
 %% Gridding in time
-N=50;
+N=30;
 tmin=0;
 tmax=10;
 t=linspace(tmin,tmax,N);
@@ -10,7 +10,6 @@ dt=t(2)-t(1);
 y0=1;
 alpha=2;
 ybar=y0*exp(-alpha*t);
-
 
 %% Second order method; RK2
 yRK2=zeros(1,N);
@@ -35,34 +34,35 @@ end %for
 
 
 %% Plots of RK solutions against true solution
-% figure(1);
-% clf;
-% plot(t,ybar,'o-');
-% xlabel('t');
-% ylabel('y(t)');
-% set(gca,'FontSize',20);
-% figure(1);
-% hold on;
-% plot(t,yRK2,'--')
-% figure(1);
-% plot(t,yRK4,'^-')
-% legend('exact','RK2','RK4')
+figure(1);
+clf;
+plot(t,ybar,'o-');
+xlabel('t');
+ylabel('y(t)');
+set(gca,'FontSize',20);
+figure(1);
+hold on;
+plot(t,yRK2,'--')
+figure(1);
+plot(t,yRK4,'^-')
+legend('exact','RK2','RK4')
 
 %% RK2 stability considerations, FDE analysis
-% adt=linspace(0.01,3,20);
-% ladt=numel(adt);
-% G=zeros(ladt,1);
-% for igain=1:ladt
-%     G(igain)=(1-adt(igain)+1/2*adt(igain).^2);
-% end %for
-% figure(2);
-% plot(adt,G,'o')
-% set(gca,'FontSize',20);
-% xlabel('\alpha \Delta t');
-% ylabel('gain factor');
-
+adt=linspace(0.01,3,200);
+ladt=numel(adt);
+G=zeros(ladt,1);
+for igain=1:ladt
+    G(igain)=(1-adt(igain)+1/2*adt(igain).^2);
+end %for
+figure(2);
+plot(adt,G,'o')
+set(gca,'FontSize',20);
+xlabel('\alpha \Delta t');
+ylabel('gain factor');
+title('RK2 Stability');
+hold on;
 %% RK4 Stability Considertions, FDE Analysis
-adt2=linspace(0.01,3,50);
+adt2=linspace(0.01,3,200);
 ladt=numel(adt2);
 F=zeros(ladt,1);
 
@@ -70,11 +70,10 @@ for igain=1:ladt
     F(igain)=(1-adt2(igain)+1/2*adt2(igain).^2-1/6*adt2(igain).^3+1/24*adt2(igain).^4);
 end %for
 
-figure(2);
 plot(adt2,F,'*')
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
-
-
+title('RK2 vs. RK4 Stability');
+legend('RK2','RK4');
 
