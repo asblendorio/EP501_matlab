@@ -71,7 +71,7 @@ for igain=1:ladt
 end %for
 
 figure(2);
-plot(F,adt2,'*')
+plot(adt2,F,'*')
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');

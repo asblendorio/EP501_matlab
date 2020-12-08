@@ -74,21 +74,8 @@ figure(1);
 plot(t,yRK4,'^-')
 legend('exact','RK2','RK4')
 
-%% RK2 stability considerations, FDE analysis
-% adt=linspace(0.01,3,20);
-% ladt=numel(adt);
-% G=zeros(ladt,1);
-% for igain=1:ladt
-%     G(igain)=(1-adt(igain)+1/2*adt(igain).^2);
-% end %for
-% figure(2);
-% plot(adt,G,'o')
-% set(gca,'FontSize',20);
-% xlabel('\alpha \Delta t');
-% ylabel('gain factor');
-
 %% RK4 Stability Considertions, FDE Analysis
-adt2=linspace(0.01,3,50);
+adt2=linspace(0.01,5,50);
 ladt=numel(adt2);
 F=zeros(ladt,1);
 
@@ -97,22 +84,68 @@ for igain=1:ladt
 end %for
 
 figure(2);
-plot(F,adt2,'*')
+plot(adt2,F,'*');
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
 
-
 disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 %% Part C 
-% (c) Note that the condition in Equation 7 can be expressed as two conditions (on account of the absolute value):
-% −1 < G(α,∆t) < 1 (8) The marginal stability limits (the points where we transition from stable to unstable), then, are
-% given by: and G(α, ∆t) − 1 = 0 (9) G(α, ∆t) + 1 = 0 (10)
+% (c) Note that the condition in Equation 7 can be expressed as two conditions
+% (on account of the absolute value): −1 < G(α,∆t) < 1 
+% The marginal stability limits (the points where we transition from stable
+% to unstable), then, are given by:
+% G(α, ∆t) − 1 = 0 &  G(α, ∆t) + 1 = 0 
 % which forms a pair of root finding problems. Plot each of these marginal 
-% stability conditions and evaluate all real-valued roots using an appropriate numerical method.
+% stability conditions and evaluate all real-valued roots using an 
+% appropriate numerical method.
+disp('%%%%%%%%Part 1C Solution:%%%%%%%');
 
 
 
+
+
+
+%%Using the Newton Exact Method, we will evaluate all real-valued roots
+%% Params for Newton iteration
+maxit=100;       %maximum number of iterations allowed
+minx=0;
+maxx=2*pi;
+tol=1e-6;        %how close to zero we need to get to cease iterations
+
+%% Newton-Rhapson root-finding method for polynomials 
+%%this method will find all of the REAL-valued roots of a polynomial
+f=@objfun1;      %set the function for which we are finding roots, change to illustrate different problems
+fprime=@objfun1_deriv;
+% g=@objfun2;
+% gprime=@objfun2_deriv;
+verbose=true;
+j=0;
+finalarray=[];
+
+for i = 0:1.0:10
+    [xNewton1,itNew1,flag1]=newton_exact(f,fprime,i,maxit,tol,verbose); 
+%     [xNewton2,itNew2,flag2]=newton_exact(g,gprime,i,maxit,tol,verbose); 
+    j=j+1; 
+    finalarray1(j)=xNewton1;
+%     finalarray2(j)=xNewton2;
+end
+
+result1=finalarray1(1,2);
+result2=finalarray1(1,3);
+result3=finalarray1(1,4);
+result4=finalarray1(1,5);
+result5=finalarray1(1,6);
+fprintf('The Roots of the first polynomial are: %d,%d,%d,%d,%d',result1,result2,result3,result4,result5);
+
+% result6=finalarray2(1,2);
+% result7=finalarray2(1,3);
+% result8=finalarray2(1,4);
+% result9=finalarray2(1,5);
+% result10=finalarray2(1,6);
+% fprintf('The Roots of the second polynomial are: %d,%d,%d,%d,%d',result6,result7,result8,result9,result10);
+
+disp('%%%%%%%%End Part 1C Solution:%%%%%%%');
 %% Part D
 % (d) What is the largest time step for which RK4 will give stable results
 % for the test ODE of Equation 6? How does that compare to RK2 stability. 
@@ -123,7 +156,6 @@ disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 % (e) Numerically solve the given ODE with RK4 using time steps slightly above
 % and below your derived stability criteria and show plots for each simulation
 % that demonstrate that it behaves as your analysis predicts for these two choices of time step.
-
 
 
 
