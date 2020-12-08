@@ -18,40 +18,14 @@
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 disp('%%%%%%%%Part 1A HANDWRITTEN Solution:%%%%%%%');
 
-disp('%%%%%%%%End Part 1A Solution:%%%%%%%');
+disp('%%%%%%%%End Part 1A HANDWRITTEN Solution:%%%%%%%');
 %% Part B
 % (b) Plot your gain factor G vs. α∆t and mark or otherwise identify regions 
 % of stability and instability in your plot.
 disp('%%%%%%%%Part 1B Solution:%%%%%%%');
 
-%% Gridding in time
-N=50;
-tmin=0;
-tmax=10;
-t=linspace(tmin,tmax,N);
-dt=t(2)-t(1);
-
-
-%% Test problem, true solution
-y0=1;
-alpha=2;
-ybar=y0*exp(-alpha*t);
-
-%% RK4 example; comparison against first and second order methods
-yRK4=zeros(1,N);
-yRK4(1)=y0;
-for n=2:N
-    dy1=dt*fRK(t(n-1),yRK4(n-1),alpha);
-    dy2=dt*fRK(t(n-1)+dt/2,yRK4(n-1)+dy1/2,alpha);
-    dy3=dt*fRK(t(n-1)+dt/2,yRK4(n-1)+dy2/2,alpha);
-    dy4=dt*fRK(t(n-1)+dt,yRK4(n-1)+dy3,alpha);
-    
-    yRK4(n)=yRK4(n-1)+1/6*(dy1+2*dy2+2*dy3+dy4);
-end %for
-hold off;
-
 %% RK4 Stability Considertions, FDE Analysis
-adt=linspace(0.01,5,50);
+adt=linspace(0.001,3,50);
 ladt=numel(adt);
 F=zeros(ladt,1);
 
@@ -65,7 +39,7 @@ set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
 title('Gain Factor vs. \alpha \Delta t');
-hold off;
+
 disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 %% Part C 
 % (c) Note that the condition in Equation 7 can be expressed as two conditions

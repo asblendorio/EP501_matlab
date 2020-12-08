@@ -35,18 +35,18 @@ end %for
 
 
 %% Plots of RK solutions against true solution
-figure(1);
-clf;
-plot(t,ybar,'o-');
-xlabel('t');
-ylabel('y(t)');
-set(gca,'FontSize',20);
-figure(1);
-hold on;
-plot(t,yRK2,'--')
-figure(1);
-plot(t,yRK4,'^-')
-legend('exact','RK2','RK4')
+% figure(1);
+% clf;
+% plot(t,ybar,'o-');
+% xlabel('t');
+% ylabel('y(t)');
+% set(gca,'FontSize',20);
+% figure(1);
+% hold on;
+% plot(t,yRK2,'--')
+% figure(1);
+% plot(t,yRK4,'^-')
+% legend('exact','RK2','RK4')
 
 %% RK2 stability considerations, FDE analysis
 % adt=linspace(0.01,3,20);
