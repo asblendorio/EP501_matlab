@@ -47,19 +47,19 @@ title('FTCS')
 set(gca,'FontSize',16);
 
 
-% %% Creation of a Matlab movie
-% figure(2);
-% for n=1:lt
-%     plot(x,f(:,n));
-%     set(gca,'FontSize',16);
-%     xlabel('x (m)');
-%     ylabel('f(x)');
-%     title(sprintf('f(x) @ t=%f',t(n)))
-%     axis([0 1 -2 2]);
-%     M(n)=getframe;
-% end %for
-% %movie(M);   %for whatever reason this doesn't store the axis labels and
-% %title which makes it kind of worthless.  
+%% Creation of a Matlab movie
+figure(2);
+for n=1:lt
+    plot(x,f(:,n));
+    set(gca,'FontSize',16);
+    xlabel('x (m)');
+    ylabel('f(x)');
+    title(sprintf('f(x) @ t=%f',t(n)))
+    axis([0 1 -2 2]);
+    M(n)=getframe;
+end %for
+%movie(M);   %for whatever reason this doesn't store the axis labels and
+%title which makes it kind of worthless.  
 
 
 %% Trapezoidal implementation, note matrix solutions are more efficiently handled thru tri-diagonal solver; Matlab built-in will detect automatically
