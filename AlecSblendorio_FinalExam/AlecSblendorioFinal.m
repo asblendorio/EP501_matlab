@@ -37,16 +37,6 @@ y0=1;
 alpha=2;
 ybar=y0*exp(-alpha*t);
 
-
-%% Second order method; RK2
-yRK2=zeros(1,N);
-yRK2(1)=y0;
-for n=2:N
-    yhalf=yRK2(n-1)+dt/2*(-alpha*yRK2(n-1));
-    yRK2(n)=yRK2(n-1)+dt*(-alpha*yhalf);
-end %for
-
-
 %% RK4 example; comparison against first and second order methods
 yRK4=zeros(1,N);
 yRK4(1)=y0;
@@ -58,37 +48,24 @@ for n=2:N
     
     yRK4(n)=yRK4(n-1)+1/6*(dy1+2*dy2+2*dy3+dy4);
 end %for
-
-
-%% Plots of RK solutions against true solution
-figure(1);
-clf;
-plot(t,ybar,'o-');
-xlabel('t');
-ylabel('y(t)');
-set(gca,'FontSize',20);
-figure(1);
-hold on;
-plot(t,yRK2,'--')
-figure(1);
-plot(t,yRK4,'^-')
-legend('exact','RK2','RK4')
+hold off;
 
 %% RK4 Stability Considertions, FDE Analysis
-adt2=linspace(0.01,5,50);
-ladt=numel(adt2);
+adt=linspace(0.01,5,50);
+ladt=numel(adt);
 F=zeros(ladt,1);
 
 for igain=1:ladt
-    F(igain)=(1-adt2(igain)+1/2*adt2(igain).^2-1/6*adt2(igain).^3+1/24*adt2(igain).^4);
+    F(igain)=(1-adt(igain)+1/2*adt(igain).^2-1/6*adt(igain).^3+1/24*adt(igain).^4);
 end %for
 
-figure(2);
-plot(adt2,F,'*');
+figure(1);
+plot(adt,F,'*');
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
-
+title('Gain Factor vs. \alpha \Delta t');
+hold off;
 disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 %% Part C 
 % (c) Note that the condition in Equation 7 can be expressed as two conditions
@@ -101,9 +78,16 @@ disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 % appropriate numerical method.
 disp('%%%%%%%%Part 1C Solution:%%%%%%%');
 
-
-
-
+figure(2);
+plot(adt,F-1,'*');
+hold on;
+plot(adt,F+1,'^');
+%fill(adt,F-1,'g',adt,F+1,'b');
+%area(F+1,F-1);
+set(gca,'FontSize',20);
+xlabel('\alpha \Delta t');
+ylabel('gain factor');
+title('Marginal Stability Limits and Stable Region');
 
 
 %%Using the Newton Exact Method, we will evaluate all real-valued roots
@@ -248,11 +232,7 @@ disp('%%%%%%%%Part 3A Solution:%%%%%%%');
 % solve a tridiagonal system of equations at each time step. 
 % Develop, starting from equation 19 the system of equations corresponding
 % to the backward Euler (in time) method.
-syms x
-coef=[2;-6;4];
-f=@quadratic;
-y=f(coef,x);
-disp(y);
+
 disp('%%%%%%%%End Part 3A Solution:%%%%%%%');
 %% Part B
 % Write a MATLAB or Python script that solves Equation 16 using a backward
