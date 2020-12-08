@@ -144,8 +144,6 @@ y=f(coef,x);
 disp(y);
 disp('%%%%%%%%End Part 3A Solution:%%%%%%%');
 %% Part B
-disp('%%%%%%%%Part 3B Solution:%%%%%%%');
-
 % Write a MATLAB or Python script that solves Equation 16 using a backward
 % Euler in time method with a centered in space derivatives (Equation 18). 
 % You may use built-in MATLAB or Python utilities for the matrix solution 
@@ -157,7 +155,40 @@ disp('%%%%%%%%Part 3B Solution:%%%%%%%');
 % Use the parameters: λ=2; ∆x = 1/64; ∆t = 5*(∆x^2/2λ); 0≤x≤1 ; 0≤t≤1024
 % 1/λ(2π(2∆x)^2)
 
+disp('%%%%%%%%Part 3B Solution:%%%%%%%');
 
+%% Gridding in time
+N=25;
+tmin=0;
+tmax=6;
+t=linspace(tmin,tmax,N);
+dt=t(2)-t(1);
+
+
+%% Test problem analytical solution
+y0=1;
+alpha=2;
+ybar=y0*exp(-alpha*t);
+
+%% Backward Euler solution
+ybwd=zeros(1,N);
+ybwd(1)=y0;
+for n=2:N
+    ybwd(n)=ybwd(n-1)/(1+alpha*dt);
+end %for
+
+
+%% Plot results for all solutions
+figure(1);
+plot(t,ybar,'o-');
+xlabel('t');
+ylabel('y(t)');
+set(gca,'FontSize',20);
+hold on;
+plot(t,ybwd,'-.');
+legend('exact','bwd Eul.')
+
+disp('%%%%%%%% End Part 3B Solution:%%%%%%%');
 %% Part C
 % The backward Euler method is only first order accurate in time. 
 % A second order in time BDF approach can be developed using a second order
