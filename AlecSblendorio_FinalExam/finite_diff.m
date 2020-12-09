@@ -32,7 +32,7 @@ dx3=zeros(lx,1);
 
 for ix=2:lx
         dx1(ix)=(y(ix)-y(ix-1))/dx;
-        dx2(ix)=(y(ix)-2.*y(ix-1)+y(ix-2))/2/dx;
+        dx2(ix)=(y(ix)-2.*y(ix-1)+y(ix-2))/2*dx;
         dx3(ix)=(y(ix-2)-6.*y(ix-1)+3.*y(ix)+2.*y(ix+1))/6*dx;
 end %for
 dx1(1)=dx1(2);

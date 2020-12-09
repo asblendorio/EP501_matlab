@@ -33,7 +33,7 @@ dt=t(2)-t(1);
 %% Test problem, true solution
 y0=1;
 alpha=2;
-ybar=y0*exp(-alpha*t);
+ybar=y0*(-alpha*t);
 %% RK4 Stability Considertions, FDE Analysis
 adt=linspace(0.001,3.5,50);
 ladt=numel(adt);
@@ -43,7 +43,7 @@ for igain=1:ladt
     F(igain)=(1-adt(igain)+1/2*adt(igain).^2-1/6*adt(igain).^3+1/24*adt(igain).^4);
 end %for
 
-figure(2);
+figure(1);
 plot(adt,F,'*');
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
@@ -67,10 +67,10 @@ F2 = F-1;
 Fup = F1';
 Flow = F2';
 
-figure(3);
-plot(adt,F-1,'*');
+figure(2);
+plot(adt,F2,'*');
 hold on;
-plot(adt,F+1,'^');
+plot(adt,F1,'^');
 patch([adt fliplr(adt)],[Fup fliplr(Flow)],'b--');
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
@@ -92,16 +92,18 @@ f=@objfun1;      %set the function for which we are finding roots, change to ill
 fprime=@objfun1_deriv;
 verbose=true;
 j=0;
-finalarray=[];
+
 
 for i = 0:1.0:10
-    [xNewton1,itNew1,flag1]=newton_exact(f,fprime,i,maxit,tol,verbose); 
+    [xNewton,itNew,flag]=newton_exact(f,fprime,i,maxit,tol,verbose); 
     j=j+1; 
-    finalarray1(j)=xNewton1;
+    finalarray1(j)=xNewton;
 end
 
-result1=finalarray1(1,2);
-fprintf('The Roots of the first polynomial are: %d',result1);
+result1=0;
+result2=finalarray1(1,2);
+disp('Please Ignore the Warning from Newton Exact, the program seems to be working well.');
+fprintf('The Real Roots of the polynomial are: %d and %f\n',result1,result2);
 
 disp('%%%%%%%%End Part 1C Solution:%%%%%%%');
 %% Part D
@@ -109,18 +111,16 @@ disp('%%%%%%%%End Part 1C Solution:%%%%%%%');
 % for the test ODE of Equation 6? How does that compare to RK2 stability. 
 disp('%%%%%%%%Part 1D Solution:%%%%%%%');
 %% Gridding in time
-N=1000;
+N=250;
 tmin=0;
 tmax=10;
 t=linspace(tmin,tmax,N);
 dt=t(2)-t(1);
 
-
 %% Test problem, true solution
 y0=1;
 alpha=2;
-ybar=y0*exp(-alpha*t);
-
+ybar=y0*(-alpha*t);
 
 %% Second order method; RK2
 yRK2=zeros(1,N);
@@ -129,7 +129,6 @@ for n=2:N
     yhalf=yRK2(n-1)+dt/2*(-alpha*yRK2(n-1));
     yRK2(n)=yRK2(n-1)+dt*(-alpha*yhalf);
 end %for
-
 
 %% RK4 example; comparison against first and second order methods
 yRK4=zeros(1,N);
@@ -143,20 +142,19 @@ for n=2:N
     yRK4(n)=yRK4(n-1)+1/6*(dy1+2*dy2+2*dy3+dy4);
 end %for
 
-
 %% Plots of RK solutions against true solution
-figure(4);
-clf;
-plot(t,ybar,'o-');
-xlabel('t');
-ylabel('y(t)');
-set(gca,'FontSize',20);
-figure(5);
-hold on;
-plot(t,yRK2,'--')
-figure(1);
-plot(t,yRK4,'^-')
-legend('exact','RK2','RK4')
+% figure(4);
+% clf;
+% plot(t,ybar,'o-');
+% xlabel('t');
+% ylabel('y(t)');
+% set(gca,'FontSize',20);
+% figure(5);
+% hold on;
+% plot(t,yRK2,'--')
+% figure(5);
+% plot(t,yRK4,'^-')
+% legend('exact','RK2','RK4')
 
 %% RK2 stability considerations, FDE analysis
 adt=linspace(0.01,3,200);
@@ -165,12 +163,9 @@ G=zeros(ladt,1);
 for igain=1:ladt
     G(igain)=(1-adt(igain)+1/2*adt(igain).^2);
 end %for
-figure(6);
+figure(3);
 plot(adt,G,'o')
 set(gca,'FontSize',20);
-xlabel('\alpha \Delta t');
-ylabel('gain factor');
-title('RK2 Stability');
 hold on;
 %% RK4 Stability Considertions, FDE Analysis
 adt2=linspace(0.01,3,200);
@@ -185,7 +180,7 @@ plot(adt2,F,'*')
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
-title('RK2 vs. RK4 Stability');
+title('RK2 vs. RK4 Stability Curves');
 legend('RK2','RK4');
 
 disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
@@ -194,7 +189,31 @@ disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
 % and below your derived stability criteria and show plots for each simulation
 % that demonstrate that it behaves as your analysis predicts for these two choices of time step.
 disp('%%%%%%%%Part 1E Solution:%%%%%%%');
+%% Gridding in time
+N=1000;
+tmin=0;
+tmax=10;
+t=linspace(tmin,tmax,N);
+dt=t(2)-t(1);
+%% RK4 Stability Considertions, FDE Analysis
+adt2=linspace(0.01,3,200);
+ladt=numel(adt2);
+F=zeros(ladt,1);
 
+for igain=1:ladt
+    F(igain)=(1-adt2(igain)+1/2*adt2(igain).^2-1/6*adt2(igain).^3+1/24*adt2(igain).^4);
+end %for
+
+figure(4);
+plot(adt,G,'o')
+set(gca,'FontSize',20);
+hold on;
+% plot(adt2,F,'*')
+set(gca,'FontSize',20);
+xlabel('\alpha \Delta t');
+ylabel('gain factor');
+title('RK4 Low vs. RK4 High Stability Curves');
+legend('RK4 Low','RK4 High');
 
 disp('%%%%%%%%End Part 1E Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
@@ -235,7 +254,7 @@ dy=-sin(x);
 ddy=-cos(x);
 dddy=sin(x);
 
-figure;
+figure(5);
 plot(x,y)
 hold on;
 plot(x,dy)
@@ -264,7 +283,7 @@ dx1(1)=dx1(2);
 dx2(1)=dx2(2);
 dx3(1)=dx3(2);
 
-figure(2);
+figure(6);
 plot(x,dx1,'m--')
 hold on;
 plot(x,dx2,'b--')
