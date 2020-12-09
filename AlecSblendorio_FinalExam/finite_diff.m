@@ -1,4 +1,4 @@
-%% Problem 2b -- numerical differentiation
+%% Problem 2b 
 % Analytical Plotter 
 lx=100;
 x=linspace(0,2*pi,lx)';
@@ -21,7 +21,7 @@ xlabel('x');
 ylabel('y(x) or y''(x)');
 title('Analytically Solved Functions');
 
-%% Comparison of basic numerical derivative
+%% numerical derivative
 %first,second,third order derivative approximation (backward)
 %interior
 dx1=zeros(lx,1);
