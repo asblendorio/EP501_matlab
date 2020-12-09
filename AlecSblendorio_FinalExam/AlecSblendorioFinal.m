@@ -102,21 +102,6 @@ end
 
 result1=finalarray1(1,2);
 fprintf('The Roots of the first polynomial are: %d',result1);
-%% Complex Root finder for G+1 = 0
-g=@objfun2;
-gprime=@objfun2_deriv;
-verbose=true;
-k=0;
-finalarray2=[];
-
-for j=-2:0.5:5
-    [xNewton2,itNew2,flag2]=newton_exactwithComplex(g,gprime,i,maxit,tol,verbose); 
-    k=k+1; 
-    finalarray2(k)=xNewton2;
-end % for
-
-result2=finalarray2(1,2);
-fprintf('The Real and Complex Roots of the polynomial are: %f, %f + %f i, and %f - %f i \n',real(result3),(result1),(result1),(result2),(result2));
 
 disp('%%%%%%%%End Part 1C Solution:%%%%%%%');
 %% Part D
@@ -208,9 +193,10 @@ disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
 % (e) Numerically solve the given ODE with RK4 using time steps slightly above
 % and below your derived stability criteria and show plots for each simulation
 % that demonstrate that it behaves as your analysis predicts for these two choices of time step.
+disp('%%%%%%%%Part 1E Solution:%%%%%%%');
 
 
-
+disp('%%%%%%%%End Part 1E Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem 2
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
@@ -237,6 +223,22 @@ disp('%%%%%%%%End Part 2A HANDWRITTEN Solution:%%%%%%%');
 % points (i.e. only compute the third derivative on “interior” grid points).
 % Use a 100 point grid covering the region 0 ≤ x ≤ 2π.
 disp('%%%%%%%%Part 2B Solution:%%%%%%%');
+%% Analytical Solution 
+x = 0:0.1:2*pi; 
+figure(7);
+plot(x,sin(x))
+grid on
+xlabel('x');
+ylabel('y');
+title('Analytical Solution of f(x) = sin(x)');
+
+
+%% Numerical Solution 
+
+
+
+
+
 
 disp('%%%%%%%%End Part 2B Solution:%%%%%%%');
 %% Part C 
