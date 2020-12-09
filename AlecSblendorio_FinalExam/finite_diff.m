@@ -1,7 +1,9 @@
 %% Problem 2b 
 % Analytical Plotter 
 lx=100;
-x=linspace(0,2*pi,lx)';
+tmin=0;
+tmax=2*pi;
+x=linspace(tmin,tmax,lx);
 dx=x(2)-x(1);
 y=cos(x);
 dy=-sin(x);
