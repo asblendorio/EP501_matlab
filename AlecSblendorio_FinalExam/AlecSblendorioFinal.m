@@ -226,25 +226,38 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 % specified on some grid: f(xi) = {fi} having step size ∆x. There are 
 % several such approximations - generate specifically one involving the 
 % function values fi+2, fi+1, fi, fi−1.
+disp('%%%%%%%%Part 2A HANDWRITTEN Solution:%%%%%%%');
+
+disp('%%%%%%%%End Part 2A HANDWRITTEN Solution:%%%%%%%');
+
 %% Part B 
 % Write a script to test your third derivative formula on the function:
 % f(x) = cosx and plot your result alongside the analytical third derivative
 % of this function (which you compute by hand). Ignore boundary adjacent 
 % points (i.e. only compute the third derivative on “interior” grid points).
 % Use a 100 point grid covering the region 0 ≤ x ≤ 2π.
+disp('%%%%%%%%Part 2B Solution:%%%%%%%');
+
+disp('%%%%%%%%End Part 2B Solution:%%%%%%%');
 %% Part C 
 % Generally an Nth derivative requires N Taylor series expansions in order 
 % to solve for the desired derivatives in terms of the gridded function values {fi}.
 % For example, the fourth derivative d4f/dx4 can be derived from the four 
 % Taylor series for fi+2,fi+1,fi−1,fi−2. Generate Taylor series for these 
-% quantities in terms of the derivatives at the ith grid point (e.g. f′(xi) and so on).
+% quantities in terms of the derivatives at the ith grid point (e.g. f′(xi)
+% and so on).
+disp('%%%%%%%%Part 2C Solution:%%%%%%%');
+
+disp('%%%%%%%%End Part 2C Solution:%%%%%%%');
 %% Part D 
 % Use your Taylor series equations to formulate a matrix system of equations
 % for the unknowns fi′, f′′, f′′′, and f(4) (viz. the derivatives up to 
 % fourth order at the ith grid point), express your system in the form:
 % Where the Mjk entries are obtained from the Taylor series. In compact 
 % matrix form this can be represented as: where: ∆f = M f′
+disp('%%%%%%%%Part 2D Solution:%%%%%%%');
 
+disp('%%%%%%%%End Part 2D Solution:%%%%%%%');
 
 %% Part E 
 % Write a MATLAB or Python script to numerically invert this system using 
@@ -254,13 +267,15 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 % f′ =M−1 ∆f (15) Once this is solved for f′, one may solve for the desired
 % derivative by hand as needed by dividing through by ∆x4 and combining fi terms.
 % Derive formula for the fourth derivative using your −1.
+disp('%%%%%%%%Part 2E Solution:%%%%%%%');
 
+disp('%%%%%%%%End Part 2E Solution:%%%%%%%');
 %% Part F
-disp('%%%%%%%%Part 2F Solution:%%%%%%%');
 % Write a function to compute the fourth derivative using the formula derived
 % in part e and use it to differentiate the test function (Equation 11), 
 % over interior grid points of your domain. Plot the result alongside the 
 % analytical fourth derivative that you compute by hand.
+disp('%%%%%%%%Part 2F Solution:%%%%%%%');
 
 disp('%%%%%%%%End Part 2F Solution:%%%%%%%');
 
@@ -272,7 +287,9 @@ disp('%%%%%%%%End Part 2F Solution:%%%%%%%');
 % Use your code to derive and develope formulas for the fifth and sixth derivatives
 % and write these in your solution (you do not need to implement these 
 % derivatives, just use your program to derive their formulae).
+disp('%%%%%%%%Part 2G Solution:%%%%%%%');
 
+disp('%%%%%%%%End Part 2G Solution:%%%%%%%');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem 3 
@@ -292,7 +309,6 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 %% Part A 
-disp('%%%%%%%%Part 3A Solution:%%%%%%%');
 % (a) The simplest BDF is just a backward Euler method where now the 
 % right-hand side is evaluated at the n + 1 time level (contrast with Equation 17). 
 % Such approaches are unconditionally stable for the linear test problem we are using.
@@ -300,6 +316,7 @@ disp('%%%%%%%%Part 3A Solution:%%%%%%%');
 % solve a tridiagonal system of equations at each time step. 
 % Develop, starting from equation 19 the system of equations corresponding
 % to the backward Euler (in time) method.
+disp('%%%%%%%%Part 3A Solution:%%%%%%%');
 
 disp('%%%%%%%%End Part 3A Solution:%%%%%%%');
 %% Part B
@@ -347,7 +364,7 @@ hold on;
 plot(t,ybwd,'-.');
 legend('exact','bwd Eul.')
 
-disp('%%%%%%%% End Part 3B Solution:%%%%%%%');
+disp('%%%%%%%%End Part 3B Solution:%%%%%%%');
 %% Part C
 % The backward Euler method is only first order accurate in time. 
 % A second order in time BDF approach can be developed using a second order

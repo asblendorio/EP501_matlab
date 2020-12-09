@@ -48,7 +48,7 @@ plot(t,yRK4,'^-')
 legend('exact','RK2','RK4')
 
 %% RK2 stability considerations, FDE analysis
-adt=linspace(0.01,3,200);
+adt=linspace(0.01,3,20);
 ladt=numel(adt);
 G=zeros(ladt,1);
 for igain=1:ladt
@@ -59,10 +59,9 @@ plot(adt,G,'o')
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
-title('RK2 Stability');
 hold on;
 %% RK4 Stability Considertions, FDE Analysis
-adt2=linspace(0.01,3,200);
+adt2=linspace(0.01,3,20);
 ladt=numel(adt2);
 F=zeros(ladt,1);
 
