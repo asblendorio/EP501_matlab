@@ -36,7 +36,7 @@ end %for
 %backward difference at the end
 dy_dx(lx)=(y(lx)-y(lx-1))/dx;
 
-plot(x,dy_dx,'k--')
+% plot(x,dy_dx,'k--')
 
 %first order derivative approximation (backward)
 %interior
@@ -45,14 +45,9 @@ dy_dxbwd2=zeros(lx,1);
 dy_dxbwd3=zeros(lx,1);
 
 for ix=2:lx
-    for ij=2:lx
-        for ik=2:lx
         dy_dxbwd1(ix)=(y(ix)-y(ix-1))/dx;
-        dy_dxbwd2(ij)=(y(ij)-2.*y(ij-1)+y(ij-2))/2*dx;
-        dy_dxbwd3(ik)=(y(ik-2)-6.*y(ik-1)+3.*y(ik)+2.*y(ik+1))/6*dx;
-    
-        end %for
-    end %for
+        dy_dxbwd2(ix)=(y(ix)-2.*y(ix-1)+y(ix-2))/2*dx;
+        dy_dxbwd3(ix)=(y(ix-2)-6.*y(ix-1)+3.*y(ix)+2.*y(ix+1))/6*dx;
 end %for
 dy_dxbwd1(1)=dy_dxbwd1(2);
 dy_dxbwd2(1)=dy_dxbwd2(2);
@@ -76,12 +71,12 @@ dy_dxbwd3(1)=dy_dxbwd3(2);
 % xlabel('x');
 % ylabel('y(x) or y''(x)');
 % title('Comparison of finite difference derivative approximations');
-
+figure(2);
 plot(x,dy_dxbwd1,'m--')
 hold on;
-plot(x,dy_dxbwd2,'m--')
+plot(x,dy_dxbwd2,'b--')
 hold on;
-plot(x,dy_dxbwd3,'m--')
+plot(x,dy_dxbwd3,'k--')
 
 legend('original function','analytical','centered','backward')
 xlabel('x');
