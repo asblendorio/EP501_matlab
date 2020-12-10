@@ -184,21 +184,16 @@ legend('RK2','RK4');
 hold off;
 disp('As seen in Figure 4, the largest time step for which RK4 will give stable results for the test ODE is 2.785');
 disp('RK4 has a higher time step than RK2 showing the 4th order method will contain a tighter tolerance when evaluating a function. If we evaluate the same function with the 2nd order method, it will not produce similar tolerance.');
-disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
-%% Part E 
-% (e) Numerically solve the given ODE with RK4 using time steps slightly above
-% and below your derived stability criteria and show plots for each simulation
-% that demonstrate that it behaves as your analysis predicts for these two choices of time step.
-disp('%%%%%%%%Part 1E Solution:%%%%%%%');
+
 %% Gridding in time for RK4
-N_4=50;
+N_4=25;
 tmin=0;
-tmax_4=130;
+tmax_4=10;
 t4=linspace(tmin,tmax_4,N_4);
 dt_4=t4(2)-t4(1);
 
 %% Gridding in time for RK2
-N_2=50;
+N_2=25;
 tmin=0;
 tmax_2=10;
 t2=linspace(tmin,tmax_2,N_2);
@@ -254,6 +249,79 @@ plot(t2,yRK2,'--')
 title('Altered Time Step Analysis for RK2');
 legend('exact','RK2')
 
+fprintf('The largest time step for RK4 to maintain stability is: %d.\n',tmax_4);
+fprintf('the largest time step for RK2 to maintain stability is: %d\n',tmax_2);
+
+disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
+%% Part E 
+% (e) Numerically solve the given ODE with RK4 using time steps slightly above
+% and below your derived stability criteria and show plots for each simulation
+% that demonstrate that it behaves as your analysis predicts for these two choices of time step.
+disp('%%%%%%%%Part 1E Solution:%%%%%%%');
+%% Gridding in time for RK4 Above derived stability Criteria
+N_4above=25;
+tmin=0;
+tmax_4above=10;
+t4above=linspace(tmin,tmax_4above,N_4above);
+dt_4above=t4above(2)-t4above(1);
+%% Gridding in time for RK4 Below derived stability Criteria
+N_4below=25;
+tmin=0;
+tmax_4below=10;
+t4below=linspace(tmin,tmax_4below,N_4below);
+dt_4below=t4below(2)-t4below(1);
+%% Test problem, true solution Rk4
+y0=1;
+alpha=1;
+ybar4_above=y0*exp(-alpha*t4above);
+ybar4_below=y0*exp(-alpha*t4below);
+
+%% RK4 Above  example; comparison against first and second order methods
+yRK4_above=zeros(1,N_4above);
+yRK4_above(1)=y0;
+for n=2:N_4above
+    dy1=dt_4above*fRK(t(n-1),yRK4_above(n-1),alpha);
+    dy2=dt_4above*fRK(t(n-1)+dt_4/2,yRK4_above(n-1)+dy1/2,alpha);
+    dy3=dt_4above*fRK(t(n-1)+dt_4/2,yRK4_above(n-1)+dy2/2,alpha);
+    dy4=dt_4above*fRK(t(n-1)+dt_4,yRK4_above(n-1)+dy3,alpha);
+    
+    yRK4_above(n)=yRK4_above(n-1)+1/6*(dy1+2*dy2+2*dy3+dy4);
+end %for
+
+%% RK4 Below example; comparison against first and second order methods
+yRK4_below=zeros(1,N_4below);
+yRK4_below(1)=y0;
+for n=2:N_4below
+    dy1=dt_4below*fRK(t(n-1),yRK4_below(n-1),alpha);
+    dy2=dt_4below*fRK(t(n-1)+dt_4below/2,yRK4_below(n-1)+dy1/2,alpha);
+    dy3=dt_4below*fRK(t(n-1)+dt_4below/2,yRK4_below(n-1)+dy2/2,alpha);
+    dy4=dt_4below*fRK(t(n-1)+dt_4below,yRK4_below(n-1)+dy3,alpha);
+    
+    yRK4_below(n)=yRK4_below(n-1)+1/6*(dy1+2*dy2+2*dy3+dy4);
+end %for
+%% Plots of RK solutions against true solution
+figure(8);
+clf;
+plot(t4above,ybar4_above,'o-');
+hold on;
+xlabel('t');
+ylabel('y(t)');
+set(gca,'FontSize',20);
+plot(t4above,yRK4_above,'^-')
+title('Altered Time Step Analysis for RK4 Above');
+legend('exact','RK4 Above')
+
+figure(9);
+clf;
+plot(t4below,ybar4_below,'o-');
+xlabel('t');
+ylabel('y(t)');
+set(gca,'FontSize',20);
+hold on;
+plot(t4below,yRK4_below,'^-')
+title('Altered Time Step Analysis for RK4 Below');
+legend('exact','RK4 Below')
+
 disp('%%%%%%%%End Part 1E Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem 2
@@ -293,7 +361,7 @@ dy=-sin(x);
 ddy=-cos(x);
 dddy=sin(x);
 
-figure(8);
+figure(10);
 plot(x,y)
 hold on;
 plot(x,dy)
@@ -309,32 +377,29 @@ title('Analytically Solved Functions');
 %% numerical derivative
 %first,second,third order derivative approximation (backward)
 %interior
-dx1=zeros(lx,1);
-dx2=zeros(lx,1);
-dx3=zeros(lx,1);
-dx4=zeros(lx,1);
+lx1=100;
+tmin=0;
+tmax=2*pi;
+x=linspace(tmin,tmax,lx1);
+dx=x(2)-x(1);
+y=cos(x);
+dx1=zeros(lx1,1);
+dx2=zeros(lx1,1);
+dx3=zeros(lx1,1);
+dx4=zeros(lx1,1);
 
 for ix=3:lx-2
-        dx1(ix)=(y(ix)-y(ix-1))/dx;   
+        dx1(ix)=(y(ix)-y(ix-1))./dx;
+        dx2(ix)=(y(ix)-2.*y(ix-1)+y(ix-2))/2.*dx;
+        dx3(ix)=(-2.*y(ix-1)-3.*y(ix)+6.*y(ix+1)-y(ix+2))/6.*dx;
+        dx4(ix)=(y(ix-2)-8.*y(ix-1)+8.*y(ix+1)-y(ix+2))/12*dx;
 end %for
-dx1(1)=dx1(2);
+% dx1(1)=dx1(2);
+% dx2(1)=dx2(2);
+% dx3(1)=dx3(2);
+% dx4(1)=dx4(2);
 
-for ix=3:lx-2
-    dx2(ix)=(y(ix)-2.*y(ix-1)+y(ix-2))/2*dx;
-end %for
-dx2(1)=dx2(2);
-
-for ix=3:lx-2
-    dx3(ix)=(y(ix+2)-6.*y(ix-1)+3.*y(ix)+2.*y(ix+1))/6*dx;
-end %for    
-dx3(1)=dx3(2);
-
-for ix=3:lx-2
-    dx4(ix)=(y(ix-2)-8.*y(ix-1)+8.*y(ix+1)-y(ix+2))/12*dx;
-end %for    
-dx4(1)=dx4(2);
-
-figure(9);
+figure(11);
 plot(x,dx1,'m--')
 hold on;
 plot(x,dx2,'b--')
