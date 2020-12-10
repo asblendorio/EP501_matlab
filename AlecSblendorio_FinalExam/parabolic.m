@@ -8,10 +8,10 @@ dx=x(2)-x(1);        %grid spacing
 
 %% Define parameters of the parabolic equation, time variable
 lambda=2;
-tau=1024.*(1/(2*pi/(2*dx))^2/lambda);    %diffusion time scale for the equation, based on smallest resolvable spatial mode
+tau=1/(2*pi/(2*dx))^2/lambda;    %diffusion time scale for the equation, based on smallest resolvable spatial mode
 %dt=tau/5;              %time step
 
-dtmargin=(5/2).*(dx^2/2.*lambda);
+dtmargin=(5/2).*(dx^2/lambda);
 dt=0.5*dtmargin;
 tmin=0;
 tmax=1024*tau;          %go out to three times the diffusion time scale for the smallest possible mode
@@ -27,7 +27,9 @@ f(:,1)=sin(2*pi*x)+sin(8*pi*x);
 for n=1:lt-1
     f(1,n+1)=0;   %assume temperature goes to some small number on left boundary
     for i=2:lx-1     %interior grid points
-        f(i,n+1)=f(i,n)+dt/dx^2*lambda*(f(i+1,n)-2*f(i,n)+f(i-1,n));
+        f(i,n)=(f(i-1,n+1)*(-lambda/dx^2)+ ...
+        f(i,n+1)*((1/dt)-(2*lambda/dx^2))+ ...
+        f(i+1,n+1)*(-lambda/dx^2));
     end %for
     f(lx,n+1)=0;  %assume temperature goes to some small number on right boundary
 end %for
@@ -43,20 +45,20 @@ title('FTCS')
 set(gca,'FontSize',16);
 
 
-%% Creation of a Matlab movie
-figure(2);
-for n=1:lt
-    plot(x,f(:,n));
-    set(gca,'FontSize',16);
-    xlabel('x (m)');
-    ylabel('f(x)');
-    title(sprintf('f(x) @ t=%f',t(n)))
-    axis([0 1 -2 2]);
-    M(n)=getframe;
-end %for
-%movie(M);   %for whatever reason this doesn't store the axis labels and
-%title which makes it kind of worthless.  
-
+% %% Creation of a Matlab movie
+% figure(2);
+% for n=1:lt
+%     plot(x,f(:,n));
+%     set(gca,'FontSize',16);
+%     xlabel('x (m)');
+%     ylabel('f(x)');
+%     title(sprintf('f(x) @ t=%f',t(n)))
+%     axis([0 1 -2 2]);
+%     M(n)=getframe;
+% end %for
+% %movie(M);   %for whatever reason this doesn't store the axis labels and
+% %title which makes it kind of worthless.  
+% 
 
 %% Trapezoidal implementation, note matrix solutions are more efficiently handled thru tri-diagonal solver; Matlab built-in will detect automatically
 f2=zeros(lx,lt);
