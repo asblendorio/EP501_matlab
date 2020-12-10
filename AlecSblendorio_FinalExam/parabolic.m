@@ -27,9 +27,9 @@ f(:,1)=sin(2*pi*x)+sin(8*pi*x);
 for n=1:lt-1
     f(1,n+1)=0;   %assume temperature goes to some small number on left boundary
     for i=2:lx-1     %interior grid points
-        f(i,n)=(f(i-1,n+1)*(-lambda/dx^2)+ ...
+        f(i,n+1)=f(i-1,n+1)*(-lambda/dx^2)+ ...
         f(i,n+1)*((1/dt)-(2*lambda/dx^2))+ ...
-        f(i+1,n+1)*(-lambda/dx^2));
+        f(i+1,n+1)*(-lambda/dx^2);
     end %for
     f(lx,n+1)=0;  %assume temperature goes to some small number on right boundary
 end %for
@@ -58,7 +58,7 @@ set(gca,'FontSize',16);
 % end %for
 % %movie(M);   %for whatever reason this doesn't store the axis labels and
 % %title which makes it kind of worthless.  
-% 
+
 
 %% Trapezoidal implementation, note matrix solutions are more efficiently handled thru tri-diagonal solver; Matlab built-in will detect automatically
 f2=zeros(lx,lt);

@@ -33,7 +33,7 @@ dt=t(2)-t(1);
 %% Test problem, true solution
 y0=1;
 alpha=2;
-ybar=y0*(-alpha*t);
+ybar=y0*exp(-alpha*t);
 %% RK4 Stability Considertions, FDE Analysis
 adt=linspace(0.001,3.5,50);
 ladt=numel(adt);
@@ -128,7 +128,7 @@ dt=t(2)-t(1);
 %% Test problem, true solution
 y0=1;
 alpha=2;
-ybar=y0*(-alpha*t);
+ybar=y0*exp(-alpha*t);
 
 %% Second order method; RK2
 yRK2=zeros(1,N);
@@ -190,31 +190,69 @@ disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
 % and below your derived stability criteria and show plots for each simulation
 % that demonstrate that it behaves as your analysis predicts for these two choices of time step.
 disp('%%%%%%%%Part 1E Solution:%%%%%%%');
-%% Gridding in time
-N1=2.535;
-N2=3.035;
+%% Gridding in time for RK4
+N_4=50;
 tmin=0;
-tmax=10;
-t1=linspace(tmin,tmax,N1);
-t2=linspace(tmin,tmax,N2);
-dt1=t1(2)-t1(1);
-dt2=t2(1)-t2(1);
-%% RK4 Stability Considertions, FDE Analysis
-adt3=linspace(0.01,3,200);
-ladt=numel(adt3);
-F=zeros(ladt,1);
+tmax_4=130;
+t4=linspace(tmin,tmax_4,N_4);
+dt_4=t4(2)-t4(1);
 
-for igain=1:ladt
-    F(igain)=(1-adt2(igain)+1/2*adt2(igain).^2-1/6*adt2(igain).^3+1/24*adt2(igain).^4);
+%% Gridding in time for RK2
+N_2=50;
+tmin=0;
+tmax_2=10;
+t2=linspace(tmin,tmax_2,N_2);
+dt_2=t2(2)-t2(1);
+%% Test problem, true solution Rk4
+y0=1;
+alpha=1;
+ybar4=y0*exp(-alpha*t4);
+%% Test problem, true solution Rk2
+ybar2=y0*exp(-alpha*t2);
+
+%% Second order method; RK2
+yRK2=zeros(1,N_2);
+yRK2(1)=y0;
+for n=2:N_2
+    yhalf=yRK2(n-1)+dt_2/2*(-alpha*yRK2(n-1));
+    yRK2(n)=yRK2(n-1)+dt_2*(-alpha*yhalf);
+end %for
+%% RK4 example; comparison against first and second order methods
+yRK4=zeros(1,N_4);
+yRK4(1)=y0;
+for n=2:N_4
+    dy1=dt_4*fRK(t(n-1),yRK4(n-1),alpha);
+    dy2=dt_4*fRK(t(n-1)+dt_4/2,yRK4(n-1)+dy1/2,alpha);
+    dy3=dt_4*fRK(t(n-1)+dt_4/2,yRK4(n-1)+dy2/2,alpha);
+    dy4=dt_4*fRK(t(n-1)+dt_4,yRK4(n-1)+dy3,alpha);
+    
+    yRK4(n)=yRK4(n-1)+1/6*(dy1+2*dy2+2*dy3+dy4);
 end %for
 
-figure(5);
-plot(adt3,F-1,'*')
+%% Plots of RK solutions against true solution
+figure(6);
+clf;
+plot(t4,ybar4,'o-');
+xlabel('t');
+ylabel('y(t)');
 set(gca,'FontSize',20);
-xlabel('\alpha \Delta t');
-ylabel('gain factor');
-title('RK4 Below Time and RK4 Above Time Stability Curves');
-legend('RK4 BT','RK4 AT');
+
+figure(6);
+hold on;
+plot(t4,yRK4,'^-')
+title('Altered Time Step Analysis for RK4');
+legend('exact','RK4')
+
+figure(7);
+plot(t2,ybar2,'o-');
+xlabel('t');
+ylabel('y(t)');
+set(gca,'FontSize',20);
+figure(7);
+hold on;
+plot(t2,yRK2,'--')
+title('Altered Time Step Analysis for RK2');
+legend('exact','RK2')
 
 disp('%%%%%%%%End Part 1E Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
@@ -255,7 +293,7 @@ dy=-sin(x);
 ddy=-cos(x);
 dddy=sin(x);
 
-figure(6);
+figure(8);
 plot(x,y)
 hold on;
 plot(x,dy)
@@ -296,7 +334,7 @@ for ix=3:lx-2
 end %for    
 dx4(1)=dx4(2);
 
-figure(7);
+figure(9);
 plot(x,dx1,'m--')
 hold on;
 plot(x,dx2,'b--')
