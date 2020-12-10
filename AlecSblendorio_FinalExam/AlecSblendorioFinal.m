@@ -182,6 +182,8 @@ ylabel('gain factor');
 title('RK2 vs. RK4 Stability Curves');
 legend('RK2','RK4');
 hold off;
+disp('As seen in Figure 4, the largest time step for which RK4 will give stable results for the test ODE is 2.785');
+disp('RK4 has a higher time step than RK2 showing the 4th order method will contain a tighter tolerance when evaluating a function. If we evaluate the same function with the 2nd order method, it will not produce similar tolerance.');
 disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
 %% Part E 
 % (e) Numerically solve the given ODE with RK4 using time steps slightly above
@@ -189,30 +191,30 @@ disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
 % that demonstrate that it behaves as your analysis predicts for these two choices of time step.
 disp('%%%%%%%%Part 1E Solution:%%%%%%%');
 %% Gridding in time
-N=1000;
+N1=2.535;
+N2=3.035;
 tmin=0;
 tmax=10;
-t=linspace(tmin,tmax,N);
-dt=t(2)-t(1);
+t1=linspace(tmin,tmax,N1);
+t2=linspace(tmin,tmax,N2);
+dt1=t1(2)-t1(1);
+dt2=t2(1)-t2(1);
 %% RK4 Stability Considertions, FDE Analysis
-adt2=linspace(0.01,3,200);
-ladt=numel(adt2);
+adt3=linspace(0.01,3,200);
+ladt=numel(adt3);
 F=zeros(ladt,1);
 
 for igain=1:ladt
     F(igain)=(1-adt2(igain)+1/2*adt2(igain).^2-1/6*adt2(igain).^3+1/24*adt2(igain).^4);
 end %for
 
-% % % figure(5);
-% % % plot(adt,G,'o')
-% % % hold on;
-% % % set(gca,'FontSize',20);
-% % % plot(adt2,F,'*')
-% % % set(gca,'FontSize',20);
-% % % xlabel('\alpha \Delta t');
-% % % ylabel('gain factor');
-% % % title('RK4 Low vs. RK4 High Stability Curves');
-% % % legend('RK4 Low','RK4 High');
+figure(5);
+plot(adt3,F-1,'*')
+set(gca,'FontSize',20);
+xlabel('\alpha \Delta t');
+ylabel('gain factor');
+title('RK4 Below Time and RK4 Above Time Stability Curves');
+legend('RK4 BT','RK4 AT');
 
 disp('%%%%%%%%End Part 1E Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
@@ -425,14 +427,14 @@ end %for
 
 
 %% Plot results for all solutions
-figure(8);
-plot(t,ybar,'o-');
-xlabel('t');
-ylabel('y(t)');
-set(gca,'FontSize',20);
-hold on;
-plot(t,ybwd,'-.');
-legend('exact','bwd Eul.')
+% figure(8);
+% plot(t,ybar,'o-');
+% xlabel('t');
+% ylabel('y(t)');
+% set(gca,'FontSize',20);
+% hold on;
+% plot(t,ybwd,'-.');
+% legend('exact','bwd Eul.')
 
 disp('%%%%%%%%End Part 3B Solution:%%%%%%%');
 %% Part C
