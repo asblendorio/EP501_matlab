@@ -71,7 +71,13 @@ figure(3);
 plot(adt,F2,'*');
 hold on;
 plot(adt,F1,'^');
-patch([adt fliplr(adt)],[Fup fliplr(Flow)],'b--');
+hold on;
+%Plotting horizontal line to indicate limit of stability
+x=0:4;
+y=1;
+plot(x,y*ones(size(x)),'LineWidth',3);
+
+% patch([adt fliplr(adt)],[y fliplr(Flow)],'b--');
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
