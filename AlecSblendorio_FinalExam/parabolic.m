@@ -8,10 +8,10 @@ dx=x(2)-x(1);        %grid spacing
 
 %% Define parameters of the parabolic equation, time variable
 lambda=2;
-tau=1/(2*pi/(2*dx))^2/lambda;    %diffusion time scale for the equation, based on smallest resolvable spatial mode
+tau=1024.*(1/(2*pi/(2*dx))^2/lambda);    %diffusion time scale for the equation, based on smallest resolvable spatial mode
 %dt=tau/5;              %time step
 
-dtmargin=1/lambda/2*dx^2;
+dtmargin=(5/2).*(dx^2/2.*lambda);
 dt=0.5*dtmargin;
 tmin=0;
 tmax=1024*tau;          %go out to three times the diffusion time scale for the smallest possible mode
