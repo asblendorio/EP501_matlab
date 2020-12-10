@@ -1,4 +1,4 @@
-%%Problem #2
+%%Problem #2e
 %%Create a function that implements Gauss-Jordan elimination; 
 %%you should start from your forward elimination function for multiple RHS 
 %%and add the backward eliminations needed.

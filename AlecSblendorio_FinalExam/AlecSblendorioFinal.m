@@ -3,7 +3,6 @@
 %% Subject: EP 501 Numerical Methods for Scientists and Engineers 
 %% FINAL EXAM 
 %% Import Data 
-
 %% Problem 1 
 % Problem #1: In class and in the homework we discussed the fourth order Runge-Kutta method:
 % with appropriate definitions for the ∆yi as given in the book and
@@ -186,14 +185,14 @@ disp('As seen in Figure 4, the largest time step for which RK4 will give stable 
 disp('RK4 has a higher time step than RK2 showing the 4th order method will contain a tighter tolerance when evaluating a function. If we evaluate the same function with the 2nd order method, it will not produce similar tolerance.');
 
 %% Gridding in time for RK4
-N_4=25;
+N_4=8;
 tmin=0;
 tmax_4=10;
 t4=linspace(tmin,tmax_4,N_4);
 dt_4=t4(2)-t4(1);
 
 %% Gridding in time for RK2
-N_2=25;
+N_2=8;
 tmin=0;
 tmax_2=10;
 t2=linspace(tmin,tmax_2,N_2);
@@ -235,8 +234,8 @@ set(gca,'FontSize',20);
 figure(6);
 hold on;
 plot(t4,yRK4,'^-')
-title('Altered Time Step Analysis for RK4');
-legend('exact','RK4')
+title('Time Step Analysis for RK4');
+legend('exact','RK4 N=6')
 
 figure(7);
 plot(t2,ybar2,'o-');
@@ -246,12 +245,15 @@ set(gca,'FontSize',20);
 figure(7);
 hold on;
 plot(t2,yRK2,'--')
-title('Altered Time Step Analysis for RK2');
-legend('exact','RK2')
+title('Time Step Analysis for RK2');
+legend('exact','RK2 N=8')
 
-fprintf('The largest time step for RK4 to maintain stability is: %d.\n',tmax_4);
-fprintf('the largest time step for RK2 to maintain stability is: %d\n',tmax_2);
-
+fprintf('The largest time step for RK4 to maintain stability is: %d.\n',N_4);
+fprintf('the largest time step for RK2 to maintain stability is: %d\n',N_2);
+%% Comments on 1D 
+% In Figures 6 and 7, I present both methods with the same time step. It is
+% clear that at that specific time step, the RK 4 method has greater
+% stability than RK2. 
 disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
 %% Part E 
 % (e) Numerically solve the given ODE with RK4 using time steps slightly above
@@ -259,13 +261,13 @@ disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
 % that demonstrate that it behaves as your analysis predicts for these two choices of time step.
 disp('%%%%%%%%Part 1E Solution:%%%%%%%');
 %% Gridding in time for RK4 Above derived stability Criteria
-N_4above=25;
+N_4above=80;
 tmin=0;
 tmax_4above=10;
 t4above=linspace(tmin,tmax_4above,N_4above);
 dt_4above=t4above(2)-t4above(1);
 %% Gridding in time for RK4 Below derived stability Criteria
-N_4below=25;
+N_4below=4;
 tmin=0;
 tmax_4below=10;
 t4below=linspace(tmin,tmax_4below,N_4below);
@@ -308,8 +310,8 @@ xlabel('t');
 ylabel('y(t)');
 set(gca,'FontSize',20);
 plot(t4above,yRK4_above,'^-')
-title('Altered Time Step Analysis for RK4 Above');
-legend('exact','RK4 Above')
+title('Altered Time Step Analysis for High N Value -- RK4');
+legend('exact','RK4 N=80')
 
 figure(9);
 clf;
@@ -319,9 +321,12 @@ ylabel('y(t)');
 set(gca,'FontSize',20);
 hold on;
 plot(t4below,yRK4_below,'^-')
-title('Altered Time Step Analysis for RK4 Below');
-legend('exact','RK4 Below')
+title('Altered Time Step Analysis for Low N Value -- RK4');
+legend('exact','RK4 N=8')
 
+%% Comments on 1E 
+% For a low N value, the solution will destabilize. For a large N it will 
+% converge to the true solution. 
 disp('%%%%%%%%End Part 1E Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
 %% Problem 2
@@ -444,7 +449,7 @@ disp('%%%%%%%%End Part 2D HANDWRITTEN Solution:%%%%%%%');
 % derivative by hand as needed by dividing through by ∆x4 and combining fi terms.
 % Derive formula for the fourth derivative using your −1.
 disp('%%%%%%%%Part 2E Solution:%%%%%%%');
-
+% xsoln=@gaussjordanElim(M,b);
 disp('%%%%%%%%End Part 2E Solution:%%%%%%%');
 %% Part F
 % Write a function to compute the fourth derivative using the formula derived
