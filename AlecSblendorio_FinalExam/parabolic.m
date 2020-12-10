@@ -19,17 +19,17 @@ t=tmin:dt:tmax;
 lt=numel(t);
 
 
-%% FTCS implementation
+%% BTCS implementation for n+1
 f=zeros(lx,lt);
 f(:,1)=sin(2*pi*x)+sin(8*pi*x);
 
-%FTCS iterations
+%BTCS iterations
 for n=1:lt-1
     f(1,n+1)=0;   %assume temperature goes to some small number on left boundary
     for i=2:lx-1     %interior grid points
-        f(i,n+1)=f(i-1,n+1)*(-lambda/dx^2)+ ...
-        f(i,n+1)*((1/dt)-(2*lambda/dx^2))+ ...
-        f(i+1,n+1)*(-lambda/dx^2);
+        f(i,n+1)=f(i,n)/dt-f(i+1,n+1)*(-lambda/dx^2)- ...
+                f(i,n+1)*(-2*lambda/dx^2)- ...
+                f(i-1,n+1)*(-lambda/dx^2);
     end %for
     f(lx,n+1)=0;  %assume temperature goes to some small number on right boundary
 end %for
