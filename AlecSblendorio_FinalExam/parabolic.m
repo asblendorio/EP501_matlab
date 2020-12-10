@@ -5,7 +5,6 @@ b=1;     %use a square region for a test problem
 x=linspace(a,b,lx);
 dx=x(2)-x(1);        %grid spacing
 
-
 %% Define parameters of the parabolic equation, time variable
 lambda=2;
 tau=1/(2*pi/(2*dx))^2/lambda;    %diffusion time scale for the equation, based on smallest resolvable spatial mode
@@ -17,7 +16,6 @@ tmin=0;
 tmax=1024*tau;          %go out to three times the diffusion time scale for the smallest possible mode
 t=tmin:dt:tmax;
 lt=numel(t);
-
 
 %% BTCS implementation for n+1
 f=zeros(lx,lt);
@@ -43,7 +41,6 @@ xlabel('time (s)');
 ylabel('x (m)')
 title('FTCS')
 set(gca,'FontSize',16);
-
 
 % %% Creation of a Matlab movie
 % figure(2);
