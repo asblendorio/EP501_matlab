@@ -3,11 +3,12 @@
 %%you should start from your forward elimination function for multiple RHS 
 %%and add the backward eliminations needed.
 
-function [Ajord] = gaussjordanElim(A,b)
+function [Ajord] = gaussjordanElim(A)
 
-nref=length(b);                %system size for reference problem                          
+nref=length(A);                %system size for reference problem                          
 %note that the elimination procedure coded below modifies the matrix B
-Ajord=cat(2,A,b);           %This is our working version of the matrix used to perform elimination (i.e. it will be modified)
+%Ajord=cat(2,A,b);           %This is our working version of the matrix used to perform elimination (i.e. it will be modified)
+Ajord=A;
 
 for ir1=2:nref
     %loop over rows from 2 to n performing elimination, this index marks what row we are starting the elimination from (i.e. using) for this particular column
@@ -35,7 +36,7 @@ for ir1=nref-1:-1:1
     end %for
 end %for
 
-for ir2=1:length(b)
+for ir2=1:length(A)
     Ajord(ir2,:)=Ajord(ir2,:)./Ajord(ir2,ir2);
 end %for
 
