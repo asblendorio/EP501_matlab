@@ -42,9 +42,13 @@ F=zeros(ladt,1);
 for igain=1:ladt
     F(igain)=(1-adt(igain)+1/2*adt(igain).^2-1/6*adt(igain).^3+1/24*adt(igain).^4);
 end %for
-
+f = F-1;
 figure(2);
-plot(adt,F,'*');
+plot(adt,f,'*');
+hold on;
+x1=0:4;
+y1=0;
+plot(x1,y1*ones(size(x1)),'LineWidth',3);
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
@@ -61,8 +65,8 @@ disp('%%%%%%%%End Part 1B Solution:%%%%%%%');
 % stability conditions and evaluate all real-valued roots using an 
 % appropriate numerical method.
 disp('%%%%%%%%Part 1C Solution:%%%%%%%');
-F1 = F+1;
-F2 = F-1;
+F1 = f+1;
+F2 = f-1;
 
 Fup = F1';
 Flow = F2';
@@ -73,11 +77,10 @@ hold on;
 plot(adt,F1,'^');
 hold on;
 %Plotting horizontal line to indicate limit of stability
-x=0:4;
-y=1;
-plot(x,y*ones(size(x)),'LineWidth',3);
+x2=0:4;
+y2=0;
+plot(x2,y2*ones(size(x2)),'LineWidth',3);
 
-% patch([adt fliplr(adt)],[y fliplr(Flow)],'b--');
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
@@ -156,7 +159,7 @@ for igain=1:ladt
     G(igain)=(1-adt(igain)+1/2*adt(igain).^2);
 end %for
 figure(4);
-plot(adt,G,'o')
+plot(adt,G-1,'o')
 set(gca,'FontSize',20);
 hold on;
 %% RK4 Stability Considertions, FDE Analysis
@@ -168,7 +171,11 @@ for igain=1:ladt
     F(igain)=(1-adt2(igain)+1/2*adt2(igain).^2-1/6*adt2(igain).^3+1/24*adt2(igain).^4);
 end %for
 
-plot(adt2,F,'*')
+plot(adt2,F-1,'*')
+hold on;
+x3=0:4;
+y3=0;
+plot(x3,y3*ones(size(x3)),'LineWidth',3);
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
 ylabel('gain factor');
@@ -309,9 +316,9 @@ disp('%%%%%%%%End Part 2B Solution:%%%%%%%');
 % Taylor series for fi+2,fi+1,fi−1,fi−2. Generate Taylor series for these 
 % quantities in terms of the derivatives at the ith grid point (e.g. f′(xi)
 % and so on).
-disp('%%%%%%%%Part 2C Solution:%%%%%%%');
+disp('%%%%%%%%Part 2C HANDWRITTEN Solution:%%%%%%%');
 
-disp('%%%%%%%%End Part 2C Solution:%%%%%%%');
+disp('%%%%%%%%End Part 2C HANDWRITTEN Solution:%%%%%%%');
 %% Part D 
 % Use your Taylor series equations to formulate a matrix system of equations
 % for the unknowns fi′, f′′, f′′′, and f(4) (viz. the derivatives up to 
