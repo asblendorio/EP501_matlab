@@ -385,14 +385,15 @@ dx_new=x1(2)-x1(1);
 dx1=zeros(lx1,1);
 dx2=zeros(lx1,1);
 dx3=zeros(lx1,1);
-% dx4=zeros(lx1,1);
+dx4=zeros(lx1,1);
 
 for ix=3:lx-2
         dx1(ix)=(y(ix)-y(ix-1))/(dx_new);
         dx2(ix)=(y(ix+1)-2*y(ix)+y(ix-1))/(dx_new^2);
-        dx3(ix)=(2*y(ix-1)+3*y(ix)-6*y(ix+1)+y(ix+2)/(6*dx_new));
-%         dx4(ix)=(y(ix-2)-8*y(ix-1)+8*y(ix+1)-y(ix+2))/(12*dx);
+        dx3(ix)=(2*y(ix-1)+3*y(ix)-6*y(ix+1)+y(ix+2))/(6*dx_new);
+        dx4(ix)=(y(ix-2)-8*y(ix-1)+8*y(ix+1)-y(ix+2))/(12*dx_new);
 end %for
+
 
 figure(11);
 plot(x1,y,'y--')
@@ -400,16 +401,19 @@ hold on;
 plot(x1,dx1,'m--')
 hold on;
 plot(x1,dx2,'b--')
-% hold on;
-% plot(x1,dx3,'k--')
-% hold on;
-% plot(x,dx4,'r--')
+hold on;
+plot(x1,dx3,'k--')
+hold on;
+plot(x,dx4,'g--')
 
-legend('Original Function','1st derivative','2nd derivative','3rd derivative');
+legend('Original Function','1st derivative','2nd derivative','3rd derivative','4th Derivative');
 xlabel('x');
 ylabel('y(x) or y''(x)');
 title('Numerically Solved Functions');
-
+%% Comments on 2B 
+% There is a steep line on the left hand and right hand side of the
+% derivative functions. I don't know how to get rid of it but the rest of
+% the numerical functions match the analytical. 
 disp('%%%%%%%%End Part 2B Solution:%%%%%%%');
 %% Part C 
 % Generally an Nth derivative requires N Taylor series expansions in order 
@@ -427,9 +431,9 @@ disp('%%%%%%%%End Part 2C HANDWRITTEN Solution:%%%%%%%');
 % fourth order at the ith grid point), express your system in the form:
 % Where the Mjk entries are obtained from the Taylor series. In compact 
 % matrix form this can be represented as: where: ∆f = M f′
-disp('%%%%%%%%Part 2D Solution:%%%%%%%');
+disp('%%%%%%%%Part 2D HANDWRITTEN Solution:%%%%%%%');
 
-disp('%%%%%%%%End Part 2D Solution:%%%%%%%');
+disp('%%%%%%%%End Part 2D HANDWRITTEN Solution:%%%%%%%');
 
 %% Part E 
 % Write a MATLAB or Python script to numerically invert this system using 
