@@ -43,7 +43,7 @@ for igain=1:ladt
     F(igain)=(1-adt(igain)+1/2*adt(igain).^2-1/6*adt(igain).^3+1/24*adt(igain).^4);
 end %for
 
-figure(1);
+figure(2);
 plot(adt,F,'*');
 set(gca,'FontSize',20);
 xlabel('\alpha \Delta t');
@@ -67,7 +67,7 @@ F2 = F-1;
 Fup = F1';
 Flow = F2';
 
-figure(2);
+figure(3);
 plot(adt,F2,'*');
 hold on;
 plot(adt,F1,'^');
@@ -92,7 +92,6 @@ f=@objfun1;      %set the function for which we are finding roots, change to ill
 fprime=@objfun1_deriv;
 verbose=true;
 j=0;
-
 
 for i = 0:1.0:10
     [xNewton,itNew,flag]=newton_exact(f,fprime,i,maxit,tol,verbose); 
@@ -142,19 +141,6 @@ for n=2:N
     yRK4(n)=yRK4(n-1)+1/6*(dy1+2*dy2+2*dy3+dy4);
 end %for
 
-%% Plots of RK solutions against true solution
-% figure(4);
-% clf;
-% plot(t,ybar,'o-');
-% xlabel('t');
-% ylabel('y(t)');
-% set(gca,'FontSize',20);
-% figure(5);
-% hold on;
-% plot(t,yRK2,'--')
-% figure(5);
-% plot(t,yRK4,'^-')
-% legend('exact','RK2','RK4')
 
 %% RK2 stability considerations, FDE analysis
 adt=linspace(0.01,3,200);
@@ -163,7 +149,7 @@ G=zeros(ladt,1);
 for igain=1:ladt
     G(igain)=(1-adt(igain)+1/2*adt(igain).^2);
 end %for
-figure(3);
+figure(4);
 plot(adt,G,'o')
 set(gca,'FontSize',20);
 hold on;
@@ -182,7 +168,7 @@ xlabel('\alpha \Delta t');
 ylabel('gain factor');
 title('RK2 vs. RK4 Stability Curves');
 legend('RK2','RK4');
-
+hold off;
 disp('%%%%%%%%End Part 1D Solution:%%%%%%%');
 %% Part E 
 % (e) Numerically solve the given ODE with RK4 using time steps slightly above
@@ -204,16 +190,16 @@ for igain=1:ladt
     F(igain)=(1-adt2(igain)+1/2*adt2(igain).^2-1/6*adt2(igain).^3+1/24*adt2(igain).^4);
 end %for
 
-figure(4);
-plot(adt,G,'o')
-set(gca,'FontSize',20);
-hold on;
-% plot(adt2,F,'*')
-set(gca,'FontSize',20);
-xlabel('\alpha \Delta t');
-ylabel('gain factor');
-title('RK4 Low vs. RK4 High Stability Curves');
-legend('RK4 Low','RK4 High');
+% % % figure(5);
+% % % plot(adt,G,'o')
+% % % hold on;
+% % % set(gca,'FontSize',20);
+% % % plot(adt2,F,'*')
+% % % set(gca,'FontSize',20);
+% % % xlabel('\alpha \Delta t');
+% % % ylabel('gain factor');
+% % % title('RK4 Low vs. RK4 High Stability Curves');
+% % % legend('RK4 Low','RK4 High');
 
 disp('%%%%%%%%End Part 1E Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #1 ANSWER END%%%%%%%%%%%%%%%%%%');
@@ -254,7 +240,7 @@ dy=-sin(x);
 ddy=-cos(x);
 dddy=sin(x);
 
-figure(5);
+figure(6);
 plot(x,y)
 hold on;
 plot(x,dy)
@@ -267,39 +253,47 @@ xlabel('x');
 ylabel('y(x) or y''(x)');
 title('Analytically Solved Functions');
 
-%% Numerical derivative
+%% numerical derivative
 %first,second,third order derivative approximation (backward)
 %interior
 dx1=zeros(lx,1);
 dx2=zeros(lx,1);
 dx3=zeros(lx,1);
+dx4=zeros(lx,1);
 
-for ix=2:lx
-        dx1(ix)=(y(ix)-y(ix-1))/dx;
-        dx2(ix)=(y(ix)-2.*y(ix-1)+y(ix-2))/2/dx;
-        dx3(ix)=(y(ix-2)-6.*y(ix-1)+3.*y(ix)+2.*y(ix+1))/6*dx;
+for ix=3:lx-2
+        dx1(ix)=(y(ix)-y(ix-1))/dx;   
 end %for
 dx1(1)=dx1(2);
+
+for ix=3:lx-2
+    dx2(ix)=(y(ix)-2.*y(ix-1)+y(ix-2))/2*dx;
+end %for
 dx2(1)=dx2(2);
+
+for ix=3:lx-2
+    dx3(ix)=(y(ix+2)-6.*y(ix-1)+3.*y(ix)+2.*y(ix+1))/6*dx;
+end %for    
 dx3(1)=dx3(2);
 
-figure(6);
+for ix=3:lx-2
+    dx4(ix)=(y(ix-2)-8.*y(ix-1)+8.*y(ix+1)-y(ix+2))/12*dx;
+end %for    
+dx4(1)=dx4(2);
+
+figure(7);
 plot(x,dx1,'m--')
 hold on;
 plot(x,dx2,'b--')
 hold on;
 plot(x,dx3,'k--')
+hold on;
+plot(x,dx4,'r--')
 
-legend('original function','analytical','centered','backward')
+legend('1st derivative','2nd derivative','3rd derivative','4th derivative');
 xlabel('x');
 ylabel('y(x) or y''(x)');
-title('Comparison of finite difference derivative approximations');
-
-
-
-
-
-
+title('Numerically Solved Functions');
 
 disp('%%%%%%%%End Part 2B Solution:%%%%%%%');
 %% Part C 
@@ -418,7 +412,7 @@ end %for
 
 
 %% Plot results for all solutions
-figure(1);
+figure(8);
 plot(t,ybar,'o-');
 xlabel('t');
 ylabel('y(t)');
