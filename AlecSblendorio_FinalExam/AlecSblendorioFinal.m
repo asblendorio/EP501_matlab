@@ -380,38 +380,32 @@ title('Analytically Solved Functions');
 lx1=100;
 tmin=0;
 tmax=2*pi;
-x=linspace(tmin,tmax,lx1);
-dx=x(2)-x(1);
-y=cos(x);
+x1=linspace(tmin,tmax,lx1);
+dx_new=x1(2)-x1(1);
 dx1=zeros(lx1,1);
 dx2=zeros(lx1,1);
 dx3=zeros(lx1,1);
-dx4=zeros(lx1,1);
+% dx4=zeros(lx1,1);
 
 for ix=3:lx-2
-        dx1(ix)=(y(ix)-y(ix-1))/(dx);
-        dx2(ix)=(y(ix+1)-2*y(ix)+y(ix-1))/(dx^2);
-        dx3(ix)=(-2*y(ix-1)-3*y(ix)+6*y(ix+1)-y(ix+2))/(6*dx);
-        dx4(ix)=(y(ix-2)-8*y(ix-1)+8*y(ix+1)-y(ix+2))/(12*dx);
+        dx1(ix)=(y(ix)-y(ix-1))/(dx_new);
+        dx2(ix)=(y(ix+1)-2*y(ix)+y(ix-1))/(dx_new^2);
+        dx3(ix)=(2*y(ix-1)+3*y(ix)-6*y(ix+1)+y(ix+2)/(6*dx_new));
+%         dx4(ix)=(y(ix-2)-8*y(ix-1)+8*y(ix+1)-y(ix+2))/(12*dx);
 end %for
 
-% dx1(1)=dx1(2);
-% dx2(1)=dx2(2);
-% dx3(1)=dx3(2);
-% dx4(1)=dx4(2);
-
 figure(11);
-plot(x,y,'y--')
+plot(x1,y,'y--')
 hold on;
-plot(x,dx1,'m--')
+plot(x1,dx1,'m--')
 hold on;
-plot(x,dx2,'b--')
-hold on;
-plot(x,dx3,'k--')
-hold on;
-plot(x,dx4,'r--')
+plot(x1,dx2,'b--')
+% hold on;
+% plot(x1,dx3,'k--')
+% hold on;
+% plot(x,dx4,'r--')
 
-legend('Original Function','1st derivative','2nd derivative','3rd derivative','4th derivative');
+legend('Original Function','1st derivative','2nd derivative','3rd derivative');
 xlabel('x');
 ylabel('y(x) or y''(x)');
 title('Numerically Solved Functions');
