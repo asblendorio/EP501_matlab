@@ -1,6 +1,6 @@
 %% Doolittle LU Factorization 
 function [L,U]=DoolittleLU(A)
-nref = lenght(A);
+nref = length(A);
 L=eye(nref,nref);
 Awork=cat(2,A);
 for ir1=2:nref                                           %loop over rows from 2 to n performing elimination, this index marks what row we are starting the elimination from (i.e. using) for this particular column
@@ -24,5 +24,15 @@ disp(L);
 %LU Factorization
 LU=L*U;
 disp('The LU Factorization of the Matrix A is:'); disp(LU);
+
+
+%% Inverse
+soln1 = @LUinv;
+x = soln1(L,U);
+
+disp('The inverse of the M Matrix is:');
+disp(x);
+disp('Matlab,GNU/Octave built-in solution (Inverse):');
+disp(inv(A));
 
 end %function 

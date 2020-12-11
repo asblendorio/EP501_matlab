@@ -449,7 +449,7 @@ disp('%%%%%%%%End Part 2D HANDWRITTEN Solution:%%%%%%%');
 % derivative by hand as needed by dividing through by ∆x4 and combining fi terms.
 % Derive formula for the fourth derivative using your −1.
 disp('%%%%%%%%Part 2E Solution:%%%%%%%');
-% xsoln=@gaussjordanElim(M,b);
+
 disp('%%%%%%%%End Part 2E Solution:%%%%%%%');
 %% Part F
 % Write a function to compute the fourth derivative using the formula derived
