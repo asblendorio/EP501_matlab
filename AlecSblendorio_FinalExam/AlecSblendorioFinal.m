@@ -3,6 +3,7 @@
 %% Subject: EP 501 Numerical Methods for Scientists and Engineers 
 %% FINAL EXAM 
 %% Import Data 
+load('matrix_M.mat');
 %% Problem 1 
 % Problem #1: In class and in the homework we discussed the fourth order Runge-Kutta method:
 % with appropriate definitions for the ∆yi as given in the book and
@@ -447,10 +448,20 @@ disp('%%%%%%%%End Part 2D HANDWRITTEN Solution:%%%%%%%');
 % function data (differences) at various grid points:
 % f′ =M−1 ∆f (15) Once this is solved for f′, one may solve for the desired
 % derivative by hand as needed by dividing through by ∆x4 and combining fi terms.
-% Derive formula for the fourth derivative using your −1.
-disp('%%%%%%%%Part 2E Solution:%%%%%%%');
+% Derive formula for the fourth derivative using your inverse.
+disp('%%%%%%%%Part 2E NUMERICAL and HANDWRITTEN Solution:%%%%%%%');
+soln=@DoolittleLU;
+soln1=soln(M);
 
-disp('%%%%%%%%End Part 2E Solution:%%%%%%%');
+%% Comments on Part 2E 
+% I was not able to properly calculate the inverse of M however, this did
+% not stop me from deriving a formula for the 4th derivative. Due to the
+% fact that my numerically computed inverse is not fully correct, I did
+% have to utilize the built-in Matlab function to 1) Validate my inverse
+% formula and 2) Take the coefficients to solve the rest of the problem. 
+% The bottom(4th) row in the inverse matrix are the coefficients to the derivative formula.  
+
+disp('%%%%%%%%End Part 2E NUMERICAL and HANDWRITTEN Solution:%%%%%%%');
 %% Part F
 % Write a function to compute the fourth derivative using the formula derived
 % in part e and use it to differentiate the test function (Equation 11), 
