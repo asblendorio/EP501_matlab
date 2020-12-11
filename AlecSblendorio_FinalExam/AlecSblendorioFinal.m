@@ -719,7 +719,7 @@ colorbar;
 axis xy;
 xlabel('time (s)');
 ylabel('x (m)')
-title('FTCS')
+title('Part 3C: FTCS')
 set(gca,'FontSize',16);
 
 %% N-1:Trapezoidal implementation, note matrix solutions are more efficiently handled thru tri-diagonal solver; Matlab built-in will detect automatically
@@ -759,7 +759,7 @@ colorbar;
 axis xy;
 xlabel('time (s)');
 ylabel('x (m)');
-title('C-N solution');
+title('Part 3C: C-N solution');
 set(gca,'FontSize',16);
 
 
@@ -774,9 +774,8 @@ colorbar;
 axis xy;
 xlabel('time (s)');
 ylabel('x (m)');
-title('Exact');
+title('Part 3C: Exact');
 set(gca,'FontSize',16);
-
 
 disp('%%%%%%%%End Part 3C NUMERICAL and HANDWRITTEN Solution:%%%%%%%');
 
