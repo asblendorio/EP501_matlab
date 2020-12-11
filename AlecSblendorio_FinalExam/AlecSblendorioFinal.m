@@ -513,6 +513,7 @@ disp('%%%%%%%%End Part 3A Solution:%%%%%%%');
 % 1/λ(2π(2∆x)^2)
 
 disp('%%%%%%%%Part 3B Solution:%%%%%%%');
+
 %% Define a 1D space and time grid in x for test problem
 lx=64;
 a=0;     %here a,b are the endpoints of the x-domain
@@ -582,13 +583,13 @@ for n=2:lt-1
     b(1)=0;
     for ix=2:lx-1
         %i-1 coeff
-        A(ix+1,ix-1)=-lambda/dx^2;
+        A(ix,ix-1)=-lambda/dx^2;
         
         %i coeff
-        A(ix+1,ix)=1/dt-2*lambda/dx^2;
+        A(ix,ix)=1/dt-2*lambda/dx^2;
         
         %i+1 coeff
-        A(ix+1,ix+1)=-lambda/dx^2;
+        A(ix,ix+1)=-lambda/dx^2;
         
         b(ix)=f2(ix,n-1)/dt+(f2(ix+1,n-1)-2*f2(ix,n-1)+f2(ix-1,n-1))/dx^2*(lambda/2);
             
