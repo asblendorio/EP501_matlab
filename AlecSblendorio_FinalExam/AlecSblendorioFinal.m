@@ -416,6 +416,7 @@ legend('Original Function','1st derivative','2nd derivative','3rd derivative','4
 xlabel('x');
 ylabel('y(x) or y''(x)');
 title('Numerically Solved Functions');
+
 %% Comments on 2B 
 % There is a steep line on the left hand and right hand side of the
 % derivative functions. I don't know how to get rid of it but the rest of
@@ -469,22 +470,23 @@ disp('%%%%%%%%End Part 2E NUMERICAL and HANDWRITTEN Solution:%%%%%%%');
 % analytical fourth derivative that you compute by hand.
 disp('%%%%%%%%Part 2F Solution:%%%%%%%');
 
-lx2=100;
-tmin=0;
-tmax=2*pi;
-x2=linspace(tmin,tmax,lx2);
-y2=cos(x2);
-dx_new=x2(2)-x2(1);
-dx4th=zeros(lx2,1);
+lx4=100;
+tmin4=0;
+tmax4=2*pi;
+x4=linspace(tmin4,tmax4,lx4);
+y4=cos(x4);
+dx_new=x4(2)-x4(1);
+dx4th=zeros(lx4,1);
 
-for ix=3:lx2-2
-    dx4th(ix)=(-y2(ix-2)+(4.*y2(ix-1))+(4.*y2(ix+1))-(y2(ix+2)-(6.*y2(ix))/(dx_new^4)));
+for ix=3:lx4-2
+    dx4th(ix)=(-y4(ix-2)+(4.*y4(ix-1))+(4.*y4(ix+1))-(y4(ix+2)-(6.*y4(ix))/(dx_new^4)));
 end %for
 
+%for problem 2f
 figure(15);
-plot(x2,y2,'r--');
+plot(x4,y4,'r--');
 hold on;
-plot(x2,dx4th,'k--');
+plot(x4,dx4th,'k--');
 
 legend('Analytical 4th Dv','Numerical 4th Dv');
 xlabel('x');
