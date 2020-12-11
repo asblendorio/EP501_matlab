@@ -85,10 +85,6 @@ for n=2:lt-1
     f2(:,n)=fnow;
 end %for
 
-%%f2(ix,n-1)/dt+(f2(ix+1,n-1)-2*f2(ix,n-1)+f2(ix-1,n-1))/dx^2*(lambda/2);
-%f2(i+1,n+1)*(-lambda/dx^2)+ ...
-              %  f2(i,n+1)*(1/dt-2*lambda/dx^2)+ ...
-               % f2(i-1,n+1)*(-lambda/dx^2);
 %% Compare two solutions on plot
 figure(1);
 subplot(132);
