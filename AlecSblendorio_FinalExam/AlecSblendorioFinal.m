@@ -350,7 +350,7 @@ disp('%%%%%%%%End Part 2A HANDWRITTEN Solution:%%%%%%%');
 
 %% Part B 
 % Write a script to test your third derivative formula on the function:
-% f(x) = cosx and plot your result alongside the analytical third derivative
+% f(x) = cos(x) and plot your result alongside the analytical third derivative
 % of this function (which you compute by hand). Ignore boundary adjacent 
 % points (i.e. only compute the third derivative on “interior” grid points).
 % Use a 100 point grid covering the region 0 ≤ x ≤ 2π.
@@ -424,11 +424,10 @@ title('Numerically Solved Functions');
 disp('%%%%%%%%End Part 2B Solution:%%%%%%%');
 %% Part C 
 % Generally an Nth derivative requires N Taylor series expansions in order 
-% to solve for the desired derivatives in terms of the gridded function values {fi}.
-% For example, the fourth derivative d4f/dx4 can be derived from the four 
+% to solve for the desired derivatives in terms of the gridded function
+% values. For example, the fourth derivative d4f/dx4 can be derived from the four 
 % Taylor series for fi+2,fi+1,fi−1,fi−2. Generate Taylor series for these 
-% quantities in terms of the derivatives at the ith grid point (e.g. f′(xi)
-% and so on).
+% quantities in terms of the derivatives at the ith grid point.
 disp('%%%%%%%%Part 2C HANDWRITTEN Solution:%%%%%%%');
 
 disp('%%%%%%%%End Part 2C HANDWRITTEN Solution:%%%%%%%');
@@ -500,11 +499,10 @@ disp('%%%%%%%%End Part 2F Solution:%%%%%%%');
 %% Part G 
 % Extend your code from part f so that it can (in principle) be used to 
 % find formulas for derivatives of arbitrary order. To improve accuracy 
-% use a centered stencil, e.g. for an nth order derivative use function 
-% values 􏰉fi−⌈n/2⌉ ...fi ...fi+⌈n/2⌉􏰊 from grid point indices i−⌈n/2⌉...i...i+⌈n/2⌉. 
-% Use your code to derive and develope formulas for the fifth and sixth derivatives
-% and write these in your solution (you do not need to implement these 
-% derivatives, just use your program to derive their formulae).
+% use a centered stencil. Use your code to derive and develope formulas for
+% the fifth and sixth derivatives and write these in your solution 
+% (you do not need to implement these derivatives, just use your program to
+% derive their formulae).
 disp('%%%%%%%%Part 2G Solution:%%%%%%%');
 disp('Solution not found prior to deadline.');
 disp('%%%%%%%%End Part 2G Solution:%%%%%%%');
@@ -674,9 +672,9 @@ disp('%%%%%%%%End Part 3B Solution:%%%%%%%');
 % (n and n − 1) as opposed to the backward Euler approach which only requires
 % prior data from the n time level. Develop and write down your system of 
 % equations that would need to be solved at each time step.
-disp('%%%%%%%%Part 3C Solution:%%%%%%%');
+disp('%%%%%%%%Part 3C NUMERICAL and HANDWRITTEN Solution:%%%%%%%');
 
-disp('%%%%%%%%End Part 3C Solution:%%%%%%%');
+disp('%%%%%%%%End Part 3C NUMERICAL and HANDWRITTEN Solution:%%%%%%%');
 
 %%  Part D  
 % Make a version of your parabolic solver from part b that implements the 
