@@ -11,26 +11,25 @@ tau=1/(2*pi/(2*dx))^2/lambda;    %diffusion time scale for the equation, based o
 %dt=tau/5;              %time step
 
 dtmargin=(5/2).*(dx^2/lambda);
-dt=0.5*dtmargin;
+dt=50*dtmargin;
 tmin=0;
 tmax=1024*tau;          %go out to three times the diffusion time scale for the smallest possible mode
 t=tmin:dt:tmax;
 lt=numel(t);
 
-%% BTCS implementation for n+1
+%% FTCS implementation
 f=zeros(lx,lt);
 f(:,1)=sin(2*pi*x)+sin(8*pi*x);
 
-%BTCS iterations
+%FTCS iterations
 for n=1:lt-1
     f(1,n+1)=0;   %assume temperature goes to some small number on left boundary
     for i=2:lx-1     %interior grid points
-        f(i,n+1)=f(i,n)/dt-f(i+1,n+1)*(-lambda/dx^2)- ...
-                f(i,n+1)*(-2*lambda/dx^2)- ...
-                f(i-1,n+1)*(-lambda/dx^2);
+        f(i,n+1)=f(i,n)+dt/dx^2*lambda*(f(i+1,n)-2*f(i,n)+f(i-1,n));
     end %for
     f(lx,n+1)=0;  %assume temperature goes to some small number on right boundary
 end %for
+
 
 figure(1);
 subplot(131);
@@ -62,22 +61,22 @@ f2=zeros(lx,lt);
 A=sparse(lx,lx);   %allocate sparse array storage (this matrix is to be tridiag)
 b=zeros(lx,1);
 
-
 f2(:,1)=sin(2*pi*x)+sin(8*pi*x);
-for n=2:lt
+for n=2:lt-1
     A(1,1)=1;
     b(1)=0;
     for ix=2:lx-1
         %i-1 coeff
-        A(ix,ix-1)=-lambda/2/dx^2;
+        A(ix+1,ix-1)=-lambda/dx^2;
         
         %i coeff
-        A(ix,ix)=1/dt+lambda/dx^2;
+        A(ix+1,ix)=1/dt-2*lambda/dx^2;
         
         %i+1 coeff
-        A(ix,ix+1)=-lambda/2/dx^2;
+        A(ix+1,ix+1)=-lambda/dx^2;
         
         b(ix)=f2(ix,n-1)/dt+(f2(ix+1,n-1)-2*f2(ix,n-1)+f2(ix-1,n-1))/dx^2*(lambda/2);
+            
     end %for
     A(lx,lx)=1;
     b(lx)=0;
@@ -86,8 +85,10 @@ for n=2:lt
     f2(:,n)=fnow;
 end %for
 
-
-
+%%f2(ix,n-1)/dt+(f2(ix+1,n-1)-2*f2(ix,n-1)+f2(ix-1,n-1))/dx^2*(lambda/2);
+%f2(i+1,n+1)*(-lambda/dx^2)+ ...
+              %  f2(i,n+1)*(1/dt-2*lambda/dx^2)+ ...
+               % f2(i-1,n+1)*(-lambda/dx^2);
 %% Compare two solutions on plot
 figure(1);
 subplot(132);
