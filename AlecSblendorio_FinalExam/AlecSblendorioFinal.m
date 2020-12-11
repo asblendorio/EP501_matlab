@@ -468,7 +468,30 @@ disp('%%%%%%%%End Part 2E NUMERICAL and HANDWRITTEN Solution:%%%%%%%');
 % over interior grid points of your domain. Plot the result alongside the 
 % analytical fourth derivative that you compute by hand.
 disp('%%%%%%%%Part 2F Solution:%%%%%%%');
-%%PLEASE REFERENCE FIGURE 11 FOR PLOTTED 4th DERIVATIVE OF f(x) = cos(x).
+
+lx2=100;
+tmin=0;
+tmax=2*pi;
+x2=linspace(tmin,tmax,lx2);
+y2=cos(x2);
+dx_new=x2(2)-x2(1);
+dx4th=zeros(lx2,1);
+
+for ix=3:lx2-2
+    dx4th(ix)=(-y2(ix-2)+(4.*y2(ix-1))+(4.*y2(ix+1))-(y2(ix+2)-(6.*y2(ix))/(dx_new^4)));
+end %for
+
+figure(15);
+plot(x2,y2,'r--');
+hold on;
+plot(x2,dx4th,'k--');
+
+legend('Analytical 4th Dv','Numerical 4th Dv');
+xlabel('x');
+ylabel('y(x) or y''(x)');
+set(gca,'FontSize',20);
+title('Analytically vs. Numerically Solved 4th Derivative');
+
 disp('%%%%%%%%End Part 2F Solution:%%%%%%%');
 
 %% Part G 
@@ -480,7 +503,7 @@ disp('%%%%%%%%End Part 2F Solution:%%%%%%%');
 % and write these in your solution (you do not need to implement these 
 % derivatives, just use your program to derive their formulae).
 disp('%%%%%%%%Part 2G Solution:%%%%%%%');
-
+disp('Solution not found prior to deadline.');
 disp('%%%%%%%%End Part 2G Solution:%%%%%%%');
 
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #2 ANSWER END%%%%%%%%%%%%%%%%%%');
@@ -558,7 +581,7 @@ for n=1:lt-1
 end %for
 
 
-figure(1);
+figure(13);
 subplot(131);
 imagesc(t,x,f);
 colorbar;
@@ -613,7 +636,7 @@ for n=2:lt-1
 end %for
 
 %% Compare two solutions on plot
-figure(1);
+figure(13);
 subplot(132);
 imagesc(t,x,f2);
 colorbar;
@@ -628,7 +651,7 @@ set(gca,'FontSize',16);
 [T,X]=meshgrid(t,x);
 tempexact=exp(-4*pi^2*lambda*T).*sin(2*pi*X)+exp(-64*pi^2*lambda*T).*sin(8*pi*X);
 
-figure(1);
+figure(13);
 subplot(133);
 imagesc(t,x,tempexact);
 colorbar;
@@ -658,6 +681,6 @@ disp('%%%%%%%%End Part 3C Solution:%%%%%%%');
 % Plot your results and compare them against the backward Euler approach 
 % and analytical solution.
 disp('%%%%%%%%Part 3D Solution:%%%%%%%');
-
+disp('Solution not found prior to deadline.');
 disp('%%%%%%%%End Part 3D Solution:%%%%%%%');
 disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER END%%%%%%%%%%%%%%%%%%');
