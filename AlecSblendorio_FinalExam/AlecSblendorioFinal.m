@@ -479,7 +479,7 @@ dx_new=x4(2)-x4(1);
 dx4th=zeros(lx4,1);
 
 for ix=3:lx4-2
-    dx4th(ix)=-(y4(ix+1)-2*y4(ix)+y4(ix-1))/(dx_new^2);
+    dx4th(ix)=(y4(ix-2)-4.*y4(ix-1)-4.*y4(ix+1)+y4(ix+2)+6.*y4(ix))/(dx_new^4);
 end %for
 
 %for problem 2f
@@ -490,8 +490,8 @@ plot(x4,y4,'r--');
 legend('Numerical 4th Dv','Analytical 4th Dv');
 xlabel('x');
 ylabel('y(x) or y''(x)');
-xlim([0 6]);
-ylim([-1 1]);
+% xlim([0 6]);
+% ylim([-1 1]);
 set(gca,'FontSize',20);
 title('Analytically vs. Numerically Solved 4th Derivative');
 
