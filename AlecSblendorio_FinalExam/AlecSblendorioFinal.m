@@ -581,7 +581,6 @@ for n=1:lt-1
     f(lx,n+1)=0;  %assume temperature goes to some small number on right boundary
 end %for
 
-
 figure(13);
 subplot(131);
 imagesc(t,x,f);
@@ -591,21 +590,6 @@ xlabel('time (s)');
 ylabel('x (m)')
 title('FTCS')
 set(gca,'FontSize',16);
-
-% %% Creation of a Matlab movie
-% figure(2);
-% for n=1:lt
-%     plot(x,f(:,n));
-%     set(gca,'FontSize',16);
-%     xlabel('x (m)');
-%     ylabel('f(x)');
-%     title(sprintf('f(x) @ t=%f',t(n)))
-%     axis([0 1 -2 2]);
-%     M(n)=getframe;
-% end %for
-% %movie(M);   %for whatever reason this doesn't store the axis labels and
-% %title which makes it kind of worthless.  
-
 
 %% Trapezoidal implementation, note matrix solutions are more efficiently handled thru tri-diagonal solver; Matlab built-in will detect automatically
 f2=zeros(lx,lt);
@@ -673,6 +657,126 @@ disp('%%%%%%%%End Part 3B Solution:%%%%%%%');
 % prior data from the n time level. Develop and write down your system of 
 % equations that would need to be solved at each time step.
 disp('%%%%%%%%Part 3C NUMERICAL and HANDWRITTEN Solution:%%%%%%%');
+%% Comments on 3C
+% After calculating the handwritten component to solve for the previous two time levels
+% (n and n-1), I ran into quite difficulty developing a numerical method to
+% solve those system of equations. Below is a list of several avenues which
+% I went down (theoretically) to potentially solve this problem. 
+% 1) Since we get a second order in time BDF, which has 4 coefficients, the 
+% backward Euler method will not work. There are two for the i index and then
+% i+1 and i-1 respectively. Initially, I though that I could solve the two 
+% time levels independently. However, I then realized that we
+% do not know our n+1 values. Cannot solve an equation with more than two
+% unknowns! 
+% 2) Since our tridiagonal solver is solving a system of equations each
+% iteration, and we have dependent variables, another option would be to
+% concatenate two A matrices. Therefore, including all the necessary
+% coefficients for our system of equations. The problem I ran into is how to
+% properly edit the trapezoidal implementation. 
+% 3) Another possible avenue that I tried is adjusting the variable b or
+% "b2" here. In part 3b, that variable stored the n-1 time level but in
+% this problem we should be able to input n+1 and then n. However, due to
+% the restraints on the system of equations the dependency of
+% the space and time functions does not give me an avenue to properly solve
+% this problem. 
+
+%% Define a 1D space and time grid in x for test problem
+lx=64;
+a=0;     %here a,b are the endpoints of the x-domain
+b=1;     %use a square region for a test problem
+x=linspace(a,b,lx);
+dx=x(2)-x(1);        %grid spacing
+
+%% Define parameters of the parabolic equation, time variable
+lambda=2;
+tau=1/(2*pi/(2*dx))^2/lambda;    %diffusion time scale for the equation, based on smallest resolvable spatial mode
+%dt=tau/5;              %time step
+
+dtmargin1=(5/2).*(dx^2/lambda);
+dt1=0.5*dtmargin1;
+tmin=0;
+tmax=1024*tau;          %go out to three times the diffusion time scale for the smallest possible mode
+t=tmin:dt:tmax;
+lt=numel(t);
+
+%% FTCS implementation
+f=zeros(lx,lt);
+f(:,1)=sin(2*pi*x)+sin(8*pi*x);
+
+%FTCS iterations
+for n=1:lt-1
+    f(1,n+1)=0;   %assume temperature goes to some small number on left boundary
+    for i=2:lx-1     %interior grid points
+        f(i,n+1)=f(i,n)+dt/dx^2*lambda*(f(i+1,n)-2*f(i,n)+f(i-1,n));
+    end %for
+    f(lx,n+1)=0;  %assume temperature goes to some small number on right boundary
+end %for
+
+figure(14);
+subplot(131);
+imagesc(t,x,f);
+colorbar;
+axis xy;
+xlabel('time (s)');
+ylabel('x (m)')
+title('FTCS')
+set(gca,'FontSize',16);
+
+%% N-1:Trapezoidal implementation, note matrix solutions are more efficiently handled thru tri-diagonal solver; Matlab built-in will detect automatically
+f3=zeros(lx,lt);
+A2=sparse(lx,lx);   %allocate sparse array storage (this matrix is to be tridiag)
+b2=zeros(lx,1);
+
+f3(:,1)=sin(2*pi*x)+sin(8*pi*x);
+for n=2:lt-1
+    A2(1,1)=1;
+    b2(1)=0;
+    for ix=2:lx-1
+        %i-1 coeff
+        A2(ix,ix-1)=lambda/dx^2;
+        
+        %i coeff
+        A2(ix,ix)=(3/(2*dt)-2*lambda/dx^2);
+        
+        %i+1 coeff
+        A2(ix,ix+1)=lambda/dx^2;
+        
+        b2(ix)=3*f3(ix,n+1)/dt+(f3(ix+1,n-1)-2*f3(ix,n-1)+f3(ix-1,n-1))/dx^2;
+            
+    end %for
+    A2(lx,lx)=1;
+    b2(lx)=0;
+    
+    fnow2=A2\b2;
+    f3(:,n)=fnow2;
+end %for
+
+%% Compare two solutions on plot
+figure(14);
+subplot(132);
+imagesc(t,x,f2);
+colorbar;
+axis xy;
+xlabel('time (s)');
+ylabel('x (m)');
+title('C-N solution');
+set(gca,'FontSize',16);
+
+
+%% Compute and plot the analytical solution (see course repository ./test_problems/ for derivation)
+[T,X]=meshgrid(t,x);
+tempexact=exp(-4*pi^2*lambda*T).*sin(2*pi*X)+exp(-64*pi^2*lambda*T).*sin(8*pi*X);
+
+figure(14);
+subplot(133);
+imagesc(t,x,tempexact);
+colorbar;
+axis xy;
+xlabel('time (s)');
+ylabel('x (m)');
+title('Exact');
+set(gca,'FontSize',16);
+
 
 disp('%%%%%%%%End Part 3C NUMERICAL and HANDWRITTEN Solution:%%%%%%%');
 
