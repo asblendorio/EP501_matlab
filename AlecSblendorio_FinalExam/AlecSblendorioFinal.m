@@ -236,7 +236,7 @@ figure(6);
 hold on;
 plot(t4,yRK4,'^-')
 title('Time Step Analysis for RK4');
-legend('exact','RK4 N=6')
+legend('exact','RK4 N=8')
 
 figure(7);
 plot(t2,ybar2,'o-');
@@ -323,7 +323,7 @@ set(gca,'FontSize',20);
 hold on;
 plot(t4below,yRK4_below,'^-')
 title('Altered Time Step Analysis for Low N Value -- RK4');
-legend('exact','RK4 N=8')
+legend('exact','RK4 N=4')
 
 %% Comments on 1E 
 % For a low N value, the solution will destabilize. For a large N it will 
