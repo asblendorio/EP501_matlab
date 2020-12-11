@@ -479,18 +479,19 @@ dx_new=x4(2)-x4(1);
 dx4th=zeros(lx4,1);
 
 for ix=3:lx4-2
-    dx4th(ix)=(-y4(ix-2)+(4.*y4(ix-1))+(4.*y4(ix+1))-(y4(ix+2)-(6.*y4(ix))/(dx_new^4)));
+    dx4th(ix)=-(y4(ix+1)-2*y4(ix)+y4(ix-1))/(dx_new^2);
 end %for
 
 %for problem 2f
 figure(15);
-plot(x4,y4,'r--');
+plot(x4,dx4th,'k--','LineWidth',1.5);
 hold on;
-plot(x4,dx4th,'k--');
-
-legend('Analytical 4th Dv','Numerical 4th Dv');
+plot(x4,y4,'r--');
+legend('Numerical 4th Dv','Analytical 4th Dv');
 xlabel('x');
 ylabel('y(x) or y''(x)');
+xlim([0 6]);
+ylim([-1 1]);
 set(gca,'FontSize',20);
 title('Analytically vs. Numerically Solved 4th Derivative');
 
@@ -533,9 +534,9 @@ disp('%%%%%%%%%%%%%%%%%%PROBLEM #3 ANSWER BEGIN%%%%%%%%%%%%%%%%%%');
 % solve a tridiagonal system of equations at each time step. 
 % Develop, starting from equation 19 the system of equations corresponding
 % to the backward Euler (in time) method.
-disp('%%%%%%%%Part 3A Solution:%%%%%%%');
+disp('%%%%%%%%Part 3A HANDWRITTEN Solution:%%%%%%%');
 
-disp('%%%%%%%%End Part 3A Solution:%%%%%%%');
+disp('%%%%%%%%End Part 3A HANDWRITTEN Solution:%%%%%%%');
 %% Part B
 % Write a MATLAB or Python script that solves Equation 16 using a backward
 % Euler in time method with a centered in space derivatives (Equation 18). 
